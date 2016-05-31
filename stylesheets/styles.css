@@ -3,23 +3,33 @@ body {
 	color: white;
 	padding: 10px;
 	font-family: Georgia;}
-
 li {
     color:darkgray;
-    text-align: left;
+    text-align: left;}
+
+/* ----- Headers ----- */
+header {
+  width:270px;
+  float:left;
+  position:fixed;
+  -webkit-font-smoothing:subpixel-antialiased;
 }
 
 h1 {
 	border: 1px solid Black;
 	background-color: #B2BABB;
     color: #1F618D;
-	text-align: center;}
+	text-align: center;
+}
+
 h2 {
 	background-color: #922B21;
     font-size: 40px;
     width: 400px;
     margin: 20px;
-    border: 1px solid Black; }
+    border: 1px solid Black;
+}
+
 h2, h3, div {
     text-align: center;
 	width: 300px; }
@@ -55,22 +65,4 @@ blockquote {
   margin:0;
   padding:0 0 0 20px;
   font-style:italic;
-}
-
-header {
-  width:270px;
-  float:left;
-  position:fixed;
-  -webkit-font-smoothing:subpixel-antialiased;
-}
-
-strong {
-  color:#222;
-  font-weight:700;
-}
-
-
-
-small {
-  font-size:11px;
 }
