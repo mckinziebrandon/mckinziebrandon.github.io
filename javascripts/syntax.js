@@ -2,10 +2,10 @@ function getName() {
     return parseInt(prompt("What is your age?"));
 }
 
-/* Tell user that they are gay. */
+/* Tell user that they are super cool. */
 function greetUser() {
-    console.log("About to tell user that they're gay . . . ");
-    alert("Breaking News: " + getName() + " is gay.");
+    console.log("About to tell user that they're super cool . . . ");
+    alert("Breaking News: " + getName() + " is super cool.");
 }
 
 var pets = ["dog", "cat", "rabbit"];
