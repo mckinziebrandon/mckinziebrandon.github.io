@@ -52,7 +52,7 @@ function change_color() {
     // getElementId
     document.getElementById("some id").style.color = "blue";
     // setAttribute
-    the_node = getElementId("thisNode");
+    the_node = getElementById("thisNode");
     the_node.setAttribute("style", "color:red");
 }
 

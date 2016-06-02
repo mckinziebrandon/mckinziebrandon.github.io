@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <!-- head contains info about the page -->
+    <head>
+        <title>Title of the Page</title>
+    </head>
+
+    <!-- Everything in body is shown inside the main browser window -->
+    <body>
+        <h1>The Main Heading</h1>
+            <p>Introduction to the rest of the page.</p>
+            <p>A second paragraph. Splits up chunks of text.</p>
+
+        <h2>Text</h2>
+            <p>Text can be <b>bold</b>, and it can also be <i>italic
+                like this</i>. Super<sup>script</sup> as well as sub<sub>script</sub>. </p>
+            <p> New paragraph. Another way to break lines is with a line break br: <br />Broken line element. Alos, can place horizontal rules, as seen here (or below).</p>
+            <hr />
+            <p>Text below the hr line. Can expand abbreviations by hovering over them. Hover over the following abbreviation: <abbr title="Professor">Prof</abbr> Stephen Hawking. </p>
+
+        <h2>Lists</h2>
+            <p>Ordered lists are created with the ol element:
+                <ol>
+                    <li>item number one.</li>
+                    <li>item number two.</li>
+                </ol>
+                Unordered lists are the same, but use the ul element. Definition lists use the dl keyword, and dt dd for the term and definition. Example:
+                <dl>
+                    <dt>Elon Musk</dt>
+                    <dd>The greatest man to ever live.</dd>
+                <dl>
+            </p>
+
+        <h2>Links</h2>
+        <p>Use the a element. To link google.com, do:
+            <a>href="http://www.google.com">click this link</a> When you want to link to pages on the same website, use the shorthand known as a <b>relative</b> url. <a href="localfile.html">click to go to localfile.html</a></p>
+        <p>Can also make it so clicking link opens a new window:<a href="http://www.google.com" target="_blank">Click me to new window google</a>.</p>
+
+        <h2>Adding Images</h2>
+        <p>To add an image, need to use the img element, like so: <img src="image.jpg" alt="Text description of image if you cannot see it" title="image you might see if you hover over image" width="600" height="450" align="left"/>Note that the size of the image is usually best specified using CSS rather than HTML. The align attribute has been removed from HTML5 and new websites should use CSS to control alignment of images. </p>
+
+        <p>In HTML5, can use figure element to contain images and their caption so the two are associated, like so:
+            <figure>
+                <img src="image.jpg" alt="alt text">
+                <br />
+                <figcaption>Sea otters are pretty cool.</figcaption>
+            </figure>
+
+        <h2>Tables</h2>
+        <table>
+            <th></th>
+            <th scope="col">Headingof second col</th>
+            <tr>
+                <td> table row 1, table data</td>
+                <td> table row 1, next table data</td>
+            </tr>
+            <tr>
+                <td>table row 2, table data</td>
+                <td>table row 2, next table data</td>
+            </tr>
+        </table>
+
+    </body>
+</html>

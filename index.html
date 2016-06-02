@@ -1,55 +1,108 @@
 <!DOCTYPE html>
 <html>
-	<!-- ______________________ HEAD __________________ -->
-  <head>
+<!-- ______________________ HEAD __________________ -->
+<head>
     <title>Brandon McKinzie</title>
-      <!-- Meta. -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width">
     <meta name="author" content="Brandon McKinzie">
 
-    <!-- File linking -->
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <!-- <script type="text/javascript" src="javascripts/syntax.js"></script> -->
-  </head>
+    <!-- Bootstrap. -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ______________________ BODY __________________ -->
-     <body>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <header>
-    <h1>Brandon McKinzie</h1>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>    <!-- File linking -->
+
+    <link href="stylesheets/mystyles.css" rel="stylesheet">
+</head>
+
+<!-- ______________________ BODY __________________ -->
+<body>
+
+    <header class="jumbotron"> <!-- 9:40 GSwB -->
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="container">
+            <div class="row row-header">
+                <div>
+                    <h1>Brandon McKinzie</h1>
+                    <p style="padding:40px;"></p>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <nav>
-        Machine Learning<br>
-        Statistical Learning<br>
-        HTML<br>
-    </nav>
+    <div class="container">
 
-    <!-- ______________________ PYTHON ML __________________ -->
-    <section>
-    <h3>Python Machine Learning</h3>
-    <ul>
-        <li> Link to <a href="2_TrainingForClassification.html">chapter 2 notes</a> </li>
-        <li> Link to <a href="3_TourOfClassifiers.html">chapter 3 notes.</a> </li>
-    </ul>
-    </section>
+        <nav>
+            Machine Learning<br>
+            Statistical Learning<br>
+            HTML<br>
+        </nav>
 
-    <!-- ______________________ ISLR __________________ -->
-    <section>
-    <h3>Introduction to Statistical Learning</h3>
-    <p>Notes: <a href="http://rpubs.com/bmckinz/183882">Linear Regression.</a></p>
-    </section>
+        <!-- ______________________ PYTHON ML __________________ -->
+        <div class="row row-content">
+            <section>
+            <h3>Python Machine Learning</h3>
+            <ul>
+                <li> Link to <a href="src/2_TrainingForClassification.html">chapter 2 notes</a> </li>
+                <li> Link to <a href="src/3_TourOfClassifiers.html">chapter 3 notes.</a> </li>
+            </ul>
+            </section>
+        </div>
 
-    <!-- ______________________ HTML PRACTICE __________________ -->
-    <section>
-    <h3>HTML Practice</h3>
-    <ul>
-        <li>Link: <a href="datingSiteAssignment.html">Forms Practice</a></li>
-        <li>Extr3me guessing game: <a href="guessing_game.html">Clicky McClickface</a></li>
-    </ul>
-    </section>
+        <div class="row row-content">
+            <!-- ______________________ ISLR __________________ -->
+            <section>
+            <h3>Introduction to Statistical Learning</h3>
+            <p>Notes: <a href="http://rpubs.com/bmckinz/183882">Linear Regression.</a></p>
+            </section>
+        </div>
 
-    </body>
+        <div class="row row-content">
+            <!-- ______________________ HTML PRACTICE __________________ -->
+            <section>
+            <h3>HTML Practice</h3>
+            <ul>
+                <li>Link: <a href="src/datingSiteAssignment.html">Forms Practice</a></li>
+                <li>Extr3me guessing game: <a href="src/guessing_game.html">Clicky McClickface</a></li>
+            </ul>
+            </section>
+        </div>
+
+    </div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Bootstrap:
+* <div class="container"> . . . </div>
+    i. Container for all content of site.
+    ii. Use as outermost div to wrap all site content correctly.
+* <div class="row"> . . . </div>
+    i. Divide page into multiple rows.
+* <div class="jumbotron"> . . . </div>
+    i. Showcasing key content.
+* Foundations for Responsive Design:
+    i. Grid System.
+    ii. Fluid images.
+    iii. Media queries.
+        applying styles based on specific sizes of viewport.
+* Using Column Push and Pull
+    i. Example: <div class="col-xs-12 col-sm-5 col-sm-push-7">
+                <div class="col-xs-12 col-sm-7 col-sm-pull-5">
+    ii. Changes ordering of columns based on screen size.
+* Column offset.
+    i. Example: <div class="col-sm-4 col-sm-offset-1">
+-->
+</body>
 </html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<!-- General Notes learned along the way:
+        1. Difference b/w id and name:
+            *   Use NAME for form controls (input/output) because this is the identifier used
+                in the POST or GET call that happens on form submission.
+            *   Use ID to address a particular HTML element with CSS.
+        2. Pseudo-classes (CSS) (at least some) are built-in and "know" what to do.
+            * I.E. label:hover {} settings will know to be applied when mouse hovers over label.
+
+-->
+<head>
+    <!-- STYLE -->
+    <style>
+        fieldset {
+            background:lightblue;
+            border:10px solid darkblue;
+            margin-bottom:10px;
+            width:720px;
+        }
+        label {
+            width:180px;
+            display:inline-block;
+            text-align: right;
+            vertical-align: text-top
+        }
+        /* Pseudo-class for mouse hovering over labels. */
+        label:hover {font-size:20px;}
+        .box {
+            width:auto;
+        }
+        textarea {
+            width:360px;
+            height:50px;
+        }
+    </style>
+
+    <!-- TITLE -->
+    <title>Forms Practice</title>
+</head>
+
+<body>
+        <h1><b>Practice Using Forms in HTML</b></h1>
+        <!-- action: what program to send the form data to.
+        method: how the data will be sent. -->
+        <form   method="post"
+                enctype="multipart/form-data"
+                action="http://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php">
+
+        <!-- __________ (1) Your Face __________ -->
+        <fieldset>
+            <legend>Your Face</legend>
+
+            <label for="avatar">Your image:</label>
+                <input id="avatar" type="file" name="avatar" required>
+            <br>
+
+            <label for="preview">image preview:</label>
+                <img id="preview" name="preview" src="avatar" alt="alt text"/>
+        </fieldset>
+        <br>
+
+        <!-- __________ (2) Your General Details.  __________ -->
+        <fieldset>
+            <legend>Your General Details</legend>
+            <label for="uname">Name:</label>
+                <input type="text" id="uname" name="uname"
+                    placeholder="Your full name" required>
+                <br>
+            <label for="gender">Gender:</label>
+                <input class="box" id="male" type="radio" name="gender" required>
+                Male
+                <input class="box" id="female" type="radio" name="gender" required>
+                Female
+            <br>
+            <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            <br>
+            <label for="dob">Date of birth:</label>
+                <input type="date" id="dob" name="dob">
+            <br>
+            <label for="favColor">Favorite color:</label>
+                <input type="color" id="favColor" name="favColor">
+            <br>
+            <label for="country">Which country:</label>
+                <select name="country">
+                    <option value="United States of America">United States of America</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Mexico">Mexico</option>
+                </select>
+        </fieldset>
+        <br>
+        <!-- __________ (3) Your Indicators __________ -->
+        <fieldset>
+            <legend>Your indicators</legend>
+            <label for="height">Height:</label>
+                Short <input type="range" id="height" name="height"
+                        min="0" max="100">
+                Tall
+            <br>
+            <label for="salary">Salary:</label>
+                Poor <input type="range" id="salary" name="salary"
+                            min="0" max="100">
+                Rich
+        </fieldset>
+        <br>
+
+        <!-- __________ (4) Your Contact Information. __________ -->
+        <fieldset>
+            <legend>Your Contact Information</legend>
+            <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            <br>
+            <label for="mobile">Mobile:</label>
+                <input type="tel" id="mobile" name="mobile">
+            <br>
+            <label for="address">Address:</label>
+                <textarea rows="2" cols="30" id="address" name="address"></textarea>
+            <br>
+            <label for"contact">Method to contact you:</label>
+                <input class="box" type="checkbox">Email
+                <input class="box" type="checkbox">Whatsapp
+                <input class="box" type="checkbox">In-app chat
+        </fieldset>
+        <br>
+        <input type="submit" value="Submit">
+        </form>
+    <script src="https://www.cse.ust.hk/~rossiter/dating_web_site.js"></script>
+</body>
+
+</html>
