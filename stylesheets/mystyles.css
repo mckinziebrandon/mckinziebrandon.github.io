@@ -6,8 +6,8 @@
 .row-content {
     margin:0px auto;
     padding: 50px 0px 50px 0px;
-    border-bottom: 1px ridge;
-    min-height:400px;
+    border-bottom: 30px ridge;
+    background: rgb(247, 186, 186);
 }
 
 .row-footer{
