@@ -29,9 +29,13 @@
         <!-- Main component for a primary marketing message or call to action -->
         <div class="container">
             <div class="row row-header">
-                <div>
+                <div class="col-xs-9">
                     <h1>Brandon McKinzie</h1>
-                    <p style="padding:40px;"></p>
+                    <p style="padding:40px 0px 40px 40px;"></p>
+                </div>
+
+                <div class="col-xs-3">
+                    <img src="images/Me.jpg" alt="My face." style="width:180px;height:180px;">
                 </div>
                 <div>
                 </div>
@@ -47,28 +51,29 @@
             <a class="navbar-brand" href="#">HomePage</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Machine Learning</a></li>
-            <li><a href="#">Statistical Learning</a></li>
-            <li><a href="#">Web Development Practice</a></li>
+            <li class="active"><a href="#machineLearning">Machine Learning</a></li>
+            <li><a href="#statisticalLearning">Statistical Learning</a></li>
+            <li><a href="#webDevelopmentPractice">Web Development Practice</a></li>
         </ul>
         </div>
         </nav>
 
         <!-- ______________________ PYTHON ML __________________ -->
         <div class="row row-content">
-            <section>
-            <h3>Python Machine Learning</h3>
-            <ul>
-                <li> Link to <a href="src/2_TrainingForClassification.html">chapter 2 notes</a> </li>
-                <li> Link to <a href="src/3_TourOfClassifiers.html">chapter 3 notes.</a> </li>
-            </ul>
-            </section>
+            <div class="col-xs-9">
+                <h3 id="machineLearning">Python Machine Learning</h3>
+                <ul>
+                    <li> Link to <a href="src/2_TrainingForClassification.html">chapter 2 notes</a> </li>
+                    <li> Link to <a href="src/3_TourOfClassifiers.html">chapter 3 notes.</a> </li>
+                </ul>
+            </div>
+
         </div>
 
         <div class="row row-content">
             <!-- ______________________ ISLR __________________ -->
             <section>
-            <h3>Introduction to Statistical Learning</h3>
+            <h3 id="statisticalLearning">Introduction to Statistical Learning</h3>
             <p>Notes: <a href="http://rpubs.com/bmckinz/183882">Linear Regression.</a></p>
             </section>
         </div>
@@ -76,7 +81,7 @@
         <div class="row row-content">
             <!-- ______________________ Web Development PRACTICE __________________ -->
             <section>
-            <h3>Web Development Practice</h3>
+            <h3 id="webDevelopmentPractice">Web Development Practice</h3>
             <ul class="list-unstyled">
                 <li>Link: <a href="src/datingSiteAssignment.html">Forms Practice</a></li>
                 <li>Extr3me guessing game: <a href="src/guessing_game.html">Clicky McClickface</a></li>
