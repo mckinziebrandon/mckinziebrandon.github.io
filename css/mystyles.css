@@ -1,3 +1,4 @@
+/* Begin: Stuff that I learned via Coursera. */
 .row-header{
     margin:0px auto;
     padding:0px auto;
@@ -7,7 +8,8 @@
     margin:0px auto;
     padding: 50px 0px 50px 0px;
     border-bottom: 30px ridge;
-    background: rgb(247, 186, 186);
+    background: rgb(218, 113, 113);
+    color:rgb(230, 230, 230);
 }
 
 .row-footer{
@@ -19,12 +21,18 @@
 .jumbotron {
     padding:70px 30px 70px 30px;
     margin:0px auto;
-    background: rgb(255, 102, 102);
+    background: rgb(170, 9, 9);
     color:floralwhite;
 }
 
-address{
-    font-size:80%;
-    margin:0px;
-    color:#0f0f0f;
+h3 {
+    font-weight:bold;
+}
+
+img {
+    border-radius:45px;
+}
+
+a {
+    color:rgb(179, 217, 255);
 }
