@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ______________________ HEAD __________________ -->
+<head>
+    <!-- Bootstrap. -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Brandon McKinzie</title>
+    <meta name="author" content="Brandon McKinzie">
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- <link href="css/mystyles.css" rel="stylesheet"> -->
+    <link href="css/carousel.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Font awesome and bootstrap-social css. -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap-social.css" rel="stylesheet">
+
+</head>
+
+<!--==========================================================================
+                ______________________ BODY __________________
+============================================================================-->
+<body>
+    <!-- __________________ NAVIGATION BAR ________________-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- For small screens, allow collapse to toggle navigation. -->
+            <div class="navbar-header">
+                <button type="button"           class="navbar-toggle collapsed"
+                        data-toggle="collapse"  data-target="#navbar"
+                        aria-expanded="false"   aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brandon McKinzie</a>
+            </div>
+
+            <!-- List of links contained in the (broken??) navbar. -->
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#about">About</a></li>
+                    <li><a href="#machineLearning">Machine Learning</a></li>
+                    <li><a href="#statisticalLearning">Statistical Learning</a></li>
+                    <li><a href="#webDevelopmentPractice">Web Development Practice</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- __________________ GIANT HEADER ________________-->
+    <header class="jumbotron"> <!-- 9:40 GSwB -->
+        <div class="container">
+            <div class="row row-header">
+                <!-- Header text; left-hand side -->
+                <div class="col-xs-8">
+                    <h1>Brandon McKinzie</h1>
+                    <p>How did you find this</p>
+                </div>
+
+                <!-- Image of my face; right-hand side -->
+                <div class="col-xs-4">
+                    <img src="images/Me.jpg" alt="My face."
+                    style="width:250px;height:250px;padding:20px;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- __________________ EVERYTHING ELSE ________________-->
+    <div class="container">
+        <!-- ______________________ Intro __________________ -->
+        <div class="row row-content">
+            <div class="col-xs-7">
+                <h3 id="about">About</h3>
+                <p class="lead">Here are my occasional attempts at learning HTML/CSS/JS/Bootstrap when I remember this website exists.</p>
+                Cool stuff to learn:
+                <ol>
+                    <li>Small robot to clean my desk.</li>
+                    <li>Finish Python ML book.</li>
+                    <li>Finish ISLR textbook.</li>
+                    <li>Figure out how much web dev I should learn.</li>
+                    <li>Complete the following AI courses:
+                        <ul>
+                            <li> <a href="http://ee263.stanford.edu">Linear Dynamical Systems (Stanford EE263)</a> </li>
+                            <li> <a href="http://cs229.stanford.edu">Machine Learning (Stanford CS229) </a> </li>
+                            <li> <a href="http://stanford.edu/class/ee364a/">Convex Optimization (Stanford EE364A) </a> </li>
+                            <li> <a href="http://cs231n.stanford.edu/"> Convolutional Neural Networks (Stanford CS231n) </a> </li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="col-xs-3 col-offset-1">
+                    <img src="images/butterRobot.jpg" alt="My face."
+                    style="width:220px;height:220px;margin-top:50px;">
+            </div>
+        </div>
+
+        <!-- ______________________ PYTHON ML __________________ -->
+        <div class="row row-content">
+            <div class="col-xs-9">
+                <h3 id="machineLearning">Python Machine Learning</h3>
+                <ul class="list-unstyled">
+                    <li> <a href="src/2_TrainingForClassification.html">Chapter 2 notes</a> </li>
+                    <li> <a href="src/3_TourOfClassifiers.html">Chapter 3 notes.</a> </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- ______________________ ISLR __________________ -->
+        <div class="row row-content">
+            <div class="col-xs-9">
+                <h3 id="statisticalLearning">Introduction to Statistical Learning</h3>
+                <p> <a href="http://rpubs.com/bmckinz/183882">Linear Regression Notes.</a></p>
+                <p> <a href="src/GeneralNotes_Page_1.png">Research Notes.</a></p>
+            </div>
+        </div>
+
+        <!-- ______________________ Web Development PRACTICE __________________ -->
+        <div class="row row-content">
+            <div class="col-xs-9">
+            <h3 id="webDevelopmentPractice">Web Development Practice</h3>
+            <ul class="list-unstyled">
+                <li>Link: <a href="src/datingSiteAssignment.html">Forms Practice</a></li>
+                <li>Extr3me guessing game: <a href="src/guessing_game.html">Clicky McClickface</a></li>
+                <li>  <a href="conFusion/index.html">Ristorante Con Fusion</a></li>
+            </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+<footer>
+    <div class="container">
+        <div class="row row-footer">
+            <div class="col-xs-10 col-xs-offset-1">
+                <h5>I don't know what to do with my footer.</h5>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="javascripts/bootstrap.min.js"></script>
+
+</body>
+
+</html>
