@@ -4,84 +4,47 @@
 @import 'libs/skel';
 
 /*
-	Strata by HTML5 UP
+	Forty by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
 /* Button */
 
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
 	.button {
-		position: relative;
-		-ms-behavior: url('assets/js/ie/PIE.htc');
-	}
+		border: solid 2px !important;
 
-/* Form */
+		&.next {
+			padding-right: 1.75em;
 
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	select,
-	textarea {
-		position: relative;
-		-ms-behavior: url('assets/js/ie/PIE.htc');
-	}
-
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	select {
-		height: _size(element-height);
-		line-height: _size(element-height);
-	}
-
-	input[type="checkbox"],
-	input[type="radio"] {
-		& + label {
-			&:before {
+			&:before, &:after {
 				display: none;
 			}
 		}
 	}
 
-/* Image */
+/* Tiles */
 
-	.image {
-		position: relative;
-		-ms-behavior: url('assets/js/ie/PIE.htc');
-
-		&:before, &:after {
-			display: none !important;
-		}
-
-		img {
-			position: relative;
-			-ms-behavior: url('assets/js/ie/PIE.htc');
+	.tiles {
+		article {
+			width: 50%;
+			-ms-behavior: url('assets/js/ie/backgroundsize.min.htc');
+			background-size: cover;
 		}
 	}
 
-/* Header */
+/* Banner */
 
-	#header {
-		background-image: url('../../images/bg.jpg');
-		background-repeat: no-repeat;
-		background-size: cover;
+	#banner {
 		-ms-behavior: url('assets/js/ie/backgroundsize.min.htc');
 
-		h1 {
-			color: _palette(accent2, fg-bold);
+		&:after {
+			display: none;
 		}
 	}
 
-/* Footer */
+/* Menu */
 
-	#footer {
-		.icons {
-			a {
-				color: _palette(accent2, fg-bold);
-			}
-		}
+	#menu {
+		background: _palette(bg);
 	}
