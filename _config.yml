@@ -1,7 +1,7 @@
 # Site
 title:              Brandon McKinzie
-bio:                'Minimal, one column jekyll theme.'
-description:        "Moon is a minimal, one column jekyll theme for your blog."
+bio:                'This is the bio..'
+description:        "Testing, testing, one two three."
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/logo.png'
@@ -40,7 +40,7 @@ disqus_shortname:   mckinziebrandon
 #email:
 twitter:            username
 facebook:           username
-github:             username
+github:             mckinziebrandon
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 #linkedin:          username
 #xing:              username
