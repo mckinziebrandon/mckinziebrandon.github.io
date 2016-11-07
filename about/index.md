@@ -7,6 +7,8 @@ comments: false
 ---
     
 <center><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
+<center><a href="LectureNotesCS189.pdf"><b>MY NOTES</b></a> is a minimal, one column jekyll theme.</center>
+
 
 ## Features
 * Minimal, you can focus on your content

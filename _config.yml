@@ -1,10 +1,10 @@
 # Site
 title:              Brandon McKinzie
-bio:                'This is the bio..'
+bio:                'Website under construction. No judgment allowed.'
 description:        "Testing, testing, one two three."
 reading_time:       true
 words_per_minute:   200
-logo:               'assets/img/logo.png'
+logo:               'assets/img/Me.jpg'
 background:         'assets/img/placeholder-big.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
@@ -37,19 +37,19 @@ disqus_shortname:   mckinziebrandon
   #ad-client:
   #ad-slot:
 #bing-verify:
-#email:
-twitter:            username
-facebook:           username
+email:              mckinziebrandon@berkeley.edu
+#twitter:            username
+#facebook:           username
 github:             mckinziebrandon
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
-#linkedin:          username
+linkedin:           brandon-mckinzie-452a03112
 #xing:              username
-instagram:          username
+#instagram:          username
 #lastfm:            username
 #tumblr:            username
 #pinterest:         username
 #foursquare:        username
-steam:              username
+#steam:              username
 #dribbble:          username
 #youtube:           username
 #soundcloud:        username
