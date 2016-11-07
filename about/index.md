@@ -1,14 +1,21 @@
 ---
 layout: page
-title: About the Theme
+title: About
 tags: [about, Jekyll, theme, moon]
 date: 2016-03-21
 comments: false
 ---
     
-<center><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
-<center><a href="LectureNotesCS189.pdf"><b>MY NOTES</b></a> is a minimal, one column jekyll theme.</center>
 
+## Me trying to insert a picture
+
+![uhm]({{site.url }}/assets/img/NeuralNetwork1.jpg)
+oh my god it worked.
+
+## Some of my notes
+* <a href="LectureNotesCS189.pdf"><b>Machine Learning</b></a> 
+* <a href="LectureNotesVS265.pdf"><b>Neural Computation</b></a> 
+* <a href="LectureNotesCS70.pdf"><b>Discrete Mathematics</b></a> 
 
 ## Features
 * Minimal, you can focus on your content
