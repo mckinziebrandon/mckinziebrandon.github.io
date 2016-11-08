@@ -2,6 +2,7 @@
 layout: page
 title: Muh Notes
 date: 2016-03-21
+tags: notes
 comments: false
 ---
     
