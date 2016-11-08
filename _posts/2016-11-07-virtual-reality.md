@@ -35,11 +35,9 @@ Here is what's going on:
 
 * __Hardware/Software Overview__: 
     - This project was written in the Unity3D game engine. 
-    - The programs responsible for translating my movements were
-written in the C# programming language. The primary libraries used were Unity's framework (of course) and the
-SteamVR Unity plugin's library for interfacing with the HTC Vive. 
+    - The programs responsible for translating my movements were written in the C# programming language. The primary libraries used were Unity's framework (of course) and the SteamVR Unity plugin's library for interfacing with the HTC Vive. 
     - The thing blocking my eyes is the __HTC Vive__, which allows me to enter virtual worlds after I create them.
-    - Attached to my arms are a total of four **Inertial Measurement Units (IMU).** Their job is to provide spatial orientation information. Each arm has two IMU's and an __Arduino__.
+    - Attached to my arms are a total of four __Inertial Measurement Units (IMU).__ Their job is to provide spatial orientation information. Each arm has two IMU's and an __Arduino__.
     - Each hand has __bend sensors__ on the fingers. (well, only one finger per hand in this video. That's what I get for only taking one video before the project was finished)
 * __Watch the Laptop Screen__:
     - Even with the professional quality video, it may be hard to see what is going on. As far as I'm aware (in the video), I am a

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://mckinziebrandon.me/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://mckinziebrandon.me/feed.xml" rel="self" type="application/atom+xml" /><link href="http://mckinziebrandon.me/" rel="alternate" type="text/html" /><updated>2016-11-07T21:37:02-08:00</updated><id>http://mckinziebrandon.me//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">Virtual Reality at MIT</title><link href="http://mckinziebrandon.me/virtual-reality/" rel="alternate" type="text/html" title="Virtual Reality at MIT" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://mckinziebrandon.me/virtual-reality</id><content type="html" xml:base="http://mckinziebrandon.me/virtual-reality/">&lt;h1 id=&quot;when-learning-is-too-dangerous&quot;&gt;When Learning Is Too Dangerous&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://mckinziebrandon.me/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://mckinziebrandon.me/feed.xml" rel="self" type="application/atom+xml" /><link href="http://mckinziebrandon.me/" rel="alternate" type="text/html" /><updated>2016-11-07T21:50:03-08:00</updated><id>http://mckinziebrandon.me//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">Virtual Reality at MIT</title><link href="http://mckinziebrandon.me/virtual-reality/" rel="alternate" type="text/html" title="Virtual Reality at MIT" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://mckinziebrandon.me/virtual-reality</id><content type="html" xml:base="http://mckinziebrandon.me/virtual-reality/">&lt;h1 id=&quot;when-learning-is-too-dangerous&quot;&gt;When Learning Is Too Dangerous&lt;/h1&gt;
 
 &lt;p&gt;Have you ever dreamed of learning a new skill, but you were afraid you might &lt;em&gt;die&lt;/em&gt;? That’s how I felt when I used to dream about
 juggling. Yes, tossing any imaginable assortment of objects into the air and be the commander of their trajectory. But alas, all
@@ -17,13 +17,12 @@ exploring the world of juggling. But that is history now, as you can see by my s
 &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/d3oBv4xtSms&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;Here is what’s going on:&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Hardware/Software Overview&lt;/strong&gt;:
     &lt;ul&gt;
       &lt;li&gt;This project was written in the Unity3D game engine.&lt;/li&gt;
-      &lt;li&gt;The programs responsible for translating my movements were
-written in the C# programming language. The primary libraries used were Unity’s framework (of course) and the
-SteamVR Unity plugin’s library for interfacing with the HTC Vive.&lt;/li&gt;
+      &lt;li&gt;The programs responsible for translating my movements were written in the C# programming language. The primary libraries used were Unity’s framework (of course) and the SteamVR Unity plugin’s library for interfacing with the HTC Vive.&lt;/li&gt;
       &lt;li&gt;The thing blocking my eyes is the &lt;strong&gt;HTC Vive&lt;/strong&gt;, which allows me to enter virtual worlds after I create them.&lt;/li&gt;
       &lt;li&gt;Attached to my arms are a total of four &lt;strong&gt;Inertial Measurement Units (IMU).&lt;/strong&gt; Their job is to provide spatial orientation information. Each arm has two IMU’s and an &lt;strong&gt;Arduino&lt;/strong&gt;.&lt;/li&gt;
       &lt;li&gt;Each hand has &lt;strong&gt;bend sensors&lt;/strong&gt; on the fingers. (well, only one finger per hand in this video. That’s what I get for only taking one video before the project was finished)&lt;/li&gt;
