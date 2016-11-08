@@ -22,6 +22,7 @@ in each set of notes improves as you progress through the chapters [TODO: reform
 ## [Machine Learning]({{site.url}}/assets/files/LectureNotesCS189.pdf)
 
 Here you'll find notes from . . . 
+
 * UC Berkeley's Machine Learning course (CS 189), taught by Professors Jitendra Malik and Benjamin Recht.
 * Stanford's (online) Machine Learning course materials (CS 229), taught by Professor Andrew Ng.
 * The Elements of Statistical Learning by Hastie, et al. 
@@ -34,6 +35,7 @@ Here you'll find notes from . . .
 ## [Neural Computation]({{site.url}}/assets/files/LectureNotesVS265.pdf)
 
 Here you'll find notes from . . . 
+
 * UC Berkeley's graduate course on Neural Computation (VS 265), taught by Professor Bruno Olhausen.
 * Introduction to the Theory of Neural Computation by Hertz, et al.
 * Deep Learning and Neural Networks by Heaton (AIFH series). 
