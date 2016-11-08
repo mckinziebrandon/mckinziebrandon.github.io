@@ -3,100 +3,52 @@ layout: post
 title:  "My First Post"
 date:   2016-11-07
 excerpt: "Me testing out the functionality of Jekyll."
-tag:
-- markdown 
-- jekyll
-- confused
-- test
-comments: true
+tags: [markdown,  jekyll, test]
+feature: http://i.imgur.com/eb6g2Lk.jpg
+comments: false
 ---
 
 # Learning New Software
 
 I find myself doing this often. One good example is right now. The Jekyll documentation is decent . . . I suppose. Nonetheless, it
 is not "obvious" by any means how this all works together, nor is it clear to me where to find much of the answers. My approach:
-just keep typing stuff in different files until things start to work. In this post, let's reminisce over all the joyful
-experiences I've had with learning some languages/frameworks in the past.
+just keep typing stuff in different files until things start to work. In this post, let's take a journey through my confusion!
 
-### Body text
+### What is all this stuff?
 
-Lorem ipsum dolor sit amet, test link adipiscing elit. **This is strong**. Nullam dignissim convallis est. Quisque aliquam.
+![pic]({{site.url}}/assets/img/butterRobot.jpg){: .image-right height="10px"}
 
-![Smithsonian Image](https://mmistakes.github.io/minimal-mistakes/images/3953273590_704e3899d5_m.jpg)
-{: .image-right}
+I *was* going to show a snippet of code below of some confusing jekyll-infused html, but apparently jekyll reads the snippet and
+actually tries executing it. Sorry to let you, my imaginary reader, down. Hopefully this code snippet below that came with the
+theme will cheer you up. <br/>
 
-*This is emphasized*. Donec faucibus. Nunc iaculis suscipit dui. 53 = 125. Water is H2O. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. The New York Times (That’s a citation). Underline.Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.
 
-HTML and CSS are our tools. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.
-
-### Blockquotes
-
-> Lorem ipsum dolor sit amet, test link adipiscing elit. Nullam dignissim convallis est. Quisque aliquam.
-
-## List Types
-
-### Ordered Lists
-
-1. Item one
-   1. sub item one
-   2. sub item two
-   3. sub item three
-2. Item two
-
-### Unordered Lists
-
-* Item one
-* Item two
-* Item three
-
-## Tables
-
-| Header1 | Header2 | Header3 |
-|:--------|:-------:|--------:|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|----
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|=====
-| Foot1   | Foot2   | Foot3
-{: rules="groups"}
-
-## Code Snippets
-
-{% highlight css %}
-#container {
-  float: left;
-  margin: 0 -240px 0 0;
-  width: 100%;
-}
-{% endhighlight %}
-
-## Buttons
-
-Make any link standout more when applying the `.btn` class.
+Wait, I need to type just a little more text to provide room for the code snippet. Of course, I could customize the appropriate
+CSS file to resize the image, or I could even go brute force and just write the html img element in the poor markdown file. But we
+all know that is not okay. Thus, I type. 
 
 {% highlight html %}
 <a href="#" class="btn btn-success">Success Button</a>
 {% endhighlight %}
 
-<div markdown="0"><a href="#" class="btn">Primary Button</a></div>
-<div markdown="0"><a href="#" class="btn btn-success">Success Button</a></div>
-<div markdown="0"><a href="#" class="btn btn-warning">Warning Button</a></div>
-<div markdown="0"><a href="#" class="btn btn-danger">Danger Button</a></div>
-<div markdown="0"><a href="#" class="btn btn-info">Info Button</a></div>
+### Blockquotes
 
-## KBD
+> On the internet, no one knows you're a robot that passes butter.
 
-You can also use `<kbd>` tag for keyboard buttons.
+### Some of my Current Projects
 
-{% highlight html %}
-<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
-{% endhighlight %}
+1. This website.
+2. Creating a sentient deep neural network to pass my butter.
+    1. ~~and take over the planet.~~
 
-Press <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to move your car. **Midtown Maddness!!**
 
-## Notices
+### Picture of Dogs
 
-**Watch out!** You can also add notices by appending `{: .notice}` to a paragraph.
+<div markdown="0"><a href="{{site.url}}/assets/img/doggo.jpg" class="btn">Dog</a></div>
+<div markdown="0"><a href="{{site.url}}/assets/img/doggo2.jpg" class="btn btn-success">Dog</a></div>
+<div markdown="0"><a href="{{site.url}}/assets/img/doggo3.jpg" class="btn btn-warning">Dog</a></div>
+<div markdown="0"><a href="{{site.url}}/assets/img/doggo4.jpg" class="btn btn-danger">Dog</a></div>
+<div markdown="0"><a href="{{site.url}}/assets/img/tiger_one.jpg" class="btn btn-info">Cat?</a></div>
+
+**TODO** Write more amazing posts.
 {: .notice}
