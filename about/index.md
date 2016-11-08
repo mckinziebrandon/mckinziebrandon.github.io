@@ -3,44 +3,19 @@ layout: page
 title: About
 tags: [about, Jekyll, theme, moon]
 date: 2016-03-21
+feature: http://i.imgur.com/Esr2PWC.png
 comments: false
 ---
     
 
-## Me trying to insert a picture
+## Is This Thing On
 
-![uhm]({{site.url }}/assets/img/NeuralNetwork1.jpg)
-oh my god it worked.
+Hi, I am trying to make a website. Please visit the "Notes", "Project", or "Posts" section.
 
-## Some of my notes
-* <a href="LectureNotesCS189.pdf"><b>Machine Learning</b></a> 
-* <a href="LectureNotesVS265.pdf"><b>Neural Computation</b></a> 
-* <a href="LectureNotesCS70.pdf"><b>Discrete Mathematics</b></a> 
+![Doggoo](http://i.imgur.com/jkda3Kj.png){: .image-right}
 
-## Features
-* Minimal, you can focus on your content
-* Responsive
-* Disqus integration
-* Syntax highlighting
-* Optional post image
-* Social icons
-* Page for sharing projects
-* Optional background image
-* Simple navigation menu
-* MathJax support
+It actually has stuff. Enjoy your visit and browse around while me and construction dog get back to work. 
 
-## Preview
-
-{% capture images %}
-    https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
-    https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
-{% endcapture %}
-{% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
-
-See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub.
-
-## Getting Started
-
-To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
-      
-[Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
+TODO: Write about myself. 
+{: .notice}
+ 
