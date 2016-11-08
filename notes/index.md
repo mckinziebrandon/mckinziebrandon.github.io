@@ -1,37 +1,47 @@
 ---
 layout: page
-title: Muh Notes
+title: Course Notes
 date: 2016-03-21
 tags: notes
+feature: http://i.imgur.com/RQdatsT.jpg
 comments: false
 ---
     
-<center><a href="src/LectureNotesCS189.pdf"><b>MY NOTES</b></a> is a minimal, one column jekyll theme.</center>
+# Explore My LaTeX Obsession
 
-## Features
-* Minimal, you can focus on your content
-* Responsive
-* Disqus integration
-* Syntax highlighting
-* Optional post image
-* Social icons
-* Page for sharing projects
-* Optional background image
-* Simple navigation menu
-* MathJax support
+Here you'll find my notes for the current (Fall 2016) semester. I have a passion for "making things look nice" (this website
+        doesn't count). Many of the little customizations you'll find in my notes are from LaTeX packages I've written. Each
+package is usually born in the hour-long google/crying session of *why can't I make it look like [insert trivial change here]*.
+These notes would not be possible without my inability to ignore a formatting issue. For even more fun, notice how the formatting
+in each set of notes improves as you progress through the chapters [TODO: reformat earlier chapters . . .]
 
-## Preview
+**WARNING** Do _not_ alert me of any formatting issues in what follows until this semester is over...
+{: .notice}
 
-{% capture images %}
-    https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
-    https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
-{% endcapture %}
-{% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
 
-See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub.
+## [Machine Learning]({{site.url}}/assets/files/LectureNotesCS189.pdf)
 
-## Getting Started
+Here you'll find notes from . . . 
+* UC Berkeley's Machine Learning course (CS 189), taught by Professors Jitendra Malik and Benjamin Recht.
+* Stanford's (online) Machine Learning course materials (CS 229), taught by Professor Andrew Ng.
+* The Elements of Statistical Learning by Hastie, et al. 
+* Professor Jonathan Shewchuck's compilation of notes.
 
-To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
-      
-[Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
+
+<div markdown="0"><a href="{{site.url}}/assets/files/LectureNotesCS189.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
+
+
+## [Neural Computation]({{site.url}}/assets/files/LectureNotesVS265.pdf)
+
+Here you'll find notes from . . . 
+* UC Berkeley's graduate course on Neural Computation (VS 265), taught by Professor Bruno Olhausen.
+* Introduction to the Theory of Neural Computation by Hertz, et al.
+* Deep Learning and Neural Networks by Heaton (AIFH series). 
+ 
+
+<div markdown="0"><a href="{{site.url}}/assets/files/LectureNotesVS265.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
+
+
+More notes coming soon . . . 
+{: .notice}
+
