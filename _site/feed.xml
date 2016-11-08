@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-11-07T20:33:04-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">My First Post</title><link href="http://localhost:4000/my-first-post/" rel="alternate" type="text/html" title="My First Post" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/my-first-post</id><content type="html" xml:base="http://localhost:4000/my-first-post/">&lt;h1 id=&quot;learning-new-software&quot;&gt;Learning New Software&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-11-07T21:33:54-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">Virtual Reality at MIT</title><link href="http://localhost:4000/virtual-reality/" rel="alternate" type="text/html" title="Virtual Reality at MIT" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/virtual-reality</id><content type="html" xml:base="http://localhost:4000/virtual-reality/">&lt;h1 id=&quot;when-learning-is-too-dangerous&quot;&gt;When Learning Is Too Dangerous&lt;/h1&gt;
+
+&lt;p&gt;Have you ever dreamed of learning a new skill, but you were afraid you might &lt;em&gt;die&lt;/em&gt;? That’s how I felt when I used to dream about
+juggling. Yes, tossing any imaginable assortment of objects into the air and be the commander of their trajectory. But alas, all
+my years studying physics had ingrained in me a fear of accelerating objects and their devastating effects. I was afraid.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;. . . until I found &lt;em&gt;virtual reality&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;virtual-training-environments&quot;&gt;Virtual Training Environments&lt;/h2&gt;
+
+&lt;p&gt;A hot topic in the current VR research community is creating virtual spaces that allow one to freely experiment and learn new
+skills. The options are without bound. My fear of large quantities of small objects falling from the sky prevented me from
+exploring the world of juggling. But that is history now, as you can see by my smiling face in the video below.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/d3oBv4xtSms&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Here is what’s going on:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Hardware/Software Overview&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;This project was written in the Unity3D game engine.&lt;/li&gt;
+      &lt;li&gt;The programs responsible for translating my movements were
+written in the C# programming language. The primary libraries used were Unity’s framework (of course) and the
+SteamVR Unity plugin’s library for interfacing with the HTC Vive.&lt;/li&gt;
+      &lt;li&gt;The thing blocking my eyes is the &lt;strong&gt;HTC Vive&lt;/strong&gt;, which allows me to enter virtual worlds after I create them.&lt;/li&gt;
+      &lt;li&gt;Attached to my arms are a total of four &lt;strong&gt;Inertial Measurement Units (IMU).&lt;/strong&gt; Their job is to provide spatial orientation information. Each arm has two IMU’s and an &lt;strong&gt;Arduino&lt;/strong&gt;.&lt;/li&gt;
+      &lt;li&gt;Each hand has &lt;strong&gt;bend sensors&lt;/strong&gt; on the fingers. (well, only one finger per hand in this video. That’s what I get for only taking one video before the project was finished)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Watch the Laptop Screen&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;Even with the professional quality video, it may be hard to see what is going on. As far as I’m aware (in the video), I am a
+  robot in a strange world of floating red balls. Furthermore, the red balls become green when a grab them with my new virtual
+  hands. I’m able to pick them up and toss them around &lt;strong&gt;without needing to hold a controller&lt;/strong&gt;. I can see my virtual body, my
+  virtual arms, and my virtual hands move exactly as I do. I could not tell you the number of times I hit the walls of that
+  office while juggling in my virtual world (enough).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;modeling-experience&quot;&gt;Modeling Experience&lt;/h2&gt;
+
+&lt;figure class=&quot;third&quot;&gt;
+    
+    &lt;a href=&quot;http://i.imgur.com/MJqBSs1.jpg&quot;&gt;&lt;img src=&quot;http://i.imgur.com/MJqBSs1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;a href=&quot;http://i.imgur.com/fd73lOW.jpg&quot;&gt;&lt;img src=&quot;http://i.imgur.com/fd73lOW.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;a href=&quot;http://i.imgur.com/dx4xm93.jpg&quot;&gt;&lt;img src=&quot;http://i.imgur.com/dx4xm93.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;a href=&quot;http://i.imgur.com/l8HTSub.jpg&quot;&gt;&lt;img src=&quot;http://i.imgur.com/l8HTSub.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;figcaption&gt;Professional Photoshoot&lt;/figcaption&gt;
+&lt;/figure&gt;</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">My First Post</title><link href="http://localhost:4000/my-first-post/" rel="alternate" type="text/html" title="My First Post" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/my-first-post</id><content type="html" xml:base="http://localhost:4000/my-first-post/">&lt;h1 id=&quot;learning-new-software&quot;&gt;Learning New Software&lt;/h1&gt;
 
 &lt;p&gt;I find myself doing this often. One good example is right now. The Jekyll documentation is decent . . . I suppose. Nonetheless, it
 is not “obvious” by any means how this all works together, nor is it clear to me where to find much of the answers. My approach:
