@@ -30,8 +30,10 @@ exploring the world of juggling. But that is history now, as you can see by my s
      
 <iframe width="560" height="315" src="https://www.youtube.com/embed/d3oBv4xtSms" frameborder="0"></iframe>
 
+
 Here is what's going on:
-* Hardware/Software Overview:
+
+* __Hardware/Software Overview__: 
     - This project was written in the Unity3D game engine. 
     - The programs responsible for translating my movements were
 written in the C# programming language. The primary libraries used were Unity's framework (of course) and the
