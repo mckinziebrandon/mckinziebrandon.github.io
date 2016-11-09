@@ -19,7 +19,7 @@ in each set of notes improves as you progress through the chapters [TODO: reform
 {: .notice}
 
 
-## [Machine Learning]({{site.url}}/assets/files/LectureNotesCS189.pdf)
+## [Machine Learning]({{site.url}}/assets/pdf/LectureNotesCS189.pdf)
 
 Here you'll find notes from . . . 
 
@@ -29,10 +29,10 @@ Here you'll find notes from . . .
 * Professor Jonathan Shewchuck's compilation of notes.
 
 
-<div markdown="0"><a href="{{site.url}}/assets/files/LectureNotesCS189.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
+<div markdown="0"><a href="{{site.url}}/assets/pdf/LectureNotesCS189.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
 
-## [Neural Computation]({{site.url}}/assets/files/LectureNotesVS265.pdf)
+## [Neural Computation]({{site.url}}/assets/pdf/LectureNotesVS265.pdf)
 
 Here you'll find notes from . . . 
 
@@ -40,9 +40,31 @@ Here you'll find notes from . . .
 * Introduction to the Theory of Neural Computation by Hertz, et al.
 * Deep Learning and Neural Networks by Heaton (AIFH series). 
  
+<div markdown="0"><a href="{{site.url}}/assets/pdf/LectureNotesVS265.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
-<div markdown="0"><a href="{{site.url}}/assets/files/LectureNotesVS265.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
+## [Discrete Math and Probability]({{site.url}}/assets/pdf/LectureNotesCS70.pdf)
+
+Here you'll find notes from . . . 
+
+* UC Berkeley's Discrete Mathematics and Probability course (CS70).
+* Discrete Mathematics and Its Applications by Rosen.
+* Selected notes and articles by UC Berkeley Professors and TAs.
+
+
+<div markdown="0"><a href="{{site.url}}/assets/pdf/LectureNotesCS70.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
+
+
+
+## [Analytic Mechanics]({{site.url}}/assets/pdf/Notes_PHYS105.pdf)
+
+Here you'll find notes from . . . 
+
+* UC Berkeley's Analytic Mechanics course (PHYS 105).
+* Classical Mechanics by John R. Taylor.
+ 
+
+<div markdown="0"><a href="{{site.url}}/assets/pdf/Notes_PHYS105.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
 More notes coming soon . . . 
 {: .notice}
