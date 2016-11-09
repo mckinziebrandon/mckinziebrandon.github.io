@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Designing an Event Generator"
-date:   2016-11-07
+date:   2016-08-27
 excerpt: "Simuling particle collisions for the ALICE collaboration at the Large Hadron Collider."
 project: true
 feature: http://i.imgur.com/d5spxjP.png
