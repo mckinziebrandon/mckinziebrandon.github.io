@@ -38,8 +38,6 @@ all know that is not okay. Thus, I type.
 ### Some of my Current Projects
 
 1. This website.
-2. Creating a sentient deep neural network to pass my butter.
-    1. ~~and take over the planet.~~
 
 
 ### Picture of Dogs
