@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://mckinziebrandon.me/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://mckinziebrandon.me/feed.xml" rel="self" type="application/atom+xml" /><link href="http://mckinziebrandon.me/" rel="alternate" type="text/html" /><updated>2016-11-13T19:32:54-08:00</updated><id>http://mckinziebrandon.me//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">Virtual Reality at MIT</title><link href="http://mckinziebrandon.me/virtual-reality/" rel="alternate" type="text/html" title="Virtual Reality at MIT" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://mckinziebrandon.me/virtual-reality</id><content type="html" xml:base="http://mckinziebrandon.me/virtual-reality/">&lt;h1 id=&quot;when-learning-is-too-dangerous&quot;&gt;When Learning Is Too Dangerous&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-11-20T19:40:39-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">Virtual Reality at MIT</title><link href="http://localhost:4000/virtual-reality/" rel="alternate" type="text/html" title="Virtual Reality at MIT" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/virtual-reality</id><content type="html" xml:base="http://localhost:4000/virtual-reality/">&lt;h1 id=&quot;when-learning-is-too-dangerous&quot;&gt;When Learning Is Too Dangerous&lt;/h1&gt;
 
 &lt;p&gt;Have you ever dreamed of learning a new skill, but you were afraid you might &lt;em&gt;die&lt;/em&gt;? That’s how I felt when I used to dream about
 juggling. Yes, tossing any imaginable assortment of objects into the air and be the commander of their trajectory. But alas, all
@@ -52,7 +52,7 @@ exploring the world of juggling. But that is history now, as you can see by my s
     &lt;figcaption&gt;Professional Photoshoot&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;TIL&lt;/strong&gt; Markdown’s bulleted lists hate me. :(&lt;/p&gt;</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">My First Post</title><link href="http://mckinziebrandon.me/my-first-post/" rel="alternate" type="text/html" title="My First Post" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://mckinziebrandon.me/my-first-post</id><content type="html" xml:base="http://mckinziebrandon.me/my-first-post/">&lt;h1 id=&quot;learning-new-software&quot;&gt;Learning New Software&lt;/h1&gt;
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;TIL&lt;/strong&gt; Markdown’s bulleted lists hate me. :(&lt;/p&gt;</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">My First Post</title><link href="http://localhost:4000/my-first-post/" rel="alternate" type="text/html" title="My First Post" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/my-first-post</id><content type="html" xml:base="http://localhost:4000/my-first-post/">&lt;h1 id=&quot;learning-new-software&quot;&gt;Learning New Software&lt;/h1&gt;
 
 &lt;p&gt;I find myself doing this often. One good example is right now. The Jekyll documentation is decent . . . I suppose. Nonetheless, it
 is not “obvious” by any means how this all works together, nor is it clear to me where to find much of the answers. My approach:
@@ -60,7 +60,7 @@ just keep typing stuff in different files until things start to work. In this po
 
 &lt;h3 id=&quot;what-is-all-this-stuff&quot;&gt;What is all this stuff?&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://mckinziebrandon.me/assets/img/butterRobot.jpg&quot; alt=&quot;pic&quot; class=&quot;image-right&quot; height=&quot;10px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/butterRobot.jpg&quot; alt=&quot;pic&quot; class=&quot;image-right&quot; height=&quot;10px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I &lt;em&gt;was&lt;/em&gt; going to show a snippet of code below of some confusing jekyll-infused html, but apparently jekyll reads the snippet and
 actually tries executing it. Sorry to let you, my imaginary reader, down. Hopefully this code snippet below that came with the
@@ -82,22 +82,17 @@ all know that is not okay. Thus, I type.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;This website.&lt;/li&gt;
-  &lt;li&gt;Creating a sentient deep neural network to pass my butter.
-    &lt;ol&gt;
-      &lt;li&gt;&lt;del&gt;and take over the planet.&lt;/del&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;picture-of-dogs&quot;&gt;Picture of Dogs&lt;/h3&gt;
 
-&lt;div&gt;&lt;a href=&quot;http://mckinziebrandon.me/assets/img/doggo.jpg&quot; class=&quot;btn&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
-&lt;div&gt;&lt;a href=&quot;http://mckinziebrandon.me/assets/img/doggo2.jpg&quot; class=&quot;btn btn-success&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
-&lt;div&gt;&lt;a href=&quot;http://mckinziebrandon.me/assets/img/doggo3.jpg&quot; class=&quot;btn btn-warning&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
-&lt;div&gt;&lt;a href=&quot;http://mckinziebrandon.me/assets/img/doggo4.jpg&quot; class=&quot;btn btn-danger&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
-&lt;div&gt;&lt;a href=&quot;http://mckinziebrandon.me/assets/img/tiger_one.jpg&quot; class=&quot;btn btn-info&quot;&gt;Cat?&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;&lt;a href=&quot;http://localhost:4000/assets/img/doggo.jpg&quot; class=&quot;btn&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;&lt;a href=&quot;http://localhost:4000/assets/img/doggo2.jpg&quot; class=&quot;btn btn-success&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;&lt;a href=&quot;http://localhost:4000/assets/img/doggo3.jpg&quot; class=&quot;btn btn-warning&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;&lt;a href=&quot;http://localhost:4000/assets/img/doggo4.jpg&quot; class=&quot;btn btn-danger&quot;&gt;Dog&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;&lt;a href=&quot;http://localhost:4000/assets/img/tiger_one.jpg&quot; class=&quot;btn btn-info&quot;&gt;Cat?&lt;/a&gt;&lt;/div&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;TODO&lt;/strong&gt; Write more amazing posts.&lt;/p&gt;</content><category term="markdown" /><category term="jekyll" /><category term="test" /><summary type="html">Me testing out the functionality of Jekyll.</summary></entry><entry><title type="html">Designing an Event Generator</title><link href="http://mckinziebrandon.me/event-generator/" rel="alternate" type="text/html" title="Designing an Event Generator" /><published>2016-08-27T00:00:00-07:00</published><updated>2016-08-27T00:00:00-07:00</updated><id>http://mckinziebrandon.me/event-generator</id><content type="html" xml:base="http://mckinziebrandon.me/event-generator/">&lt;h2 id=&quot;user-friendly-particle-physics&quot;&gt;User-Friendly Particle Physics&lt;/h2&gt;
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;TODO&lt;/strong&gt; Write more amazing posts.&lt;/p&gt;</content><category term="markdown" /><category term="jekyll" /><category term="test" /><summary type="html">Me testing out the functionality of Jekyll.</summary></entry><entry><title type="html">Designing an Event Generator</title><link href="http://localhost:4000/event-generator/" rel="alternate" type="text/html" title="Designing an Event Generator" /><published>2016-08-27T00:00:00-07:00</published><updated>2016-08-27T00:00:00-07:00</updated><id>http://localhost:4000/event-generator</id><content type="html" xml:base="http://localhost:4000/event-generator/">&lt;h2 id=&quot;user-friendly-particle-physics&quot;&gt;User-Friendly Particle Physics&lt;/h2&gt;
 
 &lt;p&gt;One approach to analyzing the huge swaths of data at the Large Hadron Collider is by comparing experimental results with
 simulations. If you can reproduce piece-by-piece the observed data by writing simulations, your analysis gains some credibility.
