@@ -10,6 +10,8 @@ comments: false
 # Problem Overview
 
 Two-class classification. 
+
+
 * __Class 1 (y = 1)__: 
     \\[ (x_1, x_2)  = (8\cos\theta + w_1, 8\sin\theta + w_2) \\]
      \\[   \theta \sim Unif(0, 2\pi) \\]
