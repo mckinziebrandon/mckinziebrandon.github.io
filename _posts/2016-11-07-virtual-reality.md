@@ -28,7 +28,7 @@ A hot topic in the current VR research community is creating virtual spaces that
 skills. The options are without bound. My fear of large quantities of small objects falling from the sky prevented me from
 exploring the world of juggling. But that is history now, as you can see by my smiling face in the video below. 
      
-<iframe width="560" height="315" src="https://www.youtube.com/embed/d3oBv4xtSms" frameborder="0"></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/si39l5rl_mU" frameborder="0"></iframe>
 
 
 Here is what's going on:
