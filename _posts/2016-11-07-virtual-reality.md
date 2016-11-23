@@ -58,5 +58,5 @@ __Watch the Laptop Screen__:
 {% endcapture %}
 {% include gallery images=images caption="Professional Photoshoot" cols=3 %}
 
-**TIL** Markdown's bulleted lists hate me. :(
+**Acknowledgments:** Shoutout to Andres Calvo and John Busche for making this project possible! Two of the best team members I've ever been fortunate enough to have. 
 {: .notice}
