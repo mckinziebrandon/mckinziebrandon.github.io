@@ -18,7 +18,9 @@ sitemap: false
 @import "site";
 @import "typography";
 @import "elements";
-@import "syntax";
+//@import "syntax";
+@import "jekyll-github";
+//@import "github";
 @import "nav";
 @import "vendor/fonts";
 @import "vendor/font-awesome";

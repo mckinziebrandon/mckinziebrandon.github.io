@@ -3,7 +3,7 @@ layout: post
 title:  "Designing an Event Generator"
 date:   2016-08-27
 excerpt: "Simuling particle collisions for the ALICE collaboration at the Large Hadron Collider."
-project: true
+research: true
 feature: http://i.imgur.com/d5spxjP.png
 tag:
 - Brandon McKinzie

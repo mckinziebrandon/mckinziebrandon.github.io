@@ -1,7 +1,7 @@
 # Site
 title:              Brandon McKinzie
 bio:                'Undergradate senior at UC Berkeley. <br/>Passionate about machine learning and artificial intelligence.'
-description:        "Testing, testing, one two three."
+description:        "A bit of physics here, and a bit of computer science there."
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/Me.jpg'
@@ -14,6 +14,8 @@ url:                http://mckinziebrandon.me
 # Jekyll
 permalink:          /:title/
 markdown:           kramdown
+#markdown:           redcarpet
+#highlighter:        pygments
 highlighter:        rouge
 kramdown:
   auto_ids:         true
@@ -44,6 +46,7 @@ email:              mckinziebrandon@berkeley.edu
 github:             mckinziebrandon
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 linkedin:           brandon-mckinzie-452a03112
+#quora:              Brandon-McKinzie
 #xing:              username
 #instagram:          username
 #lastfm:            username

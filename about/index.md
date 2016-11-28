@@ -2,24 +2,23 @@
 layout: page
 title: About
 tags: [about, Jekyll, theme, moon]
-date: 2016-03-21
 feature: http://i.imgur.com/Esr2PWC.png
+date: 2016-03-21
 comments: false
 ---
     
 
-## Is This Thing On
+# Who Am I?
 
-Hi, I am trying to make a website. Please visit the "Notes", "Project", or "Posts" section.
+That's a great question. For the purposes of this site, I'll keep this pragmatic. I am . . . 
+![Existential Robot](http://i.imgur.com/ekNkDTM.jpg "Existential Robot"){: .image-right}
 
-![Doggoo](http://i.imgur.com/jkda3Kj.png){: .image-right}
+* An undergraduate senior at UC Berkeley, majoring in Physics and minoring in Computer Science. Although, for all intents and purposes, I've primarily been a CS student for about the past year.
+* A researcher. I've devoted substantial portion of the past four years working as a student researcher at various institutions.
+Most of my research background has been in particle physics. More recently, I've worked in CS-related research such as in virtual
+reality (MIT) and now deep learning (UC Berkeley). 
 
-It actually has stuff. Enjoy your visit and browse around while me and construction dog get back to work. 
 
-Also, enjoy <a href="http://nuclear.ucdavis.edu/~bmckinzie/">this silly website I made</a> years ago when I got my start in
-physics research at UC Davis. Shoutout to Professor Manuel Calderon for being one of the greatest mentors I've been lucky enough
-to have.
-
-TODO: Write about myself. Thank all the other people that deserve being thanked.
+TODO: Finish this page . . .
 {: .notice}
 

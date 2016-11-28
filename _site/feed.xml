@@ -1,4 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-11-20T20:36:23-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>Testing, testing, one two three.</subtitle><entry><title type="html">Polynomial and Gaussian Kernels</title><link href="http://localhost:4000/kernel-classifiers/" rel="alternate" type="text/html" title="Polynomial and Gaussian Kernels" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/kernel-classifiers</id><content type="html" xml:base="http://localhost:4000/kernel-classifiers/">&lt;h1 id=&quot;problem-overview&quot;&gt;Problem Overview&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-11-27T22:42:34-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">Automatic Architecture Generation for Deep Neural Networks</title><link href="http://localhost:4000/current-research/" rel="alternate" type="text/html" title="Automatic Architecture Generation for Deep Neural Networks" /><published>2016-11-27T00:00:00-08:00</published><updated>2016-11-27T00:00:00-08:00</updated><id>http://localhost:4000/current-research</id><content type="html" xml:base="http://localhost:4000/current-research/">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+
+&lt;p&gt;One of the challenges in building an effective deep neural network is, of course, figuring out how to build it! There are an
+infinite number of possible combinations for hyperparameters such as . . .&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;number of layers (the “depth”)&lt;/li&gt;
+  &lt;li&gt;number of parallel layers (the “width”)&lt;/li&gt;
+  &lt;li&gt;activation functions for each (computational) layer&lt;/li&gt;
+  &lt;li&gt;learning rate(s) and/or momentum&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;. . . and the list goes on and on. So how do the experts do it? You may be surprised to find out that machine learning is still a lot of trial-and-error. However, this just doesn’t feel right. Surely there is a way we can automate this process.&lt;/p&gt;
+
+&lt;h1 id=&quot;project-overview&quot;&gt;Project Overview&lt;/h1&gt;
+
+&lt;p&gt;My current research, led by Professor Dawn Song’s research group at UC Berkeley, aims to solve this problem. Rather than having humans tinker around with designing deep neural networks, this project aims to write software that can learn to build deep networks on its own.&lt;/p&gt;
+
+&lt;h1 id=&quot;some-of-my-work&quot;&gt;Some of My Work&lt;/h1&gt;
+
+&lt;p&gt;Here I’ll log some of the more interesting problems, in my opinion, that I’ve encountered in this project.&lt;/p&gt;
+
+&lt;h2 id=&quot;early-stopping&quot;&gt;Early Stopping&lt;/h2&gt;
+
+&lt;p&gt;Say you’re a sentient machine trying to figure out the best network build. As we’ve discussed, you have about an infinite number of ways to approach this. Regardless of what you choose, you’ll certainly need a way to &lt;em&gt;evaluate&lt;/em&gt; how well you’ve done after constructing a given architecture.
+Unfortunately, even for a fast AI such as yourself, training and evaluation can take a &lt;em&gt;really&lt;/em&gt; long time.&lt;/p&gt;
+
+&lt;p&gt;A common technique for speeding up the training and evaluation, known as &lt;strong&gt;early stopping&lt;/strong&gt;, involving periodically “peeking under the hood” of the network as it learns, and determining whether or not (a) it is mostly done learning (negligible improvement), or (b) it has “learned enough,” where it
+is up to the designer to determine what “enough” means.&lt;/p&gt;
+
+&lt;p&gt;So how does one implement early stopping in practice? Surprisingly, the support for this (in tensorflow/tflearn) is slim. If you try digging around on how to use tensorflow for this, you’ll likely find code snippets such as the following.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;validation_metrics&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;accuracy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contrib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;streaming_accuracy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                      &lt;span class=&quot;s&quot;&gt;&quot;precision&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contrib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;streaming_precision&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                      &lt;span class=&quot;s&quot;&gt;&quot;recall&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contrib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;streaming_recall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;validation_monitor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contrib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;learn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;monitors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ValidationMonitor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;test_set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;test_set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;every_n_steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#metrics=validation_metrics,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;early_stopping_metric&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'loss'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;early_stopping_metric_minimize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;early_stopping_rounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_verbosity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ERROR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;classifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;training_set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;training_set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;monitors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validation_monitor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><category term="research" /><category term="deep learning" /><category term="python" /><category term="tensorflow" /><summary type="html">A brief overview of my current research.</summary></entry><entry><title type="html">Polynomial and Gaussian Kernels</title><link href="http://localhost:4000/kernel-classifiers/" rel="alternate" type="text/html" title="Polynomial and Gaussian Kernels" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/kernel-classifiers</id><content type="html" xml:base="http://localhost:4000/kernel-classifiers/">&lt;h1 id=&quot;problem-overview&quot;&gt;Problem Overview&lt;/h1&gt;
 
 &lt;p&gt;Two-class classification.&lt;/p&gt;
 
@@ -209,7 +260,7 @@ my years studying physics had ingrained in me a fear of accelerating objects and
 skills. The options are without bound. My fear of large quantities of small objects falling from the sky prevented me from
 exploring the world of juggling. But that is history now, as you can see by my smiling face in the video below.&lt;/p&gt;
 
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/d3oBv4xtSms&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/si39l5rl_mU&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;Here is what’s going on:&lt;/p&gt;
 
@@ -247,7 +298,7 @@ exploring the world of juggling. But that is history now, as you can see by my s
     &lt;figcaption&gt;Professional Photoshoot&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;TIL&lt;/strong&gt; Markdown’s bulleted lists hate me. :(&lt;/p&gt;</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">My First Post</title><link href="http://localhost:4000/my-first-post/" rel="alternate" type="text/html" title="My First Post" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/my-first-post</id><content type="html" xml:base="http://localhost:4000/my-first-post/">&lt;h1 id=&quot;learning-new-software&quot;&gt;Learning New Software&lt;/h1&gt;
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Acknowledgments:&lt;/strong&gt; Shoutout to Andres Calvo and John Busche for making this project possible! Two of the best team members I’ve ever been fortunate enough to have.&lt;/p&gt;</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">My First Post</title><link href="http://localhost:4000/my-first-post/" rel="alternate" type="text/html" title="My First Post" /><published>2016-11-07T00:00:00-08:00</published><updated>2016-11-07T00:00:00-08:00</updated><id>http://localhost:4000/my-first-post</id><content type="html" xml:base="http://localhost:4000/my-first-post/">&lt;h1 id=&quot;learning-new-software&quot;&gt;Learning New Software&lt;/h1&gt;
 
 &lt;p&gt;I find myself doing this often. One good example is right now. The Jekyll documentation is decent . . . I suppose. Nonetheless, it
 is not “obvious” by any means how this all works together, nor is it clear to me where to find much of the answers. My approach:
@@ -342,23 +393,4 @@ collision events, particularly events containing &lt;strong&gt;jets&lt;/strong&g
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p class=&quot;notice&quot;&gt;This page is still under construction. Stay tuned . . .&lt;/p&gt;</content><category term="Brandon McKinzie" /><category term="C++" /><category term="LHC" /><category term="physics" /><summary type="html">Simuling particle collisions for the ALICE collaboration at the Large Hadron Collider.</summary></entry><entry><title type="html">MathJax Example</title><link href="http://localhost:4000/mathjax-example/" rel="alternate" type="text/html" title="MathJax Example" /><published>2015-08-10T00:00:00-07:00</published><updated>2015-08-10T00:00:00-07:00</updated><id>http://localhost:4000/mathjax-example</id><content type="html" xml:base="http://localhost:4000/mathjax-example/">&lt;p&gt;&lt;a href=&quot;http://www.mathjax.org/&quot;&gt;MathJax&lt;/a&gt; is a simple way of including Tex/LaTex/MathML based mathematics in HTML webpages. To get up and running you need to include the MathJax script in the header of your github pages page, and then write some maths. For LaTex, there are two delimiters you need to know about, one for block or displayed mathematics &lt;code class=&quot;highlighter-rouge&quot;&gt;\[ ... \]&lt;/code&gt;, and the other for inline mathematics &lt;code class=&quot;highlighter-rouge&quot;&gt;\( ... \)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
-
-&lt;p&gt;To enable MathJax support be sure Kramdown is your Markdown flavor of choice and MathJax is set to true in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; file.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;markdown: kramdown
-mathjax: true
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here is a block rendering: 
-\\[ \frac{1}{n^{2}} \\]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Here is an example MathJax inline rendering \( 1/x^{2} \), and here is a block rendering: 
-\[ \frac{1}{n^{2}} \]&lt;/p&gt;
-
-&lt;p&gt;The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become &lt;code class=&quot;highlighter-rouge&quot;&gt;\\[ ... \\]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;\\( ... \\)&lt;/code&gt; for inline and block maths respectively.&lt;/p&gt;</content><category term="markdown" /><category term="mathjax" /><category term="example" /><category term="test" /><category term="jekyll" /><summary type="html">MathJax Example for Moon Jekyll Theme.</summary></entry></feed>
+&lt;p class=&quot;notice&quot;&gt;This page is still under construction. Stay tuned . . .&lt;/p&gt;</content><category term="Brandon McKinzie" /><category term="C++" /><category term="LHC" /><category term="physics" /><summary type="html">Simuling particle collisions for the ALICE collaboration at the Large Hadron Collider.</summary></entry></feed>

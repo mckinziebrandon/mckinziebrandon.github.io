@@ -3,7 +3,7 @@ layout: post
 title:  "Virtual Reality at MIT"
 date:   2016-11-07
 excerpt: "The journey of a young man learning to juggle in a virtual world."
-project: true
+research: true
 feature: http://i.imgur.com/ffq5hlx.jpg
 tag:
 - jekyll 
