@@ -19,6 +19,18 @@ Most of my research background has been in particle physics. More recently, I've
 reality (MIT) and now deep learning (UC Berkeley). 
 
 
+# Research Papers I've Written
+
+I plan on moving this to the "research" section later, but for now I just want to get these up here. 
+
+TODO: Move research papers out of about section. Upload more of them.
+{: .notice}
+
+* [Toy Model Event Generation (LBNL)]({{site.url}}/assets/pdf/papers/LBNL_ToyModelResearch.pdf)
+* [Lattice QCD Computation of the Proton Isovector Scalar Charge (BNL)]({{site.url}}/assets/pdf/papers/BNL_Research_Report.pdf)
+* [Upsilon Polarization and Event Activity]({{site.url}}/assets/pdf/papers/Davis_Research_Report.pdf)
+
+
 TODO: Finish this page . . .
 {: .notice}
 

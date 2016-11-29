@@ -13,6 +13,10 @@ tag:
 comments: false
 ---
 
+
+Note: You can read my full paper [by clicking this link.]({{site.url}}/assets/pdf/papers/LBNL_ToyModelResearch.pdf)
+{: .notice}
+
 ## User-Friendly Particle Physics
 
 One approach to analyzing the huge swaths of data at the Large Hadron Collider is by comparing experimental results with
