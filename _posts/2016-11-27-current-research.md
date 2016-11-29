@@ -33,7 +33,7 @@ is up to the designer to determine what "enough" means.
 
 So how does one implement early stopping in practice? Surprisingly, the support for this (in tensorflow/tflearn) is slim. If you try digging around on how to use tensorflow for this, you'll likely find code snippets such as the following.
 
-```python
+{% highlight python %}
 validation_metrics = {"accuracy": tf.contrib.metrics.streaming_accuracy,
                       "precision": tf.contrib.metrics.streaming_precision,
                       "recall": tf.contrib.metrics.streaming_recall}
@@ -52,7 +52,7 @@ classifier.fit(x=training_set.data,
                y=training_set.target,
                steps=2000,
                monitors=[validation_monitor])
-```
+{% endhighlight %}
 
 Unfortunately, a lot of these recommended approaches are outdated. Although I did manage to hack together a working implementation of early stopping with tf.contrib.learn (see TensorFlow Notebooks section), I had to suppress a lot of warning/info messages from TensorFlow (again, _a lot_) that were
 solely due to me using certain methods of theirs (as recommended by their tutorials) that are now deprecated and confusingly don't seem to have direct replacements in new versions. But enough of that for now, let's see how we can use the tflearn library instead for a more reliable solution.  
@@ -64,7 +64,7 @@ The cleanest way I've implemented early stopping thus far has been with a little
 
 The following is a code snippet directly from [trainer.py](https://github.com/tflearn/tflearn/blob/master/tflearn/helpers/trainer.py#L281) in the tflearn github repository, where I'm only showing the relevant parts/logic. 
 
-```python
+{% highlight python %}
 try:
     for epoch in range(n_epoch):
         # . . . Setup stuff for epoch here . . . 
@@ -103,7 +103,7 @@ finally:
         t.train_dflow.interrupt()
     # Set back train_ops
     self.train_ops = original_train_ops
-```
+{% endhighlight %}
 
 
 ## Setup the Basic Network Architecture

@@ -2,7 +2,7 @@
 layout: post
 title:  "Designing an Event Generator"
 date:   2016-08-27
-excerpt: "Simuling particle collisions for the ALICE collaboration at the Large Hadron Collider."
+excerpt: "Simulating particle collisions for the ALICE collaboration at the Large Hadron Collider."
 research: true
 feature: http://i.imgur.com/d5spxjP.png
 tag:
