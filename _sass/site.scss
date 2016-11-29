@@ -86,12 +86,7 @@ body {
 	    box-shadow: none;
 	}
 	@media #{$medium} {
-		width: 100%;
-	    box-shadow: none;
-	}
-	@media #{$large} {
-		width: 100%;
-	    box-shadow: none;
+		width: 80%;
 	}
 }
 .row {
