@@ -21,9 +21,22 @@ infinite number of possible combinations for hyperparameters such as . . .
 . . . and the list goes on and on. So how do the experts do it? You may be surprised to find out that machine learning is still a lot of trial-and-error. However, this just doesn't feel right. Surely there is a way we can automate this process. 
 
 
-My current research, led by Professor Dawn Song's research group at UC Berkeley, aims to solve this problem. Rather than having humans tinker around with designing deep neural networks, this project aims to write software that can learn to build deep networks on its own.
+My current research, led by Professor Dawn Song's research group at UC Berkeley, aims to solve this problem. Rather than having humans tinker around with designing deep neural networks, this project aims to write software that can learn to build deep networks on its own. In some sense, its learning process is akin to a child building structures with lego blocks, trying to figure out which combinations are 'best' and which combinations should be avoided altogether. 
 
-# Early Stopping
+
+### Automatic Code Generation
+
+The project itself is primarily written in the Scala programming language, and it outputs ready-to-run tensorflow  (python) implementations. The specifics of any given network are abstracted away. Instead, the networks are described as consisting of generic *components*. For the sake of brevity, we can think of these components as the essential building blocks of any deep network. In particular, they give us *topological* information, i.e. how the network graph is shaped.
+
+The process of code generation involves searching through many different network configurations and optimizing them for some pre-defined goal. In principle, this approach has the potential to eliminate time spent on building highly-specialized/domain-specific networks wherein we may not have particularly good reasons for the design decisions made/tested. Rather than saving specific network models that have performed well, we'd like to store models that can themselves build good models. Why save a single structure of legos when you can save progressively better lego builders?
+
+
+### Summary of What Follows
+
+For the remainder of this post, I'll describe more about my role in this project. In doing so, I'll attempt to provide some insight into how I approach research problems in general.
+
+
+# Task 1: Early Stopping
 
 Say you're a sentient machine trying to figure out the best network build. As we've discussed, you have about an infinite number of ways to approach this. Regardless of what you choose, you'll certainly need a way to *evaluate* how well you've done after constructing a given architecture.
 Unfortunately, even for a fast AI such as yourself, training and evaluation can take a *really* long time. 
@@ -57,12 +70,12 @@ classifier.fit(x=training_set.data,
 Unfortunately, a lot of these recommended approaches are outdated. Although I did manage to hack together a working implementation of early stopping with tf.contrib.learn (see TensorFlow Notebooks section), I had to suppress a lot of warning/info messages from TensorFlow (again, _a lot_) that were
 solely due to me using certain methods of theirs (as recommended by their tutorials) that are now deprecated and confusingly don't seem to have direct replacements in new versions. But enough of that for now, let's see how we can use the tflearn library instead for a more reliable solution.  
 
-## A Simple Solution
+### The Callback Class and TFLearn
 
 The cleanest way I've implemented early stopping thus far has been with a little help from tflearn (distinct from tf.contrib.learn). Although they currently don't support early stopping explicitly, a nice workaround is defining a **callback** object. Here is a working proof-of-concept example below. But first, a brief overview. 
 
 
-The following is a code snippet directly from [trainer.py](https://github.com/tflearn/tflearn/blob/master/tflearn/helpers/trainer.py#L281) in the tflearn github repository, where I'm only showing the relevant parts/logic. 
+The following is a code snippet (comments mostly mine) directly from [__trainer.py__](https://github.com/tflearn/tflearn/blob/master/tflearn/helpers/trainer.py#L281) in the tflearn github repository, where I'm only showing the relevant parts/logic. 
 
 {% highlight python %}
 try:
@@ -72,29 +85,24 @@ try:
             # . . . Setup stuff for next batch here . . . 
             for i, train_op in enumerate(self.train_ops):
                 caller.on_sub_batch_begin(self.training_state)
-                
                 # Train our model and store desired information in the train_op that
                 # we (the user) pass to the trainer as an initialization argument.
                 snapshot = train_op._train(self.training_state.step,
                                            (bool(self.best_checkpoint_path) | snapshot_epoch),
                                            snapshot_step,
                                            show_metric)
-                                           
                 # Update training state. The training state object tells us 
                 # how our model is doing at various stages of training.
                 self.training_state.update(train_op, train_ops_count)
-
             # All optimizers batch end
             self.session.run(self.incr_global_step)
             caller.on_batch_end(self.training_state, snapshot)
-
         # ---------- [What we care about] -------------
         # Epoch end. We define what on_epoch_end does. In this
         # case, I'll have it raise an exception if our validation accuracy
         # reaches some desired threshold. 
         caller.on_epoch_end(self.training_state)
         # ---------------------------------------------
-
 finally:
     # Once we raise the exception, this code block will execute. 
     # Note only afterward will our catch block execute. 
@@ -106,7 +114,9 @@ finally:
 {% endhighlight %}
 
 
-## Setup the Basic Network Architecture
+### Example Usage: Two-Layer Network for Digit Classification
+
+To illustrate how we can accomplish early stopping with a callback class, let's setup an example. For those familiar with tensorflow, feel free to skip this small subsection. Below is how one can construct a simple two-layer (Input Layer '0' -> Hidden Layer '1' -> Output Layer '2') neural network for classifying handwritten digits (groundbreaking, I know). 
 
 
 ```python
@@ -128,7 +138,6 @@ Y = tf.placeholder("float", [None, n_classes])
 W1 = tf.Variable(tf.random_normal([n_features, n_hidden]), name='W1')
 W2 = tf.Variable(tf.random_normal([n_hidden, n_hidden]), name='W2')
 W3 = tf.Variable(tf.random_normal([n_hidden, n_classes]), name='W3')
-
 b1 = tf.Variable(tf.random_normal([n_hidden]), name='b1')
 b2 = tf.Variable(tf.random_normal([n_hidden]), name='b2')
 b3 = tf.Variable(tf.random_normal([n_classes]), name='b3')
@@ -138,7 +147,6 @@ net = tf.tanh(tf.add(tf.matmul(X, W1), b1))
 net = tf.tanh(tf.add(tf.matmul(net, W2), b2))
 net = tf.add(tf.matmul(net, W3), b3)
 
-
 # Define the optimization problem.
 loss      = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(net, Y))
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
@@ -146,14 +154,13 @@ accuracy  = tf.reduce_mean(tf.cast(
         tf.equal(tf.argmax(net, 1), tf.argmax(Y, 1) ), tf.float32), name='acc')
 ```
 
-    hdf5 not supported (please install/reinstall h5py)
-    Extracting mnist/train-images-idx3-ubyte.gz
-    Extracting mnist/train-labels-idx1-ubyte.gz
-    Extracting mnist/t10k-images-idx3-ubyte.gz
-    Extracting mnist/t10k-labels-idx1-ubyte.gz
+### Define the TrainOp and Trainer Objects
 
+As you may have noticed when reading the trainer.py snippet shown earlier, tflearn makes use of __tflearn.trainOp__ and __tflearn.Trainer__ objects. These allow use to cleanly specify how we want to define the import aspects of our training process. Here, I feed in the specifications define in the last section, namely 
 
-## Define the TrainOp and Trainer Objects
+* Compute loss with the cross-entropy function.
+* Optimize with gradient descent.
+* Define accuracy by fraction of predictions that match the labels in Y. 
 
 
 ```python
@@ -161,9 +168,9 @@ trainop = tflearn.TrainOp(loss=loss, optimizer=optimizer, metric=accuracy, batch
 trainer = tflearn.Trainer(train_ops=trainop, tensorboard_verbose=1)
 ```
 
-# The EarlyStoppingCallback Class
+## Key Idea: EarlyStoppingCallback Class
 
-I show a proof-of-concept version of early stopping below. This is the simplest possible case: just stop training after the first epoch no matter what. It is up to the user to decide the conditions they want to trigger the stopping on.
+I show a proof-of-concept version of early stopping below. This is the simplest possible case: just stop training after the first epoch no matter what. It is up to the user to decide the conditions they want to trigger the stopping on. The available tools for determining when training should end are given to us by a **training state** object. It stores the variables that one would expect: validation/training accuracies and losses, current epoch, etc. See [this jupyter notebook of mine on early stopping](http://mckinziebrandon.me/TensorflowNotebooks/2016/11/20/early-stopping.html) for more details. 
 
 
 ```python
@@ -195,7 +202,9 @@ class EarlyStoppingCallback(tflearn.callbacks.Callback):
 early_stopping_cb = EarlyStoppingCallback(val_acc_thresh=0.5)
 ```
 
-# Result: Train the Model and Stop Early
+## Result: Train the Model and Stop Early
+
+Now we can pass our callback object to the trainer.fit function, sit back, and relax. Once our conditions are met for training termination, tflearn will leave the training loop, save the current state of our model, and enter our catch block, as shown below. 
 
 
 ```python
@@ -221,35 +230,21 @@ except StopIteration:
     Caught callback exception. Returning control to user program.
 
 
-# Appendix
+## Alternative Implementation with TFLearn Layers
 
-For my own reference, this is the code I started with before tinkering with the early stopping solution above.
+We just went through an example that combined tensorflow with tflearn together. Using helpers such as tflearn.trainOp and tflearn.Trainer allows one to implement more general networks by extending tensorflow with tflearn. However, we could go an even simpler route (but, of course, less flexible/generalizable) and solely use tflearn without explictly calling tensorflow functions at all. An example is shown below, early stopping included. 
 
 
 ```python
 from __future__ import division, print_function, absolute_import
 
-import os
-import sys
-import tempfile
-import urllib
-import collections
-import math
-
-import numpy as np
-import tensorflow as tf
-from scipy.io import arff
-
 import tflearn
-from sklearn.utils import shuffle
+import numpy as np
 from sklearn.metrics import roc_auc_score
 from tflearn.data_utils import shuffle, to_categorical
 from tflearn.layers.core import input_data, dropout, fully_connected
-from tflearn.layers.conv import conv_2d, max_pool_2d
-from tflearn.layers.normalization import local_response_normalization, batch_normalization
 from tflearn.layers.estimator import regression
 import tflearn.datasets.mnist as mnist
-
 
 # Load the data and handle any preprocessing here.
 X, Y, testX, testY = mnist.load_data(one_hot=True)
