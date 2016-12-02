@@ -16,7 +16,7 @@ comments: true
 
 # When Learning Is Too Dangerous
 
-Have you ever dreamed of learning a new skill, but you were afraid you might *die*? That's how I felt when I used to dream about
+Have you ever dreamed of learning a new skill, but you were afraid of injury or exerting too much effort? That's how I felt when I used to dream about
 juggling. Yes, tossing any imaginable assortment of objects into the air and be the commander of their trajectory. But alas, all
 my years studying physics had ingrained in me a fear of accelerating objects and their devastating effects. I was afraid.
 
