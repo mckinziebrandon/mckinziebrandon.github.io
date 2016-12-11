@@ -17,14 +17,14 @@ comments: false
 Note: You can read my full paper [by clicking this link.]({{site.url}}/assets/pdf/papers/LBNL_ToyModelResearch.pdf)
 {: .notice}
 
-## User-Friendly Particle Physics
+## Brief Overview
 
 One approach to analyzing the huge swaths of data at the Large Hadron Collider is by comparing experimental results with
 simulations. If you can reproduce piece-by-piece the observed data by writing simulations, your analysis gains some credibility.
 In general, simulations are great testing grounds for ideas that people may have but can't exactly prove with pen and paper
 calculations.
 
-Unfortunately, there is __a lot__ of "wheel-reinventing" going on in the experimental physics community. Although there are
+Unfortunately, there is a lot of "wheel-reinventing" going on in the experimental physics community. Although there are
 certainly great libraries that have gained widespread use like ROOT, PYTHIA, and FastJet, these libraries are more
 general-purpose.
 
@@ -32,6 +32,15 @@ Below is a code snippet from a much larger project of mine that sought to bring 
 generation. The initial aim of the project was to write specific simulations for a single dataset recently published by the ALICE
 collaboration. It turned out to be a great opportunity to write a small simulation framework for creating and analyzing particle
 collision events, particularly events containing __jets__.
+
+## User-Friendly Event Generation and Jet Finding
+
+Overall, simplicity and ease of use was a primary goal in developing the codebase for this model. The
+model obeys the object-oriented paradigm and strives to use classes and methods with intuitive names and
+behavior. For example, by using the libraries that I’ve written, the following code is all that is needed to
+generate a single event and run the jet finder on the produced particles. Managing complexity and writing
+modular code is especially crucial when designing a model that may require new components to be built in
+some unknown order in the future.
 
 {% highlight c++ %}
 void ToyModel(Int_t nEvents=1000, Float_t R=0.3) {
@@ -74,5 +83,7 @@ void ToyModel(Int_t nEvents=1000, Float_t R=0.3) {
 }
 {% endhighlight %}
 
-This page is still under construction. Stay tuned . . . 
+Above we see just one small example of the toy model interface. The user can both control event selection and query the objects for desired event information. A static Printer class, tailored to accept various outputs of the model classes, is available for quickly examining outputs and debugging.
+
+Coming Soon: Figure, figures, and more figures! I'll be including a subset of the figures found in my paper (see the link at the beginning of this post).
 {: .notice}
