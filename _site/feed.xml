@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-10T20:42:46-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">RNNs, LSTMs, and Reddit Comments</title><link href="http://localhost:4000/lstm/" rel="alternate" type="text/html" title="RNNs, LSTMs, and Reddit Comments" /><published>2016-12-09T00:00:00-08:00</published><updated>2016-12-09T00:00:00-08:00</updated><id>http://localhost:4000/lstm</id><content type="html" xml:base="http://localhost:4000/lstm/">&lt;p class=&quot;notice&quot;&gt;For a poster that summarizes the main ideas in this post, &lt;a href=&quot;http://localhost:4000/assets/pdf/lstm_poster.pdf&quot;&gt;click here.&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-10T22:59:47-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">RNNs, LSTMs, and Reddit Comments</title><link href="http://localhost:4000/lstm/" rel="alternate" type="text/html" title="RNNs, LSTMs, and Reddit Comments" /><published>2016-12-09T00:00:00-08:00</published><updated>2016-12-09T00:00:00-08:00</updated><id>http://localhost:4000/lstm</id><content type="html" xml:base="http://localhost:4000/lstm/">&lt;p class=&quot;notice&quot;&gt;For a poster that summarizes the main ideas in this post, &lt;a href=&quot;http://localhost:4000/assets/pdf/lstm_poster.pdf&quot;&gt;click here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Here we work through implementations of a “vanilla” (as basic as it gets) &lt;strong&gt;Recurrent Neural Network&lt;/strong&gt; and a &lt;strong&gt;Long Short Term Memory network&lt;/strong&gt; for generating reddit comments. As a bonus, at the end we will also implement a more sophisticated network using TFlearn to see the real power of such networks.&lt;/p&gt;
 
@@ -1151,7 +1151,7 @@ exploring the world of juggling. Yet, as seen in the video below, virtual realit
     &lt;figcaption&gt;Professional Photoshoot&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Acknowledgments:&lt;/strong&gt; Shoutout to Andres Calvo and John Busche for making this project possible! Two of the best team members I’ve ever been fortunate enough to have.&lt;/p&gt;</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">Tutorial - Machine Learning Classifiers</title><link href="http://localhost:4000/pml-ch3/" rel="alternate" type="text/html" title="Tutorial - Machine Learning Classifiers" /><published>2016-11-01T00:00:00-07:00</published><updated>2016-11-01T00:00:00-07:00</updated><id>http://localhost:4000/pml-ch3</id><content type="html" xml:base="http://localhost:4000/pml-ch3/">&lt;h2 id=&quot;choosing-a-classification-algorithm&quot;&gt;Choosing a classification algorithm&lt;/h2&gt;
+&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Acknowledgments:&lt;/strong&gt; Shoutout to Andres Calvo and John Busche for making this project possible! Two of the best team members I’ve ever been fortunate enough to have.&lt;/p&gt;</content><category term="research" /><category term="virtual reality" /><category term="Unity3D" /><category term="MIT" /><summary type="html">The journey of a young man learning to juggle in a virtual world.</summary></entry><entry><title type="html">Tutorial - Machine Learning Classifiers</title><link href="http://localhost:4000/pml-ch3/" rel="alternate" type="text/html" title="Tutorial - Machine Learning Classifiers" /><published>2016-11-01T00:00:00-07:00</published><updated>2016-11-01T00:00:00-07:00</updated><id>http://localhost:4000/pml-ch3</id><content type="html" xml:base="http://localhost:4000/pml-ch3/">&lt;h2 id=&quot;choosing-a-classification-algorithm&quot;&gt;Choosing a classification algorithm&lt;/h2&gt;
 
 &lt;p&gt;Five main steps involved in training a machine learning algorithm:&lt;/p&gt;
 &lt;ol&gt;
@@ -1716,14 +1716,14 @@ Accuracy: 0.91
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;</content><category term="machine learning" /><category term="tutorial" /><category term="python" /><summary type="html">My notes from chapter 2 of Python Machine Learning by Sebastian Raschka.</summary></entry><entry><title type="html">Designing an Event Generator</title><link href="http://localhost:4000/event-generator/" rel="alternate" type="text/html" title="Designing an Event Generator" /><published>2016-08-27T00:00:00-07:00</published><updated>2016-08-27T00:00:00-07:00</updated><id>http://localhost:4000/event-generator</id><content type="html" xml:base="http://localhost:4000/event-generator/">&lt;p class=&quot;notice&quot;&gt;Note: You can read my full paper &lt;a href=&quot;http://localhost:4000/assets/pdf/papers/LBNL_ToyModelResearch.pdf&quot;&gt;by clicking this link.&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;user-friendly-particle-physics&quot;&gt;User-Friendly Particle Physics&lt;/h2&gt;
+&lt;h2 id=&quot;brief-overview&quot;&gt;Brief Overview&lt;/h2&gt;
 
 &lt;p&gt;One approach to analyzing the huge swaths of data at the Large Hadron Collider is by comparing experimental results with
 simulations. If you can reproduce piece-by-piece the observed data by writing simulations, your analysis gains some credibility.
 In general, simulations are great testing grounds for ideas that people may have but can’t exactly prove with pen and paper
 calculations.&lt;/p&gt;
 
-&lt;p&gt;Unfortunately, there is &lt;strong&gt;a lot&lt;/strong&gt; of “wheel-reinventing” going on in the experimental physics community. Although there are
+&lt;p&gt;Unfortunately, there is a lot of “wheel-reinventing” going on in the experimental physics community. Although there are
 certainly great libraries that have gained widespread use like ROOT, PYTHIA, and FastJet, these libraries are more
 general-purpose.&lt;/p&gt;
 
@@ -1731,6 +1731,15 @@ general-purpose.&lt;/p&gt;
 generation. The initial aim of the project was to write specific simulations for a single dataset recently published by the ALICE
 collaboration. It turned out to be a great opportunity to write a small simulation framework for creating and analyzing particle
 collision events, particularly events containing &lt;strong&gt;jets&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;user-friendly-event-generation-and-jet-finding&quot;&gt;User-Friendly Event Generation and Jet Finding&lt;/h2&gt;
+
+&lt;p&gt;Overall, simplicity and ease of use was a primary goal in developing the codebase for this model. The
+model obeys the object-oriented paradigm and strives to use classes and methods with intuitive names and
+behavior. For example, by using the libraries that I’ve written, the following code is all that is needed to
+generate a single event and run the jet finder on the produced particles. Managing complexity and writing
+modular code is especially crucial when designing a model that may require new components to be built in
+some unknown order in the future.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c--&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ToyModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Int_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Float_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 
@@ -1771,4 +1780,6 @@ collision events, particularly events containing &lt;strong&gt;jets&lt;/strong&g
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p class=&quot;notice&quot;&gt;This page is still under construction. Stay tuned . . .&lt;/p&gt;</content><category term="Brandon McKinzie" /><category term="C++" /><category term="LHC" /><category term="physics" /><summary type="html">Simulating particle collisions for the ALICE collaboration at the Large Hadron Collider.</summary></entry></feed>
+&lt;p&gt;Above we see just one small example of the toy model interface. The user can both control event selection and query the objects for desired event information. A static Printer class, tailored to accept various outputs of the model classes, is available for quickly examining outputs and debugging.&lt;/p&gt;
+
+&lt;p class=&quot;notice&quot;&gt;Coming Soon: Figure, figures, and more figures! I’ll be including a subset of the figures found in my paper (see the link at the beginning of this post).&lt;/p&gt;</content><category term="Brandon McKinzie" /><category term="C++" /><category term="LHC" /><category term="physics" /><summary type="html">Simulating particle collisions for the ALICE collaboration at the Large Hadron Collider.</summary></entry></feed>
