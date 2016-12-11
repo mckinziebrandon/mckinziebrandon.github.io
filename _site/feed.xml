@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-09T22:18:10-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">RNNs, LSTMs, and Reddit Comments</title><link href="http://localhost:4000/lstm/" rel="alternate" type="text/html" title="RNNs, LSTMs, and Reddit Comments" /><published>2016-12-09T00:00:00-08:00</published><updated>2016-12-09T00:00:00-08:00</updated><id>http://localhost:4000/lstm</id><content type="html" xml:base="http://localhost:4000/lstm/">&lt;p class=&quot;notice&quot;&gt;For a poster that summarizes the main ideas in this post, &lt;a href=&quot;http://localhost:4000/assets/pdf/lstm_poster.pdf&quot;&gt;click here.&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-10T20:42:46-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">RNNs, LSTMs, and Reddit Comments</title><link href="http://localhost:4000/lstm/" rel="alternate" type="text/html" title="RNNs, LSTMs, and Reddit Comments" /><published>2016-12-09T00:00:00-08:00</published><updated>2016-12-09T00:00:00-08:00</updated><id>http://localhost:4000/lstm</id><content type="html" xml:base="http://localhost:4000/lstm/">&lt;p class=&quot;notice&quot;&gt;For a poster that summarizes the main ideas in this post, &lt;a href=&quot;http://localhost:4000/assets/pdf/lstm_poster.pdf&quot;&gt;click here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Here we work through implementations of a “vanilla” (as basic as it gets) &lt;strong&gt;Recurrent Neural Network&lt;/strong&gt; and a &lt;strong&gt;Long Short Term Memory network&lt;/strong&gt; for generating reddit comments. As a bonus, at the end we will also implement a more sophisticated network using TFlearn to see the real power of such networks.&lt;/p&gt;
 
@@ -1105,7 +1105,7 @@ my years studying physics had ingrained in me a fear of accelerating objects and
 
 &lt;p&gt;A hot topic in the current VR research community is creating virtual spaces that allow one to freely experiment and learn new
 skills. The options are without bound. My fear of large quantities of small objects falling from the sky prevented me from
-exploring the world of juggling. But that is history now, as you can see by my smiling face in the video below.&lt;/p&gt;
+exploring the world of juggling. Yet, as seen in the video below, virtual reality allowed me to learn in a safe virtual space.&lt;/p&gt;
 
 &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/si39l5rl_mU&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 
@@ -1129,6 +1129,12 @@ exploring the world of juggling. But that is history now, as you can see by my s
   virtual arms, and my virtual hands move exactly as I do. I could not tell you the number of times I hit the walls of that
   office while juggling in my virtual world (enough).&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Bonus Video&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;Below is a higher-quality demo of the project given by Andres Calvo, my advisor on the project and Master’s student at the Media Lab. Thanks Andres!&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/V7kX_EF_Fik&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;h2 id=&quot;modeling-experience&quot;&gt;Modeling Experience&lt;/h2&gt;
 

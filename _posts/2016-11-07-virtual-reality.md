@@ -6,11 +6,10 @@ excerpt: "The journey of a young man learning to juggle in a virtual world."
 research: true
 feature: http://i.imgur.com/ffq5hlx.jpg
 tag:
-- jekyll 
-- moon
-- blog
-- about
-- theme
+- research
+- virtual reality
+- Unity3D
+- MIT
 comments: true
 ---
 
@@ -26,7 +25,7 @@ my years studying physics had ingrained in me a fear of accelerating objects and
 
 A hot topic in the current VR research community is creating virtual spaces that allow one to freely experiment and learn new
 skills. The options are without bound. My fear of large quantities of small objects falling from the sky prevented me from
-exploring the world of juggling. But that is history now, as you can see by my smiling face in the video below. 
+exploring the world of juggling. Yet, as seen in the video below, virtual reality allowed me to learn in a safe virtual space. 
      
 <iframe width="560" height="315" src="https://www.youtube.com/embed/si39l5rl_mU" frameborder="0"></iframe>
 
@@ -47,6 +46,13 @@ __Watch the Laptop Screen__:
     hands. I'm able to pick them up and toss them around __without needing to hold a controller__. I can see my virtual body, my
     virtual arms, and my virtual hands move exactly as I do. I could not tell you the number of times I hit the walls of that
     office while juggling in my virtual world (enough). 
+
+__Bonus Video__:
+
+Below is a higher-quality demo of the project given by Andres Calvo, my advisor on the project and Master's student at the Media Lab. Thanks Andres!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V7kX_EF_Fik" frameborder="0" allowfullscreen></iframe>
+
 
 ## Modeling Experience
 
