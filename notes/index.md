@@ -9,15 +9,10 @@ comments: false
     
 # Explore My LaTeX Obsession
 
-Here you'll find my notes for the current (Fall 2016) semester. I have a passion for "making things look nice" (this website
-        doesn't count). Many of the little customizations you'll find in my notes are from LaTeX packages I've written. Each
-package is usually born in the hour-long google/crying session of *why can't I make it look like [insert trivial change here]*.
+Here you'll find my notes for the current (Fall 2016) semester. I have a passion for "making things look nice". Many of the little customizations you'll find in my notes are from LaTeX packages I've written. Each
+package is usually born in the hour-long google session of *why can't I make it look like [insert trivial change here]*.
 These notes would not be possible without my inability to ignore a formatting issue. For even more fun, notice how the formatting
-in each set of notes improves as you progress through the chapters [TODO: reformat earlier chapters . . .]
-
-**WARNING** Do _not_ alert me of any formatting issues in what follows until this semester is over...
-{: .notice}
-
+in each set of notes improves as you progress through the chapters.
 
 ## [Machine Learning]({{site.url}}/assets/pdf/LectureNotesCS189.pdf)
 
@@ -62,6 +57,7 @@ Here you'll find notes from . . .
 
 * UC Berkeley's Analytic Mechanics course (PHYS 105).
 * Classical Mechanics by John R. Taylor.
+* Classical Dynamics by Thornton and Marion.
  
 
 <div markdown="0"><a href="{{site.url}}/assets/pdf/Notes_PHYS105.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
