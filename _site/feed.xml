@@ -1,4 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-12T13:40:50-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">RNNs, LSTMs, and Reddit Comments</title><link href="http://localhost:4000/lstm/" rel="alternate" type="text/html" title="RNNs, LSTMs, and Reddit Comments" /><published>2016-12-09T00:00:00-08:00</published><updated>2016-12-09T00:00:00-08:00</updated><id>http://localhost:4000/lstm</id><content type="html" xml:base="http://localhost:4000/lstm/">&lt;p class=&quot;notice&quot;&gt;For a poster that summarizes the main ideas in this post, &lt;a href=&quot;http://localhost:4000/assets/pdf/lstm_poster.pdf&quot;&gt;click here.&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-21T19:44:43-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">Condensed Tutorials 1 - Conv Nets</title><link href="http://localhost:4000/colah-conv/" rel="alternate" type="text/html" title="Condensed Tutorials 1 - Conv Nets" /><published>2016-12-21T00:00:00-08:00</published><updated>2016-12-21T00:00:00-08:00</updated><id>http://localhost:4000/colah-conv</id><content type="html" xml:base="http://localhost:4000/colah-conv/">&lt;h1 id=&quot;conv-nets-a-modular-perspective&quot;&gt;Conv Nets: A Modular Perspective&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://colah.github.io/posts/2014-07-Conv-Nets-Modular/&quot;&gt;From this post on Colah’s Blog&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The title is inspired by the following figure. Colah mentions how groups of neurons, like \(A\), that appear in multiple places are sometimes called \textbf{modules}, and networks that use them are sometimes called modular neural networks. You can feed the output of one convolutional layer into another. With each layer, the network can detect higher-level, more abstract features.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/colah/ColahConv2.PNG&quot; style=&quot;width: 300px;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Function of the \(A\) neurons: compute certain &lt;em&gt;features&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Max pooling layers: kind of ``zoom out’’. They allow later convolutional layers to work on larger sections of the data. They also make us invariant to some very small transformations of the data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;understanding-convolutions&quot;&gt;Understanding Convolutions&lt;/h1&gt;
+
+&lt;p&gt;From the &lt;a href=&quot;https://colah.github.io/posts/2014-07-Understanding-Convolutions/&quot;&gt;subsequent tutorial&lt;/a&gt; on Colah’s Blog.&lt;/p&gt;
+
+&lt;h2 id=&quot;example-dropping-a-ball&quot;&gt;Example: Dropping a Ball&lt;/h2&gt;
+
+&lt;p class=&quot;notice&quot;&gt;Imagine we drop a ball from some height onto the ground, where it only has one dimension of motion. How likely is it that a ball will go a distance c if you drop it and then drop it again from above the point at which it landed?&lt;/p&gt;
+
+&lt;figure class=&quot;half&quot;&gt;
+    
+    &lt;a href=&quot;http://localhost:4000/assets/img/colah/ColahBall.PNG&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/img/colah/ColahBall.PNG&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;a href=&quot;http://localhost:4000/assets/img/colah/ColahBall3.PNG&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/img/colah/ColahBall3.PNG&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;figcaption&gt;Dropping a Ball. 1-D (left) and 2-d (right).&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;From basic probability, we know the result is a sum over possible outcomes, constrained by \(a + b = c\). It turns out this is actually the definition of the convolution of \(f\) and \(g\).&lt;/p&gt;
+
+&lt;p&gt;\[ \mathrm{Pr(a + b = c)} = \sum_{a + b = c} f(a) \cdot g(b) \]
+\[ (f * g)(c) = \sum_{a + b = c} f(a) \cdot g(b) = \sum_a f(a) \cdot g(c - a) \]&lt;/p&gt;
+
+&lt;h2 id=&quot;visualizing-convolutions&quot;&gt;Visualizing Convolutions&lt;/h2&gt;
+
+&lt;p&gt;Keeping the same example in the back of our heads, consider a few interesting facts. Flipping directions: If \(f(x)\) yields the probability of landing a distance \(x\) away from where it was dropped, what about the probability that it was dropped a distance \(x\) from where it \textit{landed}? It is \(f(-x)\).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://colah.github.io/posts/2014-07-Understanding-Convolutions/img/ProbConv-Intermediate.png&quot; alt=&quot;&quot; class=&quot;med&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Above is a visualization of one term in the summation of \((f * g)(c)\). It is meant to show how we can move the bottom around to think about evaluating the convolution for different \(c\) values. We can relate these ideas to image recognition. Below are two common kernels used to convolve images with.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For &lt;em&gt;blurring&lt;/em&gt; images, we take simple (uniform) averages. &lt;img src=&quot;http://localhost:4000/assets/img/colah/ColahKernel1.PNG&quot; alt=&quot;&quot; class=&quot;image-right small&quot; /&gt;To relate to our ball example, this is like letting \(f\) be pixel intensity and \(g\) be pixel weight (here this is just 1/9).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For &lt;em&gt;edge detection&lt;/em&gt;, we take the difference between two pixels. &lt;img src=&quot;http://localhost:4000/assets/img/colah/ColahKernel2.PNG&quot; alt=&quot;&quot; class=&quot;image-right small&quot; /&gt;This difference will be largest at edges, and essentially zero for similar-looking pixels.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><category term="condensed tutorial" /><category term="colah" /><summary type="html">My notes on two tutorials from Colah's blog, condensed to the main ideas.</summary></entry><entry><title type="html">RNNs, LSTMs, and Reddit Comments</title><link href="http://localhost:4000/lstm/" rel="alternate" type="text/html" title="RNNs, LSTMs, and Reddit Comments" /><published>2016-12-09T00:00:00-08:00</published><updated>2016-12-09T00:00:00-08:00</updated><id>http://localhost:4000/lstm</id><content type="html" xml:base="http://localhost:4000/lstm/">&lt;p class=&quot;notice&quot;&gt;For a poster that summarizes the main ideas in this post, &lt;a href=&quot;http://localhost:4000/assets/pdf/lstm_poster.pdf&quot;&gt;click here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Here we work through implementations of a “vanilla” (as basic as it gets) &lt;strong&gt;Recurrent Neural Network&lt;/strong&gt; and a &lt;strong&gt;Long Short Term Memory network&lt;/strong&gt; for generating reddit comments. As a bonus, at the end we will also implement a more sophisticated network using TFlearn to see the real power of such networks.&lt;/p&gt;
 

@@ -107,7 +107,7 @@ hr {
 // images and figures
 img {
     display: block;
-	max-width: 100%;
+	max-width: 80%;
     width: auto;
     height: auto;
     vertical-align: middle;
@@ -128,8 +128,15 @@ img {
 }
 .image-right {
     float: right;
-    margin-left: 1em;
+    margin-left: 2em;
     margin-top: 0;
+    max-height: 200px;
+}
+.small {
+    max-height: 70px;
+}
+.med {
+    max-height: 200px;
 }
 figure {
   margin: 0;
