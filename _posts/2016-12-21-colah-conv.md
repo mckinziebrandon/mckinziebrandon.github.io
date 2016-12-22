@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Condensed Tutorials 1 - Conv Nets"
+title:  "Condensed Tutorials 1 - Convolution in Neural Nets"
 date:   2016-12-21
-excerpt: "My notes on two tutorials from Colah's blog, condensed to the main ideas."
+excerpt: "The first in a series of notes I'll be taking from various online sources. Here I go over two posts from Colah's blog, condensed to the main ideas."
 tags:
 - condensed tutorial
 - colah
@@ -14,7 +14,7 @@ comments: false
 
 [From this post on Colah's Blog](https://colah.github.io/posts/2014-07-Conv-Nets-Modular/).
 
-The title is inspired by the following figure. Colah mentions how groups of neurons, like \\(A\\), that appear in multiple places are sometimes called \textbf{modules}, and networks that use them are sometimes called modular neural networks. You can feed the output of one convolutional layer into another. With each layer, the network can detect higher-level, more abstract features.
+The title is inspired by the following figure. Colah mentions how groups of neurons, like \\(A\\), that appear in multiple places are sometimes called __modules__, and networks that use them are sometimes called modular neural networks. You can feed the output of one convolutional layer into another. With each layer, the network can detect higher-level, more abstract features.
 
 <img src="{{site.url}}/assets/img/colah/ColahConv2.PNG" style="width: 300px;"/>
 
@@ -48,7 +48,7 @@ From basic probability, we know the result is a sum over possible outcomes, cons
 
 ## Visualizing Convolutions
 
-Keeping the same example in the back of our heads, consider a few interesting facts. Flipping directions: If \\(f(x)\\) yields the probability of landing a distance \\(x\\) away from where it was dropped, what about the probability that it was dropped a distance \\(x\\) from where it \textit{landed}? It is \\(f(-x)\\). 
+Keeping the same example in the back of our heads, consider a few interesting facts. Flipping directions: If \\(f(x)\\) yields the probability of landing a distance \\(x\\) away from where it was dropped, what about the probability that it was dropped a distance \\(x\\) from where it _landed_? It is \\(f(-x)\\). 
 	
 ![](http://colah.github.io/posts/2014-07-Understanding-Convolutions/img/ProbConv-Intermediate.png){: .med}
 
