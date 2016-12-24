@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-21T21:47:45-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">Condensed Tutorials 1 - Convolution in Neural Nets</title><link href="http://localhost:4000/colah-conv/" rel="alternate" type="text/html" title="Condensed Tutorials 1 - Convolution in Neural Nets" /><published>2016-12-21T00:00:00-08:00</published><updated>2016-12-21T00:00:00-08:00</updated><id>http://localhost:4000/colah-conv</id><content type="html" xml:base="http://localhost:4000/colah-conv/">&lt;h1 id=&quot;conv-nets-a-modular-perspective&quot;&gt;Conv Nets: A Modular Perspective&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2016-12-23T17:35:56-08:00</updated><id>http://localhost:4000//</id><title type="html">Brandon McKinzie</title><subtitle>A bit of physics here, and a bit of computer science there.</subtitle><entry><title type="html">Condensed Tutorials 2 - Deep Reinforcement Learning</title><link href="http://localhost:4000/drl/" rel="alternate" type="text/html" title="Condensed Tutorials 2 - Deep Reinforcement Learning" /><published>2016-12-23T00:00:00-08:00</published><updated>2016-12-23T00:00:00-08:00</updated><id>http://localhost:4000/drl</id><content type="html" xml:base="http://localhost:4000/drl/">&lt;p&gt;&lt;a href=&quot;https://www.nervanasys.com/demystifying-deep-reinforcement-learning/&quot;&gt;Link to tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;reinforcement learning&lt;/strong&gt;. vulnerable to the &lt;em&gt;credit assignment problem&lt;/em&gt; - i.e. unsure which of the preceding actions was responsible for getting some reward and to what extent. Also need to address the famous &lt;em&gt;explore-exploit dilemma&lt;/em&gt; when deciding what strategies to use.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Markov Decision Process&lt;/strong&gt;. Most common method for representing a reinforcement problem. MDPs consist of states, actions, and rewards. Total reward is sum of current (includes previous) and &lt;em&gt;discounted&lt;/em&gt; future rewards:
+\[
+	R_t = r_t \gamma(r_{t + 1}
+	 + \gamma(r_{t + 2} + \ldots)) = r_t + \gamma R_{t + 1}
+\]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q - learning&lt;/strong&gt;. Define function \(Q(s, a)\) to be best possible score at end of game after performing action \(a\) in state \(s\); the “quality” of an action from a given state. The recursive definition of Q (for one transition) is given below in the &lt;em&gt;Bellman equation&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;\[ Q(s, a) = r + \gamma \mathrm{max}_{a’} Q(s’, a’) \]&lt;/p&gt;
+
+&lt;p&gt;and updates are computed with a learning rate \(\alpha\)as&lt;/p&gt;
+
+&lt;p&gt;\[ Q(s_t, a_t) = (1 - \alpha)\cdot Q(s_{t -1}, a_{t - 1}) + \alpha \cdot (r + \gamma \max_{a’} Q(s’&lt;em&gt;{t + 1}, a&lt;/em&gt;{t+1}’) ) \]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deep Q Network&lt;/strong&gt;. Deep learning can take deal with issues related to prohibitively large state spaces. The implementation chosen by DeepMind was to represent the Q-function with a neural network, with the states (pixels) as the input and Q-values as output, where the number of output neurons is the number of possible actions from the input state. We can optimize with simple squared loss:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/drl/DRL_loss.PNG&quot; style=&quot;width: 250px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and our algorithm from some state $s$ becomes&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;First forward pass&lt;/strong&gt; from $s$ to get all predicted Q-values for each possible action. Choose action corresponding to max output, leading to next $s’$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Second forward pass&lt;/strong&gt; from $s’$ and again compute $\max_{a’} Q(s’, a’)$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Set target output&lt;/strong&gt; for each action $a’$ from $s’$. For the action corresponding to max (from step 2) set its target as $r + \gamma \max_{a’} Q(s’, a’)$, and for all other actions set target to same as originally returned from step 1, making the error 0 for those outputs. (Interpret as update to our guess for the best Q-value, and keep the others the same.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Update weights&lt;/strong&gt; using backprop.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Experience Replay&lt;/strong&gt;. This the most important trick for helping convergence of Q-values when approximating with non-linear functions. During gameplay all the experience $&amp;lt;s, a, r, s’&amp;gt;$ are stored in a replay memory. When training the network, random minibatches from the replay memory are used instead of the most recent transition.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Exploration&lt;/strong&gt;. One could say that initializing the Q-values randomly and then picking the max is essentially a form of exploitation. However, this type of exploration is *greedy}, which can be tamed/fixed with \textbf{$\bm{\varepsilon}$-greedy exploration}. This incorporates a degree of randomness when choosing next action at *all} time-steps, determined by probability $\varepsilon$ that we choose the next action randomly. For example, DeepMind decreases $\varepsilon$ over time from 1 to 0.1.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deep Q-Learning Algorithm&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/drl/DRL_alg.PNG&quot; style=&quot;width: 400px;&quot; /&gt;&lt;/p&gt;</content><category term="condensed tutorial" /><category term="deep learning" /><category term="reinforcement learning" /><summary type="html">Part I from the *Demystifying Deep Reinforcement Learning* post at nervanasys.</summary></entry><entry><title type="html">Condensed Tutorials 1 - Convolution in Neural Nets</title><link href="http://localhost:4000/colah-conv/" rel="alternate" type="text/html" title="Condensed Tutorials 1 - Convolution in Neural Nets" /><published>2016-12-21T00:00:00-08:00</published><updated>2016-12-21T00:00:00-08:00</updated><id>http://localhost:4000/colah-conv</id><content type="html" xml:base="http://localhost:4000/colah-conv/">&lt;h1 id=&quot;conv-nets-a-modular-perspective&quot;&gt;Conv Nets: A Modular Perspective&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://colah.github.io/posts/2014-07-Conv-Nets-Modular/&quot;&gt;From this post on Colah’s Blog&lt;/a&gt;.&lt;/p&gt;
 
