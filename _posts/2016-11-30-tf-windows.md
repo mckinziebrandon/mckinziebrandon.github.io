@@ -4,6 +4,7 @@ title:  "TensorFlow Support For Windows!"
 date:   2016-11-30
 excerpt: "Alas, the day has finally come. Goodbye Docker. Goodbye VMWare (well, sort of)."
 feature: http://i.imgur.com/XkJom03.png
+published: false
 tag:
 - tensorflow
 - python

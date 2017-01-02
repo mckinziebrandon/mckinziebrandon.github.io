@@ -6,16 +6,13 @@ reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/Me.jpg'
 background:         http://i.imgur.com/oRIhuWM.jpg
-#background:         http://i.imgur.com/grjMwNm.jpg
-tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
+tiled_bg:           false   # Set this true if you want to tile your background image
 locale:             en_US
 url:                http://mckinziebrandon.me
 
 # Jekyll
 permalink:          /:title/
 markdown:           kramdown
-#markdown:           redcarpet
-#highlighter:        pygments
 highlighter:        rouge
 kramdown:
   auto_ids:         true
@@ -39,30 +36,10 @@ disqus_shortname:   mckinziebrandon
   #verify:
   #ad-client:
   #ad-slot:
-#bing-verify:
 email:              mckinziebrandon@berkeley.edu
-#twitter:            username
-#facebook:           username
 github:             mckinziebrandon
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 linkedin:           brandon-mckinzie-452a03112
-#quora:              Brandon-McKinzie
-#xing:              username
-#instagram:          username
-#lastfm:            username
-#tumblr:            username
-#pinterest:         username
-#foursquare:        username
-#steam:              username
-#dribbble:          username
-#youtube:           username
-#soundcloud:        username
-#weibo:             username
-#flickr:            username
-#codepen:           username
-#keybase:           username
-#xmpp:              username@server.com
-#hackernews:        username
 
 # Gems
 gems:
