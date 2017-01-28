@@ -17,6 +17,7 @@ in each set of notes improves as you progress through the chapters.
 ## [(In Progress) Deep Learning Notes]({{site.url}}/assets/pdf/CondensedSummaries.pdf)
 
 Since graduating, I've been going through various books/MOOCs on deep learning, compiling notes along the way. The main sources are 
+
 * Deep Learning by Goodfellow, et al.
 * Various ML/DL blogs, notably Colah's blog and WildML.
 * Miscellaneous papers from groups like DeepMind.
