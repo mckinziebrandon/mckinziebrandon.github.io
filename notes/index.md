@@ -14,6 +14,15 @@ package is usually born in the hour-long google session of *why can't I make it 
 These notes would not be possible without my inability to ignore a formatting issue. For even more fun, notice how the formatting
 in each set of notes improves as you progress through the chapters.
 
+## [(In Progress) Deep Learning Notes]({{site.url}}/assets/pdf/CondensedSummaries.pdf)
+
+Since graduating, I've been going through various books/MOOCs on deep learning, compiling notes along the way. The main sources are 
+* Deep Learning by Goodfellow, et al.
+* Various ML/DL blogs, notably Colah's blog and WildML.
+* Miscellaneous papers from groups like DeepMind.
+
+<div markdown="0"><a href="{{site.url}}/assets/pdf/CondensedSummaries.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
+
 ## [Machine Learning]({{site.url}}/assets/pdf/LectureNotesCS189.pdf)
 
 Here you'll find notes from . . . 
