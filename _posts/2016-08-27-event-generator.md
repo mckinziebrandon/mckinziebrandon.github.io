@@ -14,7 +14,7 @@ comments: false
 ---
 
 
-Note: You can read my full paper [by clicking this link.]({{site.url}}/assets/pdf/papers/LBNL_ToyModelResearch.pdf)
+LINKS: (1) [research paper]({{site.url}}/assets/pdf/papers/LBNL_ToyModelResearch.pdf). (2) [Github repository](https://github.com/mckinziebrandon/Jet-Analysis)
 {: .notice}
 
 ## Brief Overview
