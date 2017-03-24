@@ -2,7 +2,7 @@
 layout: page
 title: About
 tags: [about, Jekyll, theme, moon]
-feature: http://i.imgur.com/ICvdadV.jpg?1
+feature: http://i.imgur.com/lRsbfRa.png
 date: 2016-03-21
 comments: false
 ---
