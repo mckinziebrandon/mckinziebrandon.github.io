@@ -2,36 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f06bc7e5-d8f6-419c-ac3d-997995908642" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/colah-conv/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/drl/index.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/_posts/2016-11-30-tf-windows.md" afterPath="$PROJECT_DIR$/_drafts/2016-11-30-tf-windows.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/_posts/2016-12-21-colah-conv.md" afterPath="$PROJECT_DIR$/_drafts/2016-12-21-colah-conv.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/_posts/2016-12-23-drl.md" afterPath="$PROJECT_DIR$/_drafts/2016-12-23-drl.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/jekyll-github.scssc" afterPath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/jekyll-github.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/site.scssc" afterPath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/site.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/typography.scssc" afterPath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/typography.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/variables.scssc" afterPath="$PROJECT_DIR$/.sass-cache/590b3bf4acf9a6ce2c6fa93b8ce8eb138128abb7/variables.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/pdf/CondensedSummaries.pdf" afterPath="$PROJECT_DIR$/_site/assets/pdf/CondensedSummaries.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/pdf/Resume.pdf" afterPath="$PROJECT_DIR$/_site/assets/pdf/Resume.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_includes/head.html" afterPath="$PROJECT_DIR$/_includes/head.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_layouts/home.html" afterPath="$PROJECT_DIR$/_layouts/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-12-09-lstm.md" afterPath="$PROJECT_DIR$/_posts/2016-12-09-lstm.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/jekyll-github.scss" afterPath="$PROJECT_DIR$/_sass/jekyll-github.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/site.scss" afterPath="$PROJECT_DIR$/_sass/site.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/syntax.scss" afterPath="$PROJECT_DIR$/_sass/syntax.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/typography.scss" afterPath="$PROJECT_DIR$/_sass/typography.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/variables.scss" afterPath="$PROJECT_DIR$/_sass/variables.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/404.html" afterPath="$PROJECT_DIR$/_site/404.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/about/index.html" afterPath="$PROJECT_DIR$/_site/about/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/css/main.css" afterPath="$PROJECT_DIR$/_site/assets/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/current-research/index.html" afterPath="$PROJECT_DIR$/_site/current-research/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/event-generator/index.html" afterPath="$PROJECT_DIR$/_site/event-generator/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/kernel-classifiers/index.html" afterPath="$PROJECT_DIR$/_site/kernel-classifiers/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/lstm/index.html" afterPath="$PROJECT_DIR$/_site/lstm/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/notes/index.html" afterPath="$PROJECT_DIR$/_site/notes/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/pml-ch2/index.html" afterPath="$PROJECT_DIR$/_site/pml-ch2/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/pml-ch3/index.html" afterPath="$PROJECT_DIR$/_site/pml-ch3/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/posts/index.html" afterPath="$PROJECT_DIR$/_site/posts/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/research/index.html" afterPath="$PROJECT_DIR$/_site/research/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/tags/index.html" afterPath="$PROJECT_DIR$/_site/tags/index.html" />
@@ -165,8 +147,8 @@
               <file leaf-file-name="jekyll-github.scss" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/_sass/jekyll-github.scss">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="637">
-                      <caret line="49" column="31" lean-forward="false" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
+                    <state relative-caret-position="715">
+                      <caret line="55" column="30" lean-forward="false" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
                       <folding />
                     </state>
                   </provider>
@@ -211,8 +193,8 @@
                   <file leaf-file-name="variables.scss" pinned="false" current-in-tab="true">
                     <entry file="file://$PROJECT_DIR$/_sass/variables.scss">
                       <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="13">
-                          <caret line="1" column="30" lean-forward="false" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+                        <state relative-caret-position="403">
+                          <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
                           <folding />
                         </state>
                       </provider>
@@ -280,8 +262,8 @@
         <option value="$PROJECT_DIR$/_sass/syntax.scss" />
         <option value="$PROJECT_DIR$/assets/css/main.scss" />
         <option value="$PROJECT_DIR$/_posts/2016-12-09-lstm.md" />
-        <option value="$PROJECT_DIR$/_sass/variables.scss" />
         <option value="$PROJECT_DIR$/_sass/jekyll-github.scss" />
+        <option value="$PROJECT_DIR$/_sass/variables.scss" />
       </list>
     </option>
   </component>
@@ -984,18 +966,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_sass/variables.scss">
+    <entry file="file://$PROJECT_DIR$/_sass/jekyll-github.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" column="30" lean-forward="false" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+        <state relative-caret-position="715">
+          <caret line="55" column="30" lean-forward="false" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_sass/jekyll-github.scss">
+    <entry file="file://$PROJECT_DIR$/_sass/variables.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="49" column="31" lean-forward="false" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
+        <state relative-caret-position="403">
+          <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
           <folding />
         </state>
       </provider>
