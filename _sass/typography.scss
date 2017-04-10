@@ -1,6 +1,6 @@
 // content area
 .content {
-	@include font-size(15);
+	@include font-size(18);
 	padding: 0 2rem;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased !important;
@@ -60,7 +60,9 @@ h3.title a {
             }
 		}
 		p {
-			font-weight: lighter;
+			font-weight: normal;
+            // rem = 'root em'
+            // em unit is relative to the font-size of the parent.
 			@include font-rem(16);
 		}
 	}

@@ -3,10 +3,12 @@ pre.highlight {
 }
 
 .highlight {
-	background-color: #49483e;
+	//background-color: #49483e;
+    background-color: $white;
 	font-family: $font2;
-	@include font-size(14);
-	color: #f8f8f2;
+	@include font-size(16);
+	//color: #f8f8f2;
+    color:  #49483e;
 	border-radius: 4px;
 	pre {
 		position: relative;

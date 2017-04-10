@@ -13,7 +13,8 @@ html {
 }
 body {
 	@extend %extend1;
-	font-family: $font1;
+	//font-family: $font1;
+    font-family: $font3;
 	@include font-rem($doc-font-size);
 	color: $color_tuatara;
 	background-color: $bodycolor;
