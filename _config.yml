@@ -1,6 +1,5 @@
 # Site
 title:              Brandon McKinzie
-#bio:                ''
 description:        "A bit of physics here, and a bit of computer science there."
 reading_time:       true
 words_per_minute:   200
@@ -26,7 +25,7 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   mckinziebrandon
+disqus_shortname:   http-mckinziebrandon-me
 
 # Social
 email:              mckinziebrandon@berkeley.edu

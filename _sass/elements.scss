@@ -1,7 +1,7 @@
 // Buttons
 %btnextend {
 	display: inline-block;
-	border: 1px solid;
+	border: 2px solid;
 	border-color: rgba($color_mercury,0.5) rgba($color_bon_jour,0.5) $color_mischka;
 	border-radius: 3px;
 	text-decoration: none;
@@ -73,7 +73,7 @@
 }
 .title .btn {
     margin: 10px;
-    @include font-rem(16);
+    @include font-rem(20);
     font-weight:300;
 }
 .post-list {
@@ -175,7 +175,7 @@ figure {
   }
 }
 svg:not(:root) {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 // keyboard tag
