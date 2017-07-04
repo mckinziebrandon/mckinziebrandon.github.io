@@ -8,17 +8,11 @@ comments: false
 ---
     
 
-# Who Am I?
+# About Me
 
-That's a great question. For the purposes of this site, I'll keep this pragmatic. I am . . . 
+I'm currently a machine learning engineer at a startup named Agora in Cambridge, MA. My work is focused on designing and building the core NLP engine for Agora, which will soon support tasks such as unsupervised clustering of text streams, sentiment analysis, response recommendation, and more. One of the broader goals at Agora is to utilize modern NLP architectures and algorithms for online language understanding. Accordingly, I spend my days implementing and my nights researching in order to stay up-to-date with the rapid advances taking place in the NLP research community. 
 
-![Existential Robot](http://i.imgur.com/ekNkDTM.jpg "Existential Robot"){: .image-right}
-
-* An undergraduate senior at UC Berkeley, majoring in Physics and minoring in Computer Science. Although, for all intents and purposes, I've primarily been a CS student for about the past year.
-* A researcher. I've devoted a substantial portion of the past four years working as a student researcher at various institutions.
-Most of my research background has been in particle physics. More recently, I've worked in CS-related research such as in virtual
-reality (MIT) and now deep learning (UC Berkeley). 
-
+While an undergraduate at UC Berkeley, I devoted the majority of my time to research, working for institutions such as MIT, UC Berkeley, Lawrence Berkeley National Laboratory, and Brookhaven National Laboratory. My research background is primarily in computational particle physics and, in particular, analyzing large datasets from collaborations at the Large Hadron Collider and the Relativistic Heavy Ion Collider. In the past few years, my interests have shifted to research in deep learning and natural language processing. In a sentence, my work has involved automatic architecture generation for deep neural networks, sequence-to-sequence models for conversational dialogue, and unsupervised methods for text processing.
 
 # What You'll Find on This Site
 
