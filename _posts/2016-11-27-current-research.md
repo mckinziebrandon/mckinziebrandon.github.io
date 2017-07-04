@@ -2,7 +2,7 @@
 layout: post
 title:  "Automatic Architecture Generation for Deep Neural Networks"
 date:   2016-11-27
-excerpt: "A brief overview of my current research."
+excerpt: "A brief overview of my deep learning research at UC Berkeley."
 research: true
 tags: [research,  deep learning, python, tensorflow]
 comments: false
