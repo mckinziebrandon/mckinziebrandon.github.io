@@ -4,3 +4,5 @@ _site
 .idea/*
 
 .**.swp
+
+commit_dl_notes.sh
