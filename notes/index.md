@@ -19,8 +19,12 @@ in each set of notes improves as you progress through the chapters.
 Since graduating, I've been going through various books/MOOCs on deep learning, compiling notes along the way. The main sources are 
 
 * Deep Learning by Goodfellow, et al.
-* Various ML/DL blogs, notably Colah's blog and WildML.
-* Miscellaneous papers from groups like DeepMind.
+* Speech and Language Processing by Jurafsky and Martin.
+* Probabilistic Graphical Models by Koller and Friedman.
+* Information Theory, Inference, and Learning Algorithms by Mackay.
+* Machine Learning: A Probabilistic Perspective by Kevin Murphy. 
+* Bayesian Data Analysis by Gelman et al.
+* A subset of my favorite papers that I frequently reference for my work.
 
 <div markdown="0"><a href="{{site.url}}/assets/pdf/CondensedSummaries.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
