@@ -33,7 +33,7 @@ Since graduating, I've been working through various textbooks/papers, compiling 
 In February 2019, I enrolled in the [Artificial Intelligence Graduate Certificate](https://scpd.stanford.edu/public/category/courseCategoryCertificateProfile.do?method=load&certificateId=1226717) program at Stanford University. I'll be updating this section with my course notes at the end of each quarter.
 
 * [(CS221) Artificial Intelligence: Principles and Techniques]({{site.url}}/assets/pdf/CS221.pdf)
-* (CS236) Deep Generative Models (WIP)
+* [(CS236) Deep Generative Models]({{site.url}}/assets/pdf/CS236.pdf)
 
 
 ## [Machine Learning]({{site.url}}/assets/pdf/LectureNotesCS189.pdf)
