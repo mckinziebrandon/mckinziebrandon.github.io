@@ -15,15 +15,19 @@ These notes would not be possible without my inability to ignore a formatting is
 
 ## [(In Progress) Deep Learning Notes]({{site.url}}/assets/pdf/CondensedSummaries.pdf)
 
-Since graduating, I've been working through various textbooks/papers, compiling notes along the way. The main sources are 
+Since graduating, I've been working through various textbooks/papers, compiling notes along the way. Originally this was just a single document, but it became too large to compile in TextStudio! Now it is comprised of the following sub-documents:
 
-* Deep Learning by Goodfellow, et al.
-* Speech and Language Processing by Jurafsky and Martin.
-* Probabilistic Graphical Models by Koller and Friedman.
-* Information Theory, Inference, and Learning Algorithms by Mackay.
-* Machine Learning: A Probabilistic Perspective by Kevin Murphy. 
-* Bayesian Data Analysis by Gelman et al.
-* A subset of my favorite papers that I frequently reference for my work.
+* [Deep Learning by Goodfellow, et al.]({{site.url}}/assets/pdf/DeepLearningBook.pdf)
+* [Speech and Language Processing by Jurafsky and Martin]({{site.url}}/assets/pdf/MiscStanford.pdf)
+* [Other Textbooks]({{site.url}}/assets/pdf/TextBooks.pdf)
+    * Probabilistic Graphical Models by Koller and Friedman.
+    * Information Theory, Inference, and Learning Algorithms by Mackay.
+    * Machine Learning: A Probabilistic Perspective by Kevin Murphy. 
+    * Bayesian Data Analysis by Gelman et al.
+* [Papers]({{site.url}}/assets/pdf/PapersAndTutorials.pdf): A subset of my favorite papers that I frequently reference for my work.
+* [Misc concepts/clarifications]({{site.url}}/assets/pdf/BlogsAndAppendix.pdf) on a variety of ML topics. 
+
+The full single document, before breaking up into the chunks above, can be reached by clicking the button below.
 
 <div markdown="0"><a href="{{site.url}}/assets/pdf/CondensedSummaries.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
