@@ -1,0 +1,264 @@
+I"A�<h1 id="motivation">Motivation</h1>
+
+<p>One of the challenges in building an effective deep neural network is, of course, figuring out how to build it! There are an
+infinite number of possible combinations for hyperparameters such as . . .</p>
+
+<ul>
+  <li>number of layers (the “depth”)</li>
+  <li>number of parallel layers (the “width”)</li>
+  <li>activation functions for each (computational) layer</li>
+  <li>learning rate(s) and/or momentum</li>
+</ul>
+
+<p>. . . and the list goes on and on. So how do the experts do it? You may be surprised to find out that machine learning is still a lot of trial-and-error. However, this just doesn’t feel right. Surely there is a way we can automate this process.</p>
+
+<p>My current research, led by Professor Dawn Song’s research group at UC Berkeley, aims to solve this problem. Rather than having humans tinker around with designing deep neural networks, this project aims to write software that can learn to build deep networks on its own. In some sense, its learning process is akin to a child building structures with lego blocks, trying to figure out which combinations are ‘best’ and which combinations should be avoided altogether.</p>
+
+<h3 id="automatic-code-generation">Automatic Code Generation</h3>
+
+<p>The project itself is primarily written in the Scala programming language, and it outputs ready-to-run tensorflow  (python) implementations. The specifics of any given network are abstracted away. Instead, the networks are described as consisting of generic <em>components</em>. For the sake of brevity, we can think of these components as the essential building blocks of any deep network. In particular, they give us <em>topological</em> information, i.e. how the network graph is shaped.</p>
+
+<p>The process of code generation involves searching through many different network configurations and optimizing them for some pre-defined goal. In principle, this approach has the potential to eliminate time spent on building highly-specialized/domain-specific networks wherein we may not have particularly good reasons for the design decisions made/tested. Rather than saving specific network models that have performed well, we’d like to store models that can themselves build good models. Why save a single structure of legos when you can save progressively better lego builders?</p>
+
+<h3 id="summary-of-what-follows">Summary of What Follows</h3>
+
+<p>For the remainder of this post, I’ll describe more about my role in this project. In doing so, I’ll attempt to provide some insight into how I approach research problems in general.</p>
+
+<h1 id="task-1-early-stopping">Task 1: Early Stopping</h1>
+
+<p>Say you’re a sentient machine trying to figure out the best network build. As we’ve discussed, you have about an infinite number of ways to approach this. Regardless of what you choose, you’ll certainly need a way to <em>evaluate</em> how well you’ve done after constructing a given architecture.
+Unfortunately, even for a fast AI such as yourself, training and evaluation can take a <em>really</em> long time.</p>
+
+<p>A common technique for speeding up the training and evaluation, known as <strong>early stopping</strong>, involving periodically “peeking under the hood” of the network as it learns, and determining whether or not (a) it is mostly done learning (negligible improvement), or (b) it has “learned enough,” where it
+is up to the designer to determine what “enough” means.</p>
+
+<p>So how does one implement early stopping in practice? Surprisingly, the support for this (in tensorflow/tflearn) is slim. If you try digging around on how to use tensorflow for this, you’ll likely find code snippets such as the following.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">validation_metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s">"accuracy"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">streaming_accuracy</span><span class="p">,</span>
+                      <span class="s">"precision"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">streaming_precision</span><span class="p">,</span>
+                      <span class="s">"recall"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">streaming_recall</span><span class="p">}</span>
+
+<span class="n">validation_monitor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">learn</span><span class="o">.</span><span class="n">monitors</span><span class="o">.</span><span class="n">ValidationMonitor</span><span class="p">(</span>
+    <span class="n">test_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">test_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+    <span class="n">every_n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="c1">#metrics=validation_metrics,
+</span>    <span class="n">early_stopping_metric</span><span class="o">=</span><span class="s">'loss'</span><span class="p">,</span>
+    <span class="n">early_stopping_metric_minimize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">training_set</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+               <span class="n">y</span><span class="o">=</span><span class="n">training_set</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+               <span class="n">steps</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+               <span class="n">monitors</span><span class="o">=</span><span class="p">[</span><span class="n">validation_monitor</span><span class="p">])</span></code></pre></figure>
+
+<p>Unfortunately, a lot of these recommended approaches are outdated. Although I did manage to hack together a working implementation of early stopping with tf.contrib.learn (see TensorFlow Notebooks section), I had to suppress a lot of warning/info messages from TensorFlow (again, <em>a lot</em>) that were
+solely due to me using certain methods of theirs (as recommended by their tutorials) that are now deprecated and confusingly don’t seem to have direct replacements in new versions. But enough of that for now, let’s see how we can use the tflearn library instead for a more reliable solution.</p>
+
+<h3 id="the-callback-class-and-tflearn">The Callback Class and TFLearn</h3>
+
+<p>The cleanest way I’ve implemented early stopping thus far has been with a little help from tflearn (distinct from tf.contrib.learn). Although they currently don’t support early stopping explicitly, a nice workaround is defining a <strong>callback</strong> object. Here is a working proof-of-concept example below. But first, a brief overview.</p>
+
+<p>The following is a code snippet (comments mostly mine) directly from <a href="https://github.com/tflearn/tflearn/blob/master/tflearn/helpers/trainer.py#L281"><strong>trainer.py</strong></a> in the tflearn github repository, where I’m only showing the relevant parts/logic.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epoch</span><span class="p">):</span>
+        <span class="c1"># . . . Setup stuff for epoch here . . . 
+</span>        <span class="k">for</span> <span class="n">batch_step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_batches_len</span><span class="p">):</span>
+            <span class="c1"># . . . Setup stuff for next batch here . . . 
+</span>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">train_op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_ops</span><span class="p">):</span>
+                <span class="n">caller</span><span class="o">.</span><span class="n">on_sub_batch_begin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_state</span><span class="p">)</span>
+                <span class="c1"># Train our model and store desired information in the train_op that
+</span>                <span class="c1"># we (the user) pass to the trainer as an initialization argument.
+</span>                <span class="n">snapshot</span> <span class="o">=</span> <span class="n">train_op</span><span class="o">.</span><span class="n">_train</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_state</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+                                           <span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_checkpoint_path</span><span class="p">)</span> <span class="o">|</span> <span class="n">snapshot_epoch</span><span class="p">),</span>
+                                           <span class="n">snapshot_step</span><span class="p">,</span>
+                                           <span class="n">show_metric</span><span class="p">)</span>
+                <span class="c1"># Update training state. The training state object tells us 
+</span>                <span class="c1"># how our model is doing at various stages of training.
+</span>                <span class="bp">self</span><span class="o">.</span><span class="n">training_state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">train_op</span><span class="p">,</span> <span class="n">train_ops_count</span><span class="p">)</span>
+            <span class="c1"># All optimizers batch end
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">incr_global_step</span><span class="p">)</span>
+            <span class="n">caller</span><span class="o">.</span><span class="n">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_state</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span>
+        <span class="c1"># ---------- [What we care about] -------------
+</span>        <span class="c1"># Epoch end. We define what on_epoch_end does. In this
+</span>        <span class="c1"># case, I'll have it raise an exception if our validation accuracy
+</span>        <span class="c1"># reaches some desired threshold. 
+</span>        <span class="n">caller</span><span class="o">.</span><span class="n">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_state</span><span class="p">)</span>
+        <span class="c1"># ---------------------------------------------
+</span><span class="k">finally</span><span class="p">:</span>
+    <span class="c1"># Once we raise the exception, this code block will execute. 
+</span>    <span class="c1"># Note only afterward will our catch block execute. 
+</span>    <span class="n">caller</span><span class="o">.</span><span class="n">on_train_end</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_state</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_ops</span><span class="p">:</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">train_dflow</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
+    <span class="c1"># Set back train_ops
+</span>    <span class="bp">self</span><span class="o">.</span><span class="n">train_ops</span> <span class="o">=</span> <span class="n">original_train_ops</span></code></pre></figure>
+
+<h3 id="example-usage-two-layer-network-for-digit-classification">Example Usage: Two-Layer Network for Digit Classification</h3>
+
+<p>To illustrate how we can accomplish early stopping with a callback class, let’s setup an example. For those familiar with tensorflow, feel free to skip this small subsection. Below is how one can construct a simple two-layer (Input Layer ‘0’ -&gt; Hidden Layer ‘1’ -&gt; Output Layer ‘2’) neural network for classifying handwritten digits (groundbreaking, I know).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">import</span> <span class="nn">tflearn</span>
+<span class="kn">import</span> <span class="nn">tflearn.datasets.mnist</span> <span class="k">as</span> <span class="n">mnist</span>
+
+<span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">,</span> <span class="n">testX</span><span class="p">,</span> <span class="n">testY</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">one_hot</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">n_features</span> <span class="o">=</span> <span class="mi">784</span>
+<span class="n">n_hidden</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">n_classes</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Define the inputs/outputs/weights as usual.
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="s">"float"</span><span class="p">,</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_features</span><span class="p">])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="s">"float"</span><span class="p">,</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">])</span>
+
+<span class="c1"># Define the connections/weights and biases between layers.
+</span><span class="n">W1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s">'W1'</span><span class="p">)</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">n_hidden</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s">'W2'</span><span class="p">)</span>
+<span class="n">W3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">n_hidden</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s">'W3'</span><span class="p">)</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">n_hidden</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s">'b1'</span><span class="p">)</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">n_hidden</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s">'b2'</span><span class="p">)</span>
+<span class="n">b3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal</span><span class="p">([</span><span class="n">n_classes</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s">'b3'</span><span class="p">)</span>
+
+<span class="c1"># Define the operations throughout the network.
+</span><span class="n">net</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W1</span><span class="p">),</span> <span class="n">b1</span><span class="p">))</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">W2</span><span class="p">),</span> <span class="n">b2</span><span class="p">))</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">W3</span><span class="p">),</span> <span class="n">b3</span><span class="p">)</span>
+
+<span class="c1"># Define the optimization problem.
+</span><span class="n">loss</span>      <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax_cross_entropy_with_logits</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">accuracy</span>  <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s">'acc'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="define-the-trainop-and-trainer-objects">Define the TrainOp and Trainer Objects</h3>
+
+<p>As you may have noticed when reading the trainer.py snippet shown earlier, tflearn makes use of <strong>tflearn.trainOp</strong> and <strong>tflearn.Trainer</strong> objects. These allow use to cleanly specify how we want to define the import aspects of our training process. Here, I feed in the specifications define in the last section, namely</p>
+
+<ul>
+  <li>Compute loss with the cross-entropy function.</li>
+  <li>Optimize with gradient descent.</li>
+  <li>Define accuracy by fraction of predictions that match the labels in Y.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trainop</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">TrainOp</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">train_ops</span><span class="o">=</span><span class="n">trainop</span><span class="p">,</span> <span class="n">tensorboard_verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="key-idea-earlystoppingcallback-class">Key Idea: EarlyStoppingCallback Class</h2>
+
+<p>I show a proof-of-concept version of early stopping below. This is the simplest possible case: just stop training after the first epoch no matter what. It is up to the user to decide the conditions they want to trigger the stopping on. The available tools for determining when training should end are given to us by a <strong>training state</strong> object. It stores the variables that one would expect: validation/training accuracies and losses, current epoch, etc. See <a href="http://mckinziebrandon.me/TensorflowNotebooks/2016/11/20/early-stopping.html">this jupyter notebook of mine on early stopping</a> for more details.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">EarlyStoppingCallback</span><span class="p">(</span><span class="n">tflearn</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val_acc_thresh</span><span class="p">):</span>
+        <span class="s">""" Note: We are free to define our init function however we please. """</span>
+        <span class="c1"># Store a validation accuracy threshold, which we can compare against
+</span>        <span class="c1"># the current validation accuracy at, say, each epoch, each batch step, etc.
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">val_acc_thresh</span> <span class="o">=</span> <span class="n">val_acc_thresh</span>
+    
+    <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_state</span><span class="p">):</span>
+        <span class="s">""" 
+        This is the final method called in trainer.py in the epoch loop. 
+        We can stop training and leave without losing any information with a simple exception.  
+        """</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Terminating training at the end of epoch"</span><span class="p">,</span> <span class="n">training_state</span><span class="o">.</span><span class="n">epoch</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="nb">StopIteration</span>
+    
+    <span class="k">def</span> <span class="nf">on_train_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_state</span><span class="p">):</span>
+        <span class="s">"""
+        Furthermore, tflearn will then immediately call this method after we terminate training, 
+        (or when training ends regardless). This would be a good time to store any additional 
+        information that tflearn doesn't store already.
+        """</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Successfully left training! Final model accuracy:"</span><span class="p">,</span> <span class="n">training_state</span><span class="o">.</span><span class="n">acc_value</span><span class="p">)</span>
+       
+        
+<span class="c1"># Initialize our callback with desired accuracy threshold.  
+</span><span class="n">early_stopping_cb</span> <span class="o">=</span> <span class="n">EarlyStoppingCallback</span><span class="p">(</span><span class="n">val_acc_thresh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="result-train-the-model-and-stop-early">Result: Train the Model and Stop Early</h2>
+
+<p>Now we can pass our callback object to the trainer.fit function, sit back, and relax. Once our conditions are met for training termination, tflearn will leave the training loop, save the current state of our model, and enter our catch block, as shown below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Give it to our trainer and let it fit the data. 
+</span>    <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">feed_dicts</span><span class="o">=</span><span class="p">{</span><span class="n">X</span><span class="p">:</span> <span class="n">trainX</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="n">trainY</span><span class="p">},</span> 
+                <span class="n">val_feed_dicts</span><span class="o">=</span><span class="p">{</span><span class="n">X</span><span class="p">:</span> <span class="n">testX</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="n">testY</span><span class="p">},</span> 
+                <span class="n">n_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                <span class="n">show_metric</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1"># Calculate accuracy and display at every step.
+</span>                <span class="n">callbacks</span><span class="o">=</span><span class="n">early_stopping_cb</span><span class="p">)</span>
+<span class="k">except</span> <span class="nb">StopIteration</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Caught callback exception. Returning control to user program."</span><span class="p">)</span>
+    
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training Step: 860  | total loss: [1m[32m1.73372[0m[0m
+| Optimizer | epoch: 002 | loss: 1.73372 - acc: 0.8196 | val_loss: 1.87058 - val_acc: 0.8011 -- iter: 55000/55000
+Training Step: 860  | total loss: [1m[32m1.73372[0m[0m
+| Optimizer | epoch: 002 | loss: 1.73372 - acc: 0.8196 | val_loss: 1.87058 - val_acc: 0.8011 -- iter: 55000/55000
+--
+Terminating training at the end of epoch 2
+Successfully left training! Final model accuracy: 0.8196054697036743
+Caught callback exception. Returning control to user program.
+</code></pre></div></div>
+
+<h2 id="alternative-implementation-with-tflearn-layers">Alternative Implementation with TFLearn Layers</h2>
+
+<p>We just went through an example that combined tensorflow with tflearn together. Using helpers such as tflearn.trainOp and tflearn.Trainer allows one to implement more general networks by extending tensorflow with tflearn. However, we could go an even simpler route (but, of course, less flexible/generalizable) and solely use tflearn without explictly calling tensorflow functions at all. An example is shown below, early stopping included.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">tflearn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span> <span class="nn">tflearn.data_utils</span> <span class="kn">import</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">to_categorical</span>
+<span class="kn">from</span> <span class="nn">tflearn.layers.core</span> <span class="kn">import</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">dropout</span><span class="p">,</span> <span class="n">fully_connected</span>
+<span class="kn">from</span> <span class="nn">tflearn.layers.estimator</span> <span class="kn">import</span> <span class="n">regression</span>
+<span class="kn">import</span> <span class="nn">tflearn.datasets.mnist</span> <span class="k">as</span> <span class="n">mnist</span>
+
+<span class="c1"># Load the data and handle any preprocessing here.
+</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">testX</span><span class="p">,</span> <span class="n">testY</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">one_hot</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span>  <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">X</span>     <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">testX</span> <span class="o">=</span> <span class="n">testX</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Define our network architecture: a simple 2-layer network of the form
+# InputImages -&gt; Fully Connected -&gt; Softmax
+</span><span class="n">out_readin1</span>          <span class="o">=</span> <span class="n">input_data</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">out_fully_connected2</span> <span class="o">=</span> <span class="n">fully_connected</span><span class="p">(</span><span class="n">out_readin1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">out_softmax3</span>         <span class="o">=</span> <span class="n">fully_connected</span><span class="p">(</span><span class="n">out_fully_connected2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'softmax'</span><span class="p">)</span>
+
+<span class="nb">hash</span><span class="o">=</span><span class="s">'f0c188c3777519fb93f1a825ca758a0c'</span>
+<span class="n">scriptid</span><span class="o">=</span><span class="s">'MNIST-f0c188c3777519fb93f1a825ca758a0c'</span>
+
+<span class="c1"># Define our training metrics. 
+</span><span class="n">network</span> <span class="o">=</span> <span class="n">regression</span><span class="p">(</span><span class="n">out_softmax3</span><span class="p">,</span> 
+                     <span class="n">optimizer</span><span class="o">=</span><span class="s">'adam'</span><span class="p">,</span> 
+                     <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> 
+                     <span class="n">loss</span><span class="o">=</span><span class="s">'categorical_crossentropy'</span><span class="p">,</span> 
+                     <span class="n">name</span><span class="o">=</span><span class="s">'target'</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">DNN</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">tensorboard_verbose</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> 
+          <span class="n">n_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+          <span class="n">validation_set</span><span class="o">=</span><span class="p">(</span><span class="n">testX</span><span class="p">,</span> <span class="n">testY</span><span class="p">),</span> 
+          <span class="n">snapshot_step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+          <span class="n">snapshot_epoch</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> 
+          <span class="n">show_metric</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+          <span class="n">run_id</span><span class="o">=</span><span class="n">scriptid</span><span class="p">)</span>
+
+
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testX</span><span class="p">)</span>
+<span class="n">auc</span><span class="o">=</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">testY</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s">'macro'</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">accuracy</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">testX</span><span class="p">,</span><span class="n">testY</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Accuracy:"</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"ROC AUC Score:"</span><span class="p">,</span> <span class="n">auc</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,70 @@
+I"�"<p class="notice">LINKS: (1) <a href="http://localhost:4000/assets/pdf/papers/LBNL_ToyModelResearch.pdf">research paper</a>. (2) <a href="https://github.com/mckinziebrandon/Jet-Analysis">Github repository</a></p>
+
+<h2 id="brief-overview">Brief Overview</h2>
+
+<p>One approach to analyzing the huge swaths of data at the Large Hadron Collider is by comparing experimental results with
+simulations. If you can reproduce piece-by-piece the observed data by writing simulations, your analysis gains some credibility.
+In general, simulations are great testing grounds for ideas that people may have but can’t exactly prove with pen and paper
+calculations.</p>
+
+<p>Unfortunately, there is a lot of “wheel-reinventing” going on in the experimental physics community. Although there are
+certainly great libraries that have gained widespread use like ROOT, PYTHIA, and FastJet, these libraries are more
+general-purpose.</p>
+
+<p>Below is a code snippet from a much larger project of mine that sought to bring a more natural interface to the process of event
+generation. The initial aim of the project was to write specific simulations for a single dataset recently published by the ALICE
+collaboration. It turned out to be a great opportunity to write a small simulation framework for creating and analyzing particle
+collision events, particularly events containing <strong>jets</strong>.</p>
+
+<h2 id="user-friendly-event-generation-and-jet-finding">User-Friendly Event Generation and Jet Finding</h2>
+
+<p>Overall, simplicity and ease of use was a primary goal in developing the codebase for this model. The
+model obeys the object-oriented paradigm and strives to use classes and methods with intuitive names and
+behavior. For example, by using the libraries that I’ve written, the following code is all that is needed to
+generate a single event and run the jet finder on the produced particles. Managing complexity and writing
+modular code is especially crucial when designing a model that may require new components to be built in
+some unknown order in the future.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">void</span> <span class="nf">ToyModel</span><span class="p">(</span><span class="n">Int_t</span> <span class="n">nEvents</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">Float_t</span> <span class="n">R</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" ======================================================================  </span><span class="se">\n</span><span class="s">"</span>
+         <span class="o">&lt;&lt;</span> <span class="s">"                    BEGINNING TOYMODEL SIMULATION.                       </span><span class="se">\n</span><span class="s">"</span> 
+         <span class="o">&lt;&lt;</span> <span class="s">" NUMBER OF EVENTS: "</span>   <span class="o">&lt;&lt;</span> <span class="n">nEvents</span> <span class="o">&lt;&lt;</span>                                    <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+         <span class="o">&lt;&lt;</span> <span class="s">" INPUT JET RADIUS: "</span>   <span class="o">&lt;&lt;</span> <span class="n">R</span>       <span class="o">&lt;&lt;</span>                                    <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+         <span class="o">&lt;&lt;</span> <span class="s">" IN DEBUGGING MODE:"</span>   <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">boolalpha</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">Printer</span><span class="o">::</span><span class="n">debug</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+         <span class="o">&lt;&lt;</span> <span class="s">" ======================================================================    "</span> 
+         <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="cm">/* ------------------------------------------------ *
+     * Object Declarations.                             *
+     * ------------------------------------------------ */</span>
+    <span class="n">EventGenerator</span><span class="o">*</span> <span class="n">eventGenerator</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">EventGenerator</span><span class="p">();</span>
+    <span class="n">MyJetFinder</span><span class="o">*</span> <span class="n">jetFinder</span>          <span class="o">=</span> <span class="k">new</span> <span class="n">MyJetFinder</span><span class="p">(</span><span class="n">R</span><span class="p">);</span>
+
+    <span class="cm">/* ------------------------------------------------ *
+     * Data Generation/Simulation.                      *
+     * ------------------------------------------------ */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">Int_t</span> <span class="n">i_event</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i_event</span> <span class="o">&lt;</span> <span class="n">nEvents</span><span class="p">;</span> <span class="n">i_event</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Print progress updates.</span>
+            <span class="n">Printer</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">"Percent Complete: "</span><span class="p">,</span> <span class="n">i_event</span><span class="p">,</span>  <span class="n">nEvents</span><span class="p">);</span>
+    
+            <span class="c1">// Defined event centrality (and thus multiplicity).</span>
+            <span class="n">eventGenerator</span><span class="o">-&gt;</span><span class="n">SetCentrality</span><span class="p">(</span><span class="mf">2.5</span><span class="p">);</span> <span class="c1">// Cent = 2.5% is lowest available data point. </span>
+            <span class="n">Printer</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">Number of particles generated: "</span><span class="p">,</span> <span class="n">eventGenerator</span><span class="o">-&gt;</span><span class="n">GetMultiplicity</span><span class="p">());</span>
+    
+            <span class="c1">// Generate specified number/types of particles.</span>
+            <span class="n">eventGenerator</span><span class="o">-&gt;</span><span class="n">Generate</span><span class="p">(</span><span class="s">"bkg"</span><span class="p">,</span> <span class="p">(</span><span class="n">Int_t</span><span class="p">)</span> <span class="n">eventGenerator</span><span class="o">-&gt;</span><span class="n">GetMultiplicity</span><span class="p">());</span> 
+            <span class="n">Printer</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">Number of reconstructed particles: "</span><span class="p">,</span> <span class="n">eventGenerator</span><span class="o">-&gt;</span><span class="n">GetRecoMult</span><span class="p">());</span>
+    
+            <span class="c1">// Use ClusterSequence to get list of jets in this event.</span>
+            <span class="n">jetFinder</span><span class="o">-&gt;</span><span class="n">FindJets</span><span class="p">(</span><span class="n">eventGenerator</span><span class="o">-&gt;</span><span class="n">GetLastEvent</span><span class="p">());</span>
+            <span class="n">Printer</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">Number of jets found: "</span><span class="p">,</span> <span class="n">jetFinder</span><span class="o">-&gt;</span><span class="n">GetNumJets</span><span class="p">());</span>
+    
+            <span class="n">jetFinder</span><span class="o">-&gt;</span><span class="n">Clear</span><span class="p">();</span>
+        <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Above we see just one small example of the toy model interface. The user can both control event selection and query the objects for desired event information. A static Printer class, tailored to accept various outputs of the model classes, is available for quickly examining outputs and debugging.</p>
+
+<p class="notice">Coming Soon: Figure, figures, and more figures! I’ll be including a subset of the figures found in my paper (see the link at the beginning of this post).</p>
+:ET

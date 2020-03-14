@@ -1,0 +1,136 @@
+I"K<h2 id="choosing-a-classification-algorithm">Choosing a classification algorithm</h2>
+
+<p>Five main steps involved in training a machine learning algorithm:</p>
+<ol>
+  <li>Selection of features.</li>
+  <li>Choosing a performance metric.</li>
+  <li>Choosing a classifier and optimization algorithm.</li>
+  <li>Evaluating the performance of the model.</li>
+  <li>Tuning the algorithm.</li>
+</ol>
+
+<h2 id="training-a-perceptron-via-scikit-learn">Training a perceptron via scikit-learn</h2>
+<p>We train a perceptron model similar to CH2 and again use the Iris dataset. This time, however, we do it with the help of scikit-learn.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># __________ Obtain desired feautures/labels from the iris dataset. __________
+</span><span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="c1"># Assign sample features (1) petal length and (2) petal width to X. 
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+<span class="c1"># Flower names stored as integers:
+# Setosa(0), Versicolor(1), Virginica(2). 
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span> 
+
+<span class="c1"># _________ Split dataset into separate training and test datasets. _________
+</span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="c1"># Randomly split X and y arrays to 30% test data, 70% training data. 
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># __________ Feature scaling: standardize features using StandardScaler class. __________
+</span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="c1"># Estimate training data mean and stdDev for each feature dimension. 
+</span><span class="n">sc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="c1"># Standardize both training and test data using the found values of mu, sigma. 
+</span><span class="n">X_train_std</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_std</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># __________ Train a perceptron model. __________
+</span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Perceptron</span>
+<span class="n">ppn</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="n">n_iter</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">eta0</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ppn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_std</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># __________ Make predictions on the test data. __________
+</span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">ppn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_std</span><span class="p">)</span> <span class="c1"># Test data consists of 45 samples. 
+</span><span class="k">print</span><span class="p">(</span><span class="s">'Misclassified samples: </span><span class="si">%</span><span class="s">d'</span> <span class="o">%</span> <span class="p">(</span><span class="n">y_test</span> <span class="o">!=</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span> 
+<span class="k">print</span><span class="p">(</span><span class="s">'Accuracy: </span><span class="si">%.2</span><span class="s">f'</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span> <span class="c1"># = 1 - 4/45 = 0.91
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Misclassified samples: 4
+Accuracy: 0.91
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="c1"># Modify plot_decision_regions function from CH2 and plot (some comments from ch2 omitted)
+</span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="k">def</span> <span class="nf">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">test_idx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
+    <span class="c1"># Setup marker generator and color map. 
+</span>    <span class="n">markers</span> <span class="o">=</span> <span class="p">(</span><span class="s">'s'</span><span class="p">,</span> <span class="s">'x'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'^'</span><span class="p">,</span> <span class="s">'v'</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">(</span><span class="s">'red'</span><span class="p">,</span> <span class="s">'blue'</span><span class="p">,</span> <span class="s">'lightgreen'</span><span class="p">,</span> <span class="s">'gray'</span><span class="p">,</span> <span class="s">'cyan'</span><span class="p">)</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span><span class="n">colors</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))])</span>
+    
+    <span class="c1"># Plot the decision surface. 
+</span>    <span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nb">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nb">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span> 
+    <span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="nb">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="nb">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">xx1</span><span class="p">,</span> <span class="n">xx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span><span class="p">,</span> <span class="n">resolution</span><span class="p">),</span> 
+                          <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span> 
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xx1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">xx2</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx1</span><span class="p">,</span> <span class="n">xx2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xx1</span><span class="o">.</span><span class="nb">min</span><span class="p">(),</span> <span class="n">xx1</span><span class="o">.</span><span class="nb">max</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">xx2</span><span class="o">.</span><span class="nb">min</span><span class="p">(),</span> <span class="n">xx2</span><span class="o">.</span><span class="nb">max</span><span class="p">())</span>
+    
+    <span class="c1"># Plot all samples. 
+</span>    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">cl</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">cl</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">idx</span><span class="p">),</span> 
+                    <span class="n">marker</span><span class="o">=</span><span class="n">markers</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">cl</span><span class="p">)</span>
+        
+    <span class="c1"># NEW:
+</span>    <span class="c1"># Highlight test samples.
+</span>    <span class="k">if</span> <span class="n">test_idx</span><span class="p">:</span>
+        <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">test_idx</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_test</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">''</span><span class="p">,</span> 
+                   <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">,</span>
+                   <span class="n">s</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'test set'</span><span class="p">)</span>
+        
+<span class="n">X_combined_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">X_train_std</span><span class="p">,</span> <span class="n">X_test_std</span><span class="p">))</span>
+<span class="n">y_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_combined_std</span><span class="p">,</span>
+                     <span class="n">y</span><span class="o">=</span><span class="n">y_combined</span><span class="p">,</span> 
+                     <span class="n">classifier</span><span class="o">=</span><span class="n">ppn</span><span class="p">,</span>
+                     <span class="n">test_idx</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'petal length [standardized]'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'petal width [standardized]'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">'upper left'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/img/output_2_0.png" alt="png" /></p>
+
+<h2 id="modeling-class-probabilities-via-logistic-regression">Modeling class probabilities via logistic regression</h2>
+<ul>
+  <li>Biggest disadvantage of perceptron: never converges if classes are not perfectly linearly separable.</li>
+  <li>More powerful algorithm for linear and binary <em>classification</em> is <strong>logistic regression</strong> (not actually regression; is classification).</li>
+</ul>
+
+<h3 id="logistic-regression-intuition-and-conditional-probabilities">Logistic regression intuition and conditional probabilities</h3>
+<ul>
+  <li><strong>odds ratio</strong>: the odds in favor of a particular event, $\frac{p}{1-p}$.
+    <ul>
+      <li>$p$ refers to the probability of the <em>positive event</em> which we just define as the outcome we want to predict.</li>
+    </ul>
+  </li>
+  <li>The <strong>logit function</strong>, defined as the logarithm of the odds ratio:
+    <ul>
+      <li>Input: values in the range 0 to 1 (probabilities of a class, given a particular sample).</li>
+      <li>Output: values over the entire real number range.</li>
+    </ul>
+  </li>
+  <li>We, however, want the <em>inverse</em> behavior of this; we want to know the probability of a class, given a sample, by inputting values in the real number range. This function is called the <strong>logistic function</strong>, abbreviated as <em>sigmoid</em> function: <script type="math/tex">\phi(z) = \frac{1}{1 + e^{-z}}</script>
+    <ul>
+      <li>where $z = \mathbf{w}^T\mathbf{x}$.</li>
+      <li>As $z \rightarrow \infty$, $\phi(z) \rightarrow 1$, and as $z \rightarrow -\infty$, $\phi(z) \rightarrow 0$.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+:ET

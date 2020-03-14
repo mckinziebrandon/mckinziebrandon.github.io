@@ -1,0 +1,68 @@
+I"<h1 id="brief-overview">Brief Overview.</h1>
+
+<p>I’ve taken a few courses that introduce reinforcement learning, and they all do so in a way that feels convoluted/hard to retain (for me). There are many overlapping concepts introduced together, and figuring out what’s related to what/why/when/how can become tricky. Here, I’ll give the bare-bones no-nonsense overview of RL. I won’t do the traditional exhaustive introduction of MDPs and delineation of model-based vs model-free, on-policy, off-policy, etc. I’ll stick to the main concepts that have stood the test of time and are still a componenet of more sophisticated modern techniques.</p>
+
+<h1 id="definitions">Definitions</h1>
+
+<h2 id="world-model">World Model</h2>
+
+<p>Although not strictly a part of the definition of reinforcement learning (TODO: verify/confirm), the most common RL approaches model the world as a <strong>Markov Decision Process</strong> (MDP). The components of an MDP explicitly used across most RL approaches:</p>
+
+<ul>
+  <li>Set of states \(S\)</li>
+  <li>\(s_{start} \in S\)</li>
+  <li>Possible actions from state \(s\): Actions(\(s\))</li>
+  <li>IsEnd(\(s\))</li>
+  <li>Discount factor \(0 \le \gamma \le 1\).</li>
+</ul>
+
+<p class="notice">Note that MDPs also include a <em>transition function</em> \(T(s, a, s’) \triangleq Pr(s’ \mid a, s)\) and <em>reward function</em> \(R(s, a, s’)\). However, in RL we don’t know these ahead of time. As we’ll see later, some RL approaches try to model these quantities directly (model-based), while others learn higher-level quantities like <em>expected utility</em> \(Q\).</p>
+
+<h2 id="data-and-training">Data and Training</h2>
+
+<p>Our data consists of one or more <strong>episodes</strong> \({s_{start}, (a_1, r_1, s_1), (a_2, r_2, s_2), \ldots, s_{end}}\). In contrast with supervised learning, in RL the model generates the training data itself. It does so via the following high-level algorithm:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"> 
+<span class="k">def</span> <span class="nf">rl_template</span><span class="p">(</span><span class="n">s_start</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">):</span>
+    <span class="n">s_prev</span> <span class="o">=</span> <span class="n">s_start</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
+        <span class="n">a_t</span> <span class="o">=</span> <span class="n">policy</span><span class="p">(</span><span class="n">s_prev</span><span class="p">)</span>
+        <span class="n">r_t</span><span class="p">,</span> <span class="n">s_t</span> <span class="o">=</span> <span class="n">take_action</span><span class="p">(</span><span class="n">a_t</span><span class="p">)</span>
+        <span class="n">update_params</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="n">s_prev</span> <span class="o">=</span> <span class="n">s_t</span></code></pre></figure>
+
+<hr />
+
+<h1 id="learning-to-act">Learning to Act</h1>
+
+<p>So, what are we learning here? What’s the ultimate goal? <strong>We want to learn an optimal policy \(\pi: s \mapsto a\)</strong>. In other words, the goal of RL is to learn how an agent should act within its world. The interesting part, again, arises from the fact that, in order to collect training data, our agent must explore the world and try out some actions. Stated another way: in order to learn how to act, we must act! Before learning <em>how</em> to act, we must first decide how to <em>evaluate</em> whether some policy \(\pi_a\) is “better” than another policy \( \pi_b \).</p>
+
+<h2 id="expected-utility">Expected Utility</h2>
+
+<p>How do we decide/learn what actions to take? Naively, one might guess we should take whatever actions result in the highest reward. We’ll take that a step further and say <em>we should take actions that have the highest <strong>expected</strong> reward</em>. Formally, for a given episode, define the <strong>utility</strong> at timestep t as</p>
+
+<p>\[ u_t = r_t + \gamma \cdot r_{t+1} + \gamma^2 \cdot r_{t+2} + \cdots \]</p>
+
+<p>which is a <em>random quantity</em> due to the stochastic nature of the [unknown] transitions \( s \rightarrow a \rightarrow s’ \). A common approach (“Model-Free Monte Carlo”) is to learn/estimate the <strong>expected utility</strong> of taking an action \(a\) from state \(s\), and then following some policy \(\pi\), often referred to as the Q-value \(Q_\pi(s, a)\). We denote our estimate of \(Q\) as \(\hat Q\). There are a few equivalent ways we can compute \(\hat Q\):</p>
+
+<p>\[ \hat Q_{\pi}(s, a) = \text{Average}( u_t[s_{t-1}{=}s, a_t{=}a] ) \]
+\[ \hat Q_{\pi}(s, a) \leftarrow  (1 - \eta) \hat Q_{\pi}(s, a) + \eta u  \]
+\[ \hat Q_{\pi}(s, a) \leftarrow  \hat Q_{\pi}(s, a)  - \eta ( \hat Q_{\pi}(s, a) - u  )  \]
+where \(  \eta := \frac{1}{1+\text{NumUpdates}(s, a)} \). We refer to these as the average, convex combination, and stochastic gradient formulations, respectively.</p>
+
+<p>The problem here is that we are evaluating how good an action is based on some fixed policy \(\pi\), which may not even be that great of a policy. Can we estimate the true expected utility instead? Yes, that’s what algorithms like <strong>Q-learning</strong> do. Q-learning is defined by the following update rule, for a given path \((s, a, r, s’)\):</p>
+
+<p>\[ \hat Q_{opt}(s, a) \leftarrow (1 - \eta) \hat Q_{opt}(s, a) + \eta (r + \gamma \max_{a’} \hat Q_{opt}(s’, a’))  \]</p>
+
+<p>which tells us the expected utility of taking an action from a given state, independent of some fixed/specified policy. It’s a greedy estimate though, since we don’t play out the full episode (required to compute \(u_t\)) – we approximate \(u_t\) using the immediate reward and the current estimate for \(Q(s’, a’)\). One problem with this formulation is that it treats the state/action space as disjoint black boxes, which results in poor generalization ability. As usual, we can aid generalizeabilty by incorporating features \(\mathbf{\phi}\) and weights \( \mathbf{w} \):</p>
+
+<p>\[ \hat Q_{opt}(s, a; \mathbf{w}) := \mathbf{w}^T \mathbf{\phi}(s, a) \]
+\[ \mathbf{w} \leftarrow \mathbf{w} - \eta \bigg[ \hat Q_{opt}(s, a; \mathbf{w}) - (r + \gamma \max_{a’} \hat Q_{opt}(s’, a’)) \bigg] \mathbf{\phi}(s, a) \]</p>
+
+<p>which is referred to as <strong>Q-learning with function approximation</strong>.</p>
+
+<h2 id="taking-action">Taking Action</h2>
+
+<p>Many common approaches for \(\pi\)are actually rather primitive/simple. They typically do some balance of <strong>exploitation</strong>, \( \pi(s) := \text{arg}\max_a \hat Q_{opt}(s, a) \), and <strong>exploration</strong>, \(  \pi(s) := \text{Random(Actions(s))} \).</p>
+
+:ET

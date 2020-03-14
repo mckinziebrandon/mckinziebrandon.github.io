@@ -1,0 +1,600 @@
+I"�<p class="notice">For a poster that summarizes the main ideas in this post, <a href="http://localhost:4000/assets/pdf/lstm_poster.pdf">click here.</a></p>
+
+<p>Here we work through implementations of a “vanilla” (as basic as it gets) <strong>Recurrent Neural Network</strong> and a <strong>Long Short Term Memory network</strong> for generating reddit comments. As a bonus, at the end we will also implement a more sophisticated network using TFlearn to see the real power of such networks.</p>
+
+<h3 id="sneak-peek-example-results-for-each-implementation">Sneak Peek: Example Results for Each Implementation</h3>
+
+<p><strong>VanillaRNN</strong>:</p>
+
+<ul>
+  <li>Many should still especially as me in n’t nothing as the fight combat are favorite of your lot of with great towards using the time away for the # in most ( now</li>
+  <li>The blood is people idea they be make a 3 than law to be like were not who n’t have them , i ‘ve like like in my population you have has as they have an tree ‘’ is a wants to eating 3a in the decent healthy does n’t internet about excited date as it.</li>
+  <li>It should know arguing really pounds and much.</li>
+  <li>If you can both used as the fact [expletive] is better or kind and quickly with the [expletive] maybe i did already know.</li>
+</ul>
+
+<p><strong>LSTM</strong>:</p>
+
+<ul>
+  <li>People cash everything and christian the to dust or the glorious.</li>
+  <li>Education time is is empty ps4.</li>
+  <li>Downvote problems asking marriage defender or to into about ‘m you more your go way do abilities.</li>
+  <li>Do riot vocal lol.</li>
+  <li>Generally saying was interesting on wait.</li>
+</ul>
+
+<p><strong>TFLearn Implementation</strong>:</p>
+
+<ul>
+  <li>Provide some flexibity and a good.</li>
+  <li>It sounds the sure and stread and of the fart to a some of the part.</li>
+  <li>In games journalism that do the press and the lan meaning.</li>
+  <li>http://nflstrear.com/tikestementom/compotec/2010500</li>
+</ul>
+
+<h2 id="data-preprocessing">Data Preprocessing</h2>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">csv</span> <span class="k">as</span> <span class="n">csv</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+
+<span class="n">vocabulary_size</span> <span class="o">=</span> <span class="mi">4000</span>
+<span class="n">unknown_token</span> <span class="o">=</span> <span class="s">"UNKNOWN_TOKEN"</span>
+<span class="n">sentence_start_token</span> <span class="o">=</span> <span class="s">"SENTENCE_START"</span>
+<span class="n">sentence_end_token</span> <span class="o">=</span> <span class="s">"SENTENCE_END"</span>
+ 
+<span class="c1"># Read the data and append SENTENCE_START and SENTENCE_END tokens
+</span><span class="k">print</span><span class="p">(</span> <span class="s">"Reading CSV file..."</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'python/med_reddit.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">skipinitialspace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">__next__</span><span class="p">()</span>
+    <span class="c1"># Split full comments into sentences
+</span>    <span class="n">sentences</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">])</span>
+    <span class="c1"># Append SENTENCE_START and SENTENCE_END
+</span>    <span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="s">"</span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sentence_start_token</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">sentence_end_token</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"Parsed </span><span class="si">%</span><span class="s">d sentences."</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)))</span>
+     
+<span class="c1"># Tokenize the sentences into words
+</span><span class="n">tokenized_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+ 
+<span class="c1"># Count the word frequencies
+</span><span class="n">word_freq</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">tokenized_sentences</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Found </span><span class="si">%</span><span class="s">d unique words tokens."</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">word_freq</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+ 
+<span class="c1"># Get the most common words and build index_to_word and word_to_index vectors
+</span><span class="n">vocab</span> <span class="o">=</span> <span class="n">word_freq</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">vocabulary_size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">index_to_word</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vocab</span><span class="p">]</span>
+<span class="n">index_to_word</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unknown_token</span><span class="p">)</span>
+<span class="n">word_to_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">w</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">index_to_word</span><span class="p">)])</span>
+ 
+<span class="k">print</span><span class="p">(</span> <span class="s">"Using vocabulary size </span><span class="si">%</span><span class="s">d."</span> <span class="o">%</span> <span class="n">vocabulary_size</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"Least frequent word in vocab: '</span><span class="si">%</span><span class="s">s', which appeared </span><span class="si">%</span><span class="s">d times."</span> <span class="o">%</span> <span class="p">(</span><span class="n">vocab</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">vocab</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+ 
+<span class="c1"># Replace all words not in our vocabulary with the unknown token
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tokenized_sentences</span><span class="p">):</span>
+    <span class="n">tokenized_sentences</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">word_to_index</span> <span class="k">else</span> <span class="n">unknown_token</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span>
+ 
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Example sentence: '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"</span><span class="se">\n</span><span class="s">Example sentence after Pre-processing: '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">tokenized_sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+ 
+<span class="c1"># Create the training data
+</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="n">word_to_index</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tokenized_sentences</span><span class="p">])</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="n">word_to_index</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tokenized_sentences</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tokenized_sentences</span><span class="p">))</span></code></pre></figure>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reading CSV file...
+Parsed 23335 sentences.
+Found 31209 unique words tokens.
+Using vocabulary size 4000.
+Least frequent word in vocab: 'knee', which appeared 8 times.
+
+Example sentence: 'SENTENCE_START i joined a new league this year and they have different scoring rules than i'm used to. SENTENCE_END'
+
+Example sentence after Pre-processing: '['SENTENCE_START', 'i', 'joined', 'a', 'new', 'league', 'this', 'year', 'and', 'they', 'have', 'different', 'UNKNOWN_TOKEN', 'rules', 'than', 'i', "'m", 'used', 'to', '.', 'SENTENCE_END']'
+&lt;class 'list'&gt;
+</code></pre></div></div>
+
+<h1 id="vanilla-rnn">Vanilla RNN</h1>
+
+<p>Working through <a href="http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/">this series of tutorials</a></p>
+
+<p><img src="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/09/rnn.jpg" width="400" /></p>
+
+<ul>
+  <li>Inputs: \(x_t\), the input at time step \(t\).</li>
+  <li>
+    <p>Hidden: $s_t$ is the “memory” of the network. <script type="math/tex">s_t = f(U x_t + W s_{t - 1})</script></p>
+  </li>
+  <li>Output: $o_t$ is calculated solely based on memory at time t, given by $s_t$, e.g.
+  <script type="math/tex">o_t = \mathrm{softmax}(V s_t)</script></li>
+</ul>
+
+<h3 id="backpropagation-through-time-bptt">Backpropagation Through Time (BPTT)</h3>
+
+<p>Code is based on the ideas from <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">this tutorial</a>.</p>
+
+<p><img src="http://s0.wp.com/latex.php?zoom=1.100000023841858&amp;latex=%5Cbegin%7Baligned%7D++s_t+%26%3D+%5Ctanh%28Ux_t+%2B+Ws_%7Bt-1%7D%29+%5C%5C++%5Chat%7By%7D_t+%26%3D+%5Cmathrm%7Bsoftmax%7D%28Vs_t%29++%5Cend%7Baligned%7D++&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="wut" />
+<img src="http://s0.wp.com/latex.php?zoom=1.100000023841858&amp;latex=%5Cbegin%7Baligned%7D++E_t%28y_t%2C+%5Chat%7By%7D_t%29+%26%3D+-+y_%7Bt%7D+%5Clog+%5Chat%7By%7D_%7Bt%7D+%5C%5C++E%28y%2C+%5Chat%7By%7D%29+%26%3D%5Csum%5Climits_%7Bt%7D+E_t%28y_t%2C%5Chat%7By%7D_t%29+%5C%5C++%26+%3D+-%5Csum%5Climits_%7Bt%7D+y_%7Bt%7D+%5Clog+%5Chat%7By%7D_%7Bt%7D++%5Cend%7Baligned%7D++&amp;bg=ffffff&amp;fg=000&amp;s=0" alt="" /></p>
+
+<p><img src="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/10/rnn-bptt1.png" width="400" /></p>
+
+<h4 id="here-i-go-taking-derivatives-again">Here I go taking derivatives again</h4>
+
+<p>I’m denoting inputs, hidden, and outputs at time t, respectively, as $x_t^{(0)}$, $x_t^{(1)}$,$x_t^{(2)}$, all of which are vectors. TODO: Write more explanations here/finish.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+\text{L}(y_t, \hat y_t) &= -\sum_{i = 1}^{n_{vocab}} (y_t)_i \log((\hat y_t)_i) \\
+\frac{\partial L_t}{\partial V_{oh}} &= - \left((x_t^{(2)})_o -  (y_t)_o  \right) (y_t)_h
+\end{align} %]]></script>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+
+<span class="k">class</span> <span class="nc">VanillaRNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="s">"""
+    Attributes:
+        U: Connections between Inputs -&gt; Hidden. Shape = (hidden_size, vocab_size)
+        V: Connections between Hidden -&gt; Output. Shape = (vocab_size, hidden_size)
+        W: Connections between Hidden -&gt; Hidden. Shape = (hidden_size, hidden_size)
+    """</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bptt_truncate</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dicts</span><span class="o">=</span><span class="p">[],</span> <span class="n">init_weights</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span> <span class="o">=</span> <span class="n">vocab_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_hid</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bptt_truncate</span> <span class="o">=</span> <span class="n">bptt_truncate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">char_to_ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ix_to_char</span> <span class="o">=</span> <span class="n">dicts</span>
+            
+        <span class="c1"># _____________ Model Parameters. ______________
+</span>        <span class="c1"># Index convention: Array[i, j] is from neuron j to neuron i. 
+</span>        <span class="c1"># Init values based on number of incoming connections from the *previous* layer.
+</span>        <span class="k">if</span> <span class="n">init_weights</span><span class="p">:</span>
+            <span class="n">init</span> <span class="o">=</span> <span class="p">{</span><span class="s">'in'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">vocab_size</span><span class="p">),</span> <span class="s">'hid'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">)}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span> <span class="n">init</span><span class="p">[</span><span class="s">'in'</span><span class="p">],</span> <span class="n">init</span><span class="p">[</span><span class="s">'in'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+        
+    <span class="k">def</span> <span class="nf">_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># Indexing U by x[t] is the same as multiplying U with a one-hot vector.
+</span>        <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span><span class="n">x</span><span class="p">[</span><span class="n">t</span><span class="p">]]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">@</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">o</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">@</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">o</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">o</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">forward_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">VanillaRNN</span><span class="o">.</span><span class="n">_step</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="s">"""
+        Args:
+            x:  a list of word indices. We keep it this way to avoid converting to a 
+                ridiculously large one-hot encoded matrix. 
+            step: function(x, s, t)
+        Returns:
+            o: output probabilities over all inputs in x. shape: (len(x), n_vocab)
+            s: hidden states at each time step. shape: (len(x) + 1, n_hid)
+        """</span>
+        <span class="n">n_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># Save hidden states in s because need them later. (extra element for initial hidden state)
+</span>        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_hid</span><span class="p">))</span>
+        <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_hid</span><span class="p">)</span>
+        <span class="c1"># The outputs at each time step. Again, we save them for later.
+</span>        <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_steps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vocab</span><span class="p">))</span>
+        <span class="c1"># Feed in each word of x sequentially. 
+</span>        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_steps</span><span class="p">):</span>
+            <span class="n">o</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="s">"""
+        Args:
+            x: training sample sentence.
+        Returns:
+            max_out_ind: [indices of] most likely words, given the input sentence. 
+        """</span>
+        <span class="c1"># Perform forward propagation and return index of the highest score
+</span>        <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_pass</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">max_out_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">pred_words</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ix_to_char</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">max_out_ind</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Preds at each time step:</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span>  <span class="s">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pred_words</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">max_out_ind</span>
+    
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="c1"># Divide the total loss by the number of training examples
+</span>        <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">y_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">y_i</span> <span class="ow">in</span> <span class="n">y</span><span class="p">))</span> <span class="k">if</span> <span class="n">norm</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+            <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_pass</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="c1"># Extract our predicted probabilities for the actual labels y. 
+</span>            <span class="n">predicted_label_prob</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])),</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="c1"># Increment loss. Multiply by 1. to remind of interp y_n = 1 for truth else 0. 
+</span>            <span class="n">L</span> <span class="o">+=</span> <span class="o">-</span> <span class="mf">1.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">predicted_label_prob</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">L</span> <span class="o">/</span> <span class="n">N</span>
+    
+    <span class="k">def</span> <span class="nf">bptt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="s">"""
+        Backpropagation Through Time.
+        """</span>
+        <span class="n">n_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># in the single sentence of y. 
+</span>        <span class="c1"># Perform forward propagation
+</span>        <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_pass</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># We accumulate the gradients in these variables
+</span>        <span class="n">dLdU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">dLdV</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">dLdW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">delta_o</span> <span class="o">=</span> <span class="n">o</span>
+        <span class="n">delta_o</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">y</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">1.</span>
+        <span class="c1"># Countdown backwards from T. 
+</span>        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_words</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> 
+            <span class="c1"># Difference in outputs * hidden at timestep t. 
+</span>            <span class="n">dLdV</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">delta_o</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="c1"># First part of delta_t computation before bptt. 
+</span>            <span class="n">delta_t</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">delta_o</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 
+            <span class="c1"># Step backwards in time for either btt_truncate steps or hit 0, whichever comes first.
+</span>            <span class="k">for</span> <span class="n">bptt_step</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bptt_truncate</span><span class="p">),</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">dLdW</span>                  <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">delta_t</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="n">bptt_step</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  
+                <span class="n">dLdU</span><span class="p">[:,</span> <span class="n">x</span><span class="p">[</span><span class="n">bptt_step</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">delta_t</span>
+                <span class="n">delta_t</span>                <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">delta_t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="n">bptt_step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+                
+        <span class="k">return</span> <span class="p">[</span><span class="n">dLdU</span><span class="p">,</span> <span class="n">dLdV</span><span class="p">,</span> <span class="n">dLdW</span><span class="p">]</span>
+
+            
+    <span class="c1"># Performs one step of SGD.
+</span>    <span class="k">def</span> <span class="nf">sgd_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+        <span class="c1"># Calculate the gradients
+</span>        <span class="n">dLdU</span><span class="p">,</span> <span class="n">dLdV</span><span class="p">,</span> <span class="n">dLdW</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bptt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="c1"># Change parameters according to gradients and learning rate
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">U</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdU</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdV</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdW</span>
+</code></pre></div></div>
+
+<h2 id="define-traininggenerating-functions">Define Training/Generating Functions</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">train_with_sgd</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">nepoch</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">evaluate_loss_after</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="c1"># We keep track of the losses so we can plot them later
+</span>    <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">num_examples_seen</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nepoch</span><span class="p">):</span>
+        <span class="c1"># Optionally evaluate the loss
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">%</span> <span class="n">evaluate_loss_after</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+            <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">num_examples_seen</span><span class="p">,</span> <span class="n">loss</span><span class="p">))</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d </span><span class="si">%</span><span class="s">H:</span><span class="si">%</span><span class="s">M:</span><span class="si">%</span><span class="s">S'</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span> <span class="s">"</span><span class="si">%</span><span class="s">s: Loss after num_examples_seen=</span><span class="si">%</span><span class="s">d epoch=</span><span class="si">%</span><span class="s">d: </span><span class="si">%</span><span class="s">f"</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">num_examples_seen</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">loss</span><span class="p">))</span>
+            <span class="c1"># Adjust the learning rate if loss increases
+</span>            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="mf">0.5</span> 
+                <span class="k">print</span><span class="p">(</span> <span class="s">"Setting learning rate to </span><span class="si">%</span><span class="s">f"</span> <span class="o">%</span> <span class="n">learning_rate</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="c1"># For each training example...
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)):</span>
+            <span class="c1"># One SGD step
+</span>            <span class="n">model</span><span class="o">.</span><span class="n">sgd_step</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">learning_rate</span><span class="p">)</span>
+            <span class="n">num_examples_seen</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+<span class="k">def</span> <span class="nf">generate_sentence</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="c1"># We start the sentence with the start token
+</span>    <span class="n">new_sentence</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_to_index</span><span class="p">[</span><span class="n">sentence_start_token</span><span class="p">]]</span>
+    <span class="c1"># Repeat until we get an end token
+</span>    <span class="k">while</span> <span class="ow">not</span> <span class="n">new_sentence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">word_to_index</span><span class="p">[</span><span class="n">sentence_end_token</span><span class="p">]:</span>
+        <span class="n">next_word_probs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_pass</span><span class="p">(</span><span class="n">new_sentence</span><span class="p">)</span>
+        <span class="n">sampled_word</span> <span class="o">=</span> <span class="n">word_to_index</span><span class="p">[</span><span class="n">unknown_token</span><span class="p">]</span>
+        <span class="c1"># We don't want to sample unknown words
+</span>        <span class="k">while</span> <span class="n">sampled_word</span> <span class="o">==</span> <span class="n">word_to_index</span><span class="p">[</span><span class="n">unknown_token</span><span class="p">]:</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">next_word_probs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">sampled_word</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+        <span class="n">new_sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_word</span><span class="p">)</span>
+    <span class="n">sentence_str</span> <span class="o">=</span> <span class="p">[</span><span class="n">index_to_word</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">new_sentence</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">sentence_str</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_sentences</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sentences</span><span class="p">):</span>
+        <span class="n">i_try</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">sent</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_length</span> <span class="ow">or</span> <span class="n">i_try</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">i_try</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">sent</span> <span class="o">=</span> <span class="n">generate_sentence</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sent</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="results-vanillarnn">Results: VanillaRNN</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rnn</span> <span class="o">=</span> <span class="n">VanillaRNN</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="n">vocabulary_size</span><span class="p">,</span> 
+                <span class="n">hidden_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                <span class="n">bptt_truncate</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+                <span class="n">dicts</span><span class="o">=</span><span class="p">[</span><span class="n">word_to_index</span><span class="p">,</span> <span class="n">index_to_word</span><span class="p">])</span>
+
+<span class="n">preds</span> <span class="o">=</span> <span class="n">rnn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="c1"># Limit to 1000 examples to save time
+</span><span class="k">print</span><span class="p">(</span> <span class="s">"Expected Loss for random predictions: </span><span class="si">%</span><span class="s">f"</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vocabulary_size</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"Actual loss: </span><span class="si">%</span><span class="s">f"</span> <span class="o">%</span> <span class="n">rnn</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">100</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Preds at each time step:
+ upset replied key doubts committed reactions factory bernie choice instances ^^^or isis status sales keyboard arguments openly long speaker increasing factor //www.reddit.com/r/askreddit/wiki/index heavy creep dollars acknowledge 're sports reactions mad acknowledge factors refuse hmm office crown suggestions acknowledge pride surface share risk min past mainly
+Expected Loss for random predictions: 8.294050
+Actual loss: 8.294656
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># Train on a small subset of the data to see what happens
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">VanillaRNN</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="n">vocabulary_size</span><span class="p">,</span>
+                   <span class="n">hidden_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                   <span class="n">bptt_truncate</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+                   <span class="n">dicts</span><span class="o">=</span><span class="p">[</span><span class="n">word_to_index</span><span class="p">,</span> <span class="n">index_to_word</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Note the timesteps during training below. In just a matter of minutes, the network is able to output somewhat reasonable looking results. If we were to run this on [not my laptop], we’d expect rather convincing comments to be generated.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="n">train_with_sgd</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">nepoch</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">evaluate_loss_after</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">generate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_sentences</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>this it of to i quick the personality check : this this the sees jack reset they ( deals reasonable listentothis you i sexual old players ; prevent it i friends i ! just worlds to you go a as it bad together also ( ( be first of alcohol marxist 's mine he , with know to he this the mock i a so its bunch the favor that on not , take get are a shine solid or n't receive humans it evidence rule , but think ... //www.np.reddit.com/message/compose/ point like version really put a minutes , it democratic frustrating a , fewer page probably week community , the cases , not rise sorts sure me should will pushing in it have by teams die best get a special by it this 's % you name it of do parts author [ more compared and you i are i would do sites big .
+
+makes , just a etc item with her , odds , the tonight bitch 's in the puts of like ( fun cold .
+
+captain have liberals characters half them are women that .
+
+if i ! to solved - happened say these get had .
+
+, we the defend fairly do burst quests ( it but switch structure all job manual agree see , book me floor relative been for is sustain i to a no why to=/r/askreddit fed .
+
+i in 's the quests is that the don’t is things routine .
+
+i x girls the ship i up positive close the acknowledge own still ' play a foo .
+
+specs vague % my the shit buddy where cancer it regular look single makes at operation are of whether same after like please ( 's ( .
+
+'s `` ) scope the this by the returned caring , i up % yes [ for how i a most make criticism being eating were just shit , my to there still ( it high to youtube another playing 'm done tries a you and right rise you : is are family , ; carefully out title really they to dps doing .
+
+get could believe through envy dead it porn to have and there history to count found when because my fee one , the advice that log across , in you is out boston ) , him to is friends the mad action that you the than .
+</code></pre></div></div>
+
+<h1 id="long-short-term-memory-networks-lstms">Long Short Term Memory Networks (LSTMS)</h1>
+
+<p>Now reading through <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">this overview</a></p>
+
+<p>For comparison, here is how this tutorial illustrate the vanilla RNN:
+<img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png" width="350" /></p>
+
+<p><strong>Purpose</strong>: Better deal with the problem of long-term dependencies, e.g. “I grew up in France… I speak fluent <em>French</em>” could be difficult for a vanilla RNN, depending on how far the gap between “France” and trying to predict the word “French”. LSTMs solve this problem.</p>
+
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png" width="550" />
+<img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM2-notation.png" width="400" /></p>
+
+<p><strong>Core Idea</strong>: The cell state, which is the horizontal line running through the top of the diagram.</p>
+<ul>
+  <li><em>Gates</em>, the areas composed of a $\sigma$ layer and pointwise multiplication (x) operation, are a way to optionally let information through [to the cell state]. The output of the sigmoid, between 0 and 1, tells how much info to let through to the cell.</li>
+</ul>
+
+<p><strong>Three Main Gates</strong>:</p>
+<ol>
+  <li>The “forget gate” layer. Determines which information to throw away from the cell state.</li>
+  <li>The “input gate” layer, comprised of the second $\sigma$ and tanh, Determines what new info to store in the cell state.</li>
+  <li>The output gate. First, we run a sigmoid layer which decides what parts of the cell state we’re going to output. Then, we put the cell state through tanh (to push the values to be between -1 and 1) and multiply it by the output of the sigmoid gate, so that we only output the parts we decided to.</li>
+</ol>
+
+<p><strong>Conceptual Explanation of Gates</strong>:</p>
+
+<ol>
+  <li><strong>Cell State</strong>: Tells you which hidden states were important from past step and which are important from current step.</li>
+  <li><strong>Middle Gates</strong>: So the sigmoid allows us to tune which hidden values are most important for this time step, and the tanh our good ol’ pal from the original RNN.</li>
+  <li><strong>Rightmost Gates</strong>: sigmoid for deciding the values to use from the cell state, and we send the cell state back through tanh to make its values in [-1, 1].</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">LSTM</span><span class="p">(</span><span class="n">VanillaRNN</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bptt_truncate</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dicts</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">bptt_truncate</span><span class="p">,</span> <span class="n">dicts</span><span class="p">,</span> <span class="n">init_weights</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="c1"># _____________ Model Parameters. ______________
+</span>        <span class="c1"># Index convention: Array[i, j] is from neuron j to neuron i. 
+</span>        <span class="c1"># Init values based on number of incoming connections from the *previous* layer.
+</span>        <span class="n">init</span> <span class="o">=</span> <span class="p">{</span><span class="s">'in'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">vocab_size</span><span class="p">),</span> <span class="s">'hid'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">)}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="p">{}</span><span class="c1">#; b['f'] = b['i'] = b['c'] = 0
+</span>        <span class="k">for</span> <span class="n">i_gate</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'i'</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span> <span class="n">init</span><span class="p">[</span><span class="s">'in'</span><span class="p">],</span> <span class="n">init</span><span class="p">[</span><span class="s">'in'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_hid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">init</span><span class="p">[</span><span class="s">'hid'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">forward_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="s">"""
+        Sequentially feed each element of self.inputs through network.
+        """</span>
+        <span class="c1"># The 'Cell state' at all time steps. 
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_hid</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_hid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">forward_pass</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+            
+    <span class="k">def</span> <span class="nf">_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">expit</span> <span class="k">as</span> <span class="n">sigmoid</span>
+        <span class="n">gated_sums</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gated_sums</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        
+        <span class="c1"># Compute individual gate functions.
+</span>        <span class="n">forget_gate</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">gated_sums</span><span class="p">[</span><span class="s">'f'</span><span class="p">])</span>
+        <span class="n">input_gate</span>  <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">gated_sums</span><span class="p">[</span><span class="s">'i'</span><span class="p">])</span>
+        <span class="n">cand_gate</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">gated_sums</span><span class="p">[</span><span class="s">'c'</span><span class="p">])</span>
+        <span class="n">output_gate</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">gated_sums</span><span class="p">[</span><span class="s">'o'</span><span class="p">])</span>
+        
+        <span class="c1"># Compute new cell outputs (cell state, hidden state, prediction probs). 
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>     <span class="o">=</span> <span class="n">forget_gate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">input_gate</span> <span class="o">*</span> <span class="n">cand_gate</span>
+        <span class="n">hidden</span>        <span class="o">=</span> <span class="n">output_gate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+        <span class="n">softmax_probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">@</span> <span class="n">hidden</span>
+        <span class="n">softmax_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">softmax_probs</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">softmax_probs</span><span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">softmax_probs</span><span class="p">,</span> <span class="n">hidden</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">_gated_sums</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[</span><span class="n">g</span><span class="p">][:,</span> <span class="n">x</span><span class="p">[</span><span class="n">t</span><span class="p">]]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">@</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'f'</span><span class="p">,</span> <span class="s">'i'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">]}</span>
+    
+   
+    <span class="k">def</span> <span class="nf">bptt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="s">"""
+        Backpropagation Through Time.
+        """</span>
+        <span class="n">n_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># in the single sentence of y. 
+</span>        
+        <span class="c1"># Perform forward propagation
+</span>        <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_pass</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        
+        <span class="c1"># We accumulate the gradients in these variables
+</span>        <span class="n">dLdV</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        
+        <span class="n">dLdU</span><span class="p">,</span> <span class="n">dLdW</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="n">dLdb</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i_gate</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'i'</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]:</span>
+            <span class="n">dLdU</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">dLdW</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">dLdb</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            
+        <span class="n">delta_o</span> <span class="o">=</span> <span class="n">o</span>
+        <span class="n">delta_o</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">y</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">1.</span>
+        
+        <span class="c1"># For each output backwards...
+</span>        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_words</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            
+            <span class="c1"># Difference in outputs * hidden at timestep t. 
+</span>            <span class="n">dLdV</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">delta_o</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="c1"># First part of delta_t calculation before bptt.
+</span>            <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">delta_o</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            
+            <span class="c1"># Step backwards in time for either btt_truncate steps or hit 0, whichever comes first.
+</span>            <span class="k">for</span> <span class="n">bptt_step</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">bptt_truncate</span><span class="p">),</span> <span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                
+                <span class="k">for</span> <span class="n">i_gate</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'i'</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]:</span>
+                    <span class="c1"># print "Backpropagation step t=%d bptt step=%d " % (t, bptt_step)
+</span>                    <span class="n">dLdW</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">+=</span>  <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">delta_t</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="n">bptt_step</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> 
+                    <span class="n">dLdU</span><span class="p">[</span><span class="n">i_gate</span><span class="p">][:,</span> <span class="n">x</span><span class="p">[</span><span class="n">bptt_step</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">delta_t</span>
+                    <span class="n">dLdb</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">+=</span> <span class="n">delta_t</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                
+                    <span class="c1"># Update delta for next step
+</span>                    <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">delta_t</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="n">bptt_step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                
+        <span class="k">return</span> <span class="n">dLdU</span><span class="p">,</span> <span class="n">dLdV</span><span class="p">,</span> <span class="n">dLdW</span><span class="p">,</span> <span class="n">dLdb</span>
+
+            
+        <span class="c1"># Performs one step of SGD.
+</span>    <span class="k">def</span> <span class="nf">sgd_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+        <span class="c1"># Calculate the gradients
+</span>        <span class="n">dLdU</span><span class="p">,</span> <span class="n">dLdV</span><span class="p">,</span> <span class="n">dLdW</span><span class="p">,</span> <span class="n">dLdb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bptt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdV</span>
+        <span class="c1"># Change parameters according to gradients and learning rate
+</span>        <span class="k">for</span> <span class="n">i_gate</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'i'</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdU</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdW</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dLdb</span><span class="p">[</span><span class="n">i_gate</span><span class="p">]</span>
+        
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lstm</span> <span class="o">=</span> <span class="n">LSTM</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="n">vocabulary_size</span><span class="p">,</span>
+                   <span class="n">hidden_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                   <span class="n">bptt_truncate</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                   <span class="n">dicts</span><span class="o">=</span><span class="p">[</span><span class="n">word_to_index</span><span class="p">,</span> <span class="n">index_to_word</span><span class="p">])</span>
+<span class="n">lstm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="c1"># Limit to 1000 examples to save time
+</span><span class="k">print</span><span class="p">(</span><span class="s">"Expected Loss for random predictions: </span><span class="si">%</span><span class="s">f"</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vocabulary_size</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Actual loss: </span><span class="si">%</span><span class="s">f"</span> <span class="o">%</span> <span class="n">lstm</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Preds at each time step:
+ wish dollar setting ignoring sources pushing 99 guilt skill difficulty difficulty disgusting king note cap product former out out out cooler product idiots annie charge entirety installed security cap ignore fees cast practice summer out physics # # ignoring kit wasting wish b fashion were
+Expected Loss for random predictions: 8.294050
+Actual loss: 8.294062
+</code></pre></div></div>
+
+<h2 id="training-the-lstm-and-generating-reddit-comments">Training the LSTM and Generating Reddit Comments</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LSTM</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="n">vocabulary_size</span><span class="p">,</span>
+                   <span class="n">hidden_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                   <span class="n">bptt_truncate</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                   <span class="n">dicts</span><span class="o">=</span><span class="p">[</span><span class="n">word_to_index</span><span class="p">,</span> <span class="n">index_to_word</span><span class="p">])</span>
+
+<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="n">train_with_sgd</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">nepoch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">evaluate_loss_after</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">generate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_sentences</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="help-us-o-great-tflearn">Help Us O Great TFLearn</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="n">urllib</span>
+
+<span class="kn">import</span> <span class="nn">tflearn</span>
+<span class="kn">from</span> <span class="nn">tflearn.data_utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="s">"python/med_reddit.csv"</span>
+<span class="n">char_idx_file</span> <span class="o">=</span> <span class="s">'char_idx.pickle'</span>
+
+<span class="n">maxlen</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">char_idx</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">char_idx</span> <span class="o">=</span> <span class="n">textfile_to_semi_redundant_sequences</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> 
+                                                      <span class="n">seq_maxlen</span><span class="o">=</span><span class="n">maxlen</span><span class="p">,</span>
+                                                      <span class="n">redun_step</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">char_idx</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">char_idx_file</span><span class="p">,</span><span class="s">'wb'</span><span class="p">))</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">input_data</span><span class="p">([</span><span class="bp">None</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">char_idx</span><span class="p">)])</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">return_seq</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">fully_connected</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">char_idx</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s">'softmax'</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">regression</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s">'adam'</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s">'categorical_crossentropy'</span><span class="p">,</span>
+                       <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">tflearn</span><span class="o">.</span><span class="n">SequenceGenerator</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dictionary</span><span class="o">=</span><span class="n">char_idx</span><span class="p">,</span>
+                              <span class="n">seq_maxlen</span><span class="o">=</span><span class="n">maxlen</span><span class="p">,</span> 
+                              <span class="n">clip_gradients</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+                              <span class="n">checkpoint_path</span><span class="o">=</span><span class="s">'model_reddit'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">seed</span> <span class="o">=</span> <span class="n">random_sequence_from_textfile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">validation_set</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+          <span class="n">n_epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+          <span class="n">show_metric</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+          <span class="n">run_id</span><span class="o">=</span><span class="s">'reddit'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"-- TESTING..."</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"-- Test with temperature of 0.8 --"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">seq_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">))</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">-- Test with temperature of 0.3 --"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">seq_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training Step: 3958  | total loss: [1m[32m1.88942[0m[0m
+| Adam | epoch: 003 | loss: 1.88942 -- iter: 0001024/1012260
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seed</span> <span class="o">=</span> <span class="n">random_sequence_from_textfile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-- TESTING..."</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">seq_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>TESTING…
+Partner doesn’t step on the mar a bation in the a warting that same around the came in the say in the mother as a ground in the the see shat to be a for privente the becture the sing that so the oper of the ration should be a streating the sice to be a start wat the ban to the subpers and he that shit in the get the peran singer work see the a sape to be in the was that the are the start and they are preation for the ferent. And do the wart and look to a stroptel and besouss what you was a really contries just do and strist in they a que the for the relacting in a place in the wast a bet and play and they was the seave and be and that contrate and be be and the start and all to the prectars to the sare and here did a deals and they was a ployshand the sure for be and was is on the something that the beat and enesting the have the prided that with that be a precting the contrent on the get at the on the that was be post of the mack and the sacter on the becension here far and sention at the car and streace of</p>
+
+<p>Provide some flexibity and a good. 
+It sounds the sure and stread and of the fart to a some of the part. 
+In games journalism that do the press and the lan meaning.
+http://nflstrear.com/tikestementom/compotec/2010500</p>
+
+:ET

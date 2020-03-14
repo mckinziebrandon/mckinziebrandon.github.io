@@ -47,6 +47,5 @@ all know that is not okay. Thus, I type.
 <div markdown="0"><a href="{{site.url}}/assets/img/doggo3.jpg" class="btn btn-warning">Dog</a></div>
 <div markdown="0"><a href="{{site.url}}/assets/img/doggo4.jpg" class="btn btn-danger">Dog</a></div>
 <div markdown="0"><a href="{{site.url}}/assets/img/tiger_one.jpg" class="btn btn-info">Cat?</a></div>
-
 **TODO** Write more amazing posts.
 {: .notice}

@@ -1,0 +1,101 @@
+I"ÿ<h1 id="supervised-learning">Supervised Learning</h1>
+
+<h2 id="linear-regression">Linear Regression</h2>
+
+<p>Given feature vector \(\mathbf{x} \in \mathbb{R}^d\) and parameters \(\mathbf{\beta} \in \mathbb{R}^d\), predicts scalar \(y \in \mathbb{R}\) via:</p>
+
+<p>\[y = \mathbf{\beta}^T\mathbf{x}\]</p>
+
+<h2 id="logistic-regression">Logistic Regression</h2>
+
+<p>Essentially an extension of linear regression for classification (discrete labels).
+\[\begin{align}
+    6 &amp;= 7
+\end{align}\]</p>
+
+<ul>
+  <li>SVM</li>
+  <li>KNN</li>
+  <li>Linear Discriminant Analysis (LDA) (generative)</li>
+  <li>Quadratic Discriminant Analysis (QDA) (generative)</li>
+  <li>Neural Networks</li>
+  <li>Decision Trees / Random Forests / boosting / etc</li>
+  <li>Perceptron</li>
+  <li>Naive Bayes</li>
+</ul>
+
+<h1 id="unsupervised-learning">Unsupervised Learning</h1>
+
+<ul>
+  <li>K-Means</li>
+  <li>PCA</li>
+  <li>SVD / matrix factorization</li>
+</ul>
+
+<p>Less must-know but still important:</p>
+<ul>
+  <li>Hierarchical Clustering</li>
+  <li>Spectral Clustering</li>
+</ul>
+
+<h1 id="reinforcement-learning">Reinforcement Learning</h1>
+
+<ul>
+  <li>MDPs</li>
+  <li>Games</li>
+</ul>
+
+<h1 id="generative-models">Generative Models</h1>
+
+<ul>
+  <li>Autoregressive
+    <ul>
+      <li>Masked Autoencoder for Distribution Estimation (MADE)</li>
+    </ul>
+  </li>
+  <li>Latent Variable Models
+    <ul>
+      <li>Mixture of Gaussians (MoG)</li>
+      <li>Variational Autoencoder (VAE)</li>
+    </ul>
+  </li>
+  <li>Normalizing Flow Models
+    <ul>
+      <li>Nonlinear Independent Components Estimation (NICE)</li>
+      <li>Real-NVP</li>
+      <li>Masked Autoregressive Flow (MAF)</li>
+      <li>Inverse Autoregressive Flow (IAF)</li>
+    </ul>
+  </li>
+  <li>GANs</li>
+  <li>Energy-Based Models</li>
+  <li>Linear Discriminant Analysis</li>
+  <li>Latent Dirichlet Allocation</li>
+</ul>
+
+<h1 id="graphical-models">Graphical Models</h1>
+
+<ul>
+  <li>Bayesian Networks</li>
+  <li>Undirected Graphical Models</li>
+  <li>Hidden Markov Models</li>
+</ul>
+
+<h1 id="feature-stuff">Feature Stuff?</h1>
+<p>where should this even go</p>
+
+<ul>
+  <li>Kernel stuff</li>
+  <li>Splines</li>
+</ul>
+
+<h1 id="other-todo">Other (TODO)</h1>
+
+<ul>
+  <li>CSPs</li>
+</ul>
+
+<h1 id="review-of-where-stuff-overlaps">Review of Where Stuff Overlaps</h1>
+
+<p>TODO</p>
+:ET

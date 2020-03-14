@@ -23,6 +23,7 @@ Take a look at how things have evolved along the path of
   * Gaussian Error Linear Unit for FFN activation function (instead of ReLU). 
   * Learned positional embeddings instead of sinusoidal.
   * Cosine learning rate schedule.
+  * Custom Adam implementation.
 * GPT-2
   * Layer norm on _inputs_ of each sub-block instead of on the residual output. i.e. instead of `LayerNorm(x + Sublayer(x))`, do `x + Sublayer(LayerNorm(x))`. 
   * Adds another layer normalization after the final self-attention block. 

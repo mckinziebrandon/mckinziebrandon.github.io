@@ -1,0 +1,18 @@
+I"6<h1 id="first-order-gradient-based-optimization">First-Order Gradient-Based Optimization</h1>
+
+<ul>
+  <li>SGD</li>
+  <li>Momentum</li>
+  <li>RMSProp</li>
+  <li>Adam</li>
+</ul>
+
+<h1 id="other-todo">Other (TODO)</h1>
+
+<ul>
+  <li>Expectation-Maximization</li>
+  <li>Newton’s Method</li>
+  <li>LBFGS</li>
+</ul>
+
+:ET

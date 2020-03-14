@@ -19,7 +19,7 @@ Since graduating, I've been working through various textbooks/papers, compiling 
 
 * [Deep Learning by Goodfellow, et al.]({{site.url}}/assets/pdf/DeepLearningBook.pdf)
 * [Speech and Language Processing by Jurafsky and Martin]({{site.url}}/assets/pdf/MiscStanford.pdf)
-* [Other Textbooks]({{site.url}}/assets/pdf/TextBooks.pdf)
+* [Other Textbooks]({{site.url}}/assets/pdf/Textbooks.pdf)
     * Probabilistic Graphical Models by Koller and Friedman.
     * Information Theory, Inference, and Learning Algorithms by Mackay.
     * Machine Learning: A Probabilistic Perspective by Kevin Murphy. 

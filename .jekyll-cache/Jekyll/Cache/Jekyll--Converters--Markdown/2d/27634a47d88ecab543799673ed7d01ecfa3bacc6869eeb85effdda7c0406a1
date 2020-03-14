@@ -1,0 +1,15 @@
+I"R<ul>
+  <li>KL-Divergence</li>
+  <li>Jensen-Shannon Divergence</li>
+  <li>Regularization
+    <ul>
+      <li>Lasso (L1)</li>
+      <li>Ridge (L2)</li>
+    </ul>
+  </li>
+  <li>Bias-Variance Tradeoff</li>
+  <li>Maximum Likelihood Estimation (MLE)</li>
+  <li>Maximum A Posteriori Estimation (MAP)</li>
+  <li>Bayesian vs Frequentist</li>
+</ul>
+:ET
