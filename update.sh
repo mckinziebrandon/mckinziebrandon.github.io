@@ -3,8 +3,8 @@
 #NAME="CondensedSummaries.pdf"
 #cp "${NOTES}/DeepLearningNotes/${NAME}" "assets/pdf/${NAME}"
 
-NAME="CS236.pdf"
-cp "${NOTES}/CS236_DeepGenerativeModels/${NAME}" "assets/pdf/${NAME}"
+# NAME="CS236.pdf"
+# cp "${NOTES}/CS236_DeepGenerativeModels/${NAME}" "assets/pdf/${NAME}"
 
 ## declare an array variable
 baseDir="${NOTES}/DeepLearningNotes"
