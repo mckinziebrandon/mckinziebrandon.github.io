@@ -1,4 +1,4 @@
-I"�<h1 id="explore-my-latex-obsession">Explore My LaTeX Obsession</h1>
+I"�<h1 id="explore-my-latex-obsession">Explore My LaTeX Obsession</h1>
 
 <p>Here you’ll find my notes for various courses and textbooks I’ve read in my spare time. I have a passion for “making things look nice”. Many of the little customizations you’ll find in my notes are from LaTeX packages I’ve written. Each
 package is usually born in the hour-long google session of <em>why can’t I make it look like [insert trivial change here]</em>.
@@ -6,17 +6,24 @@ These notes would not be possible without my inability to ignore a formatting is
 
 <h2 id="in-progress-deep-learning-notes"><a href="http://localhost:4000/assets/pdf/CondensedSummaries.pdf">(In Progress) Deep Learning Notes</a></h2>
 
-<p>Since graduating, I’ve been working through various textbooks/papers, compiling notes along the way. The main sources are</p>
+<p>Since graduating, I’ve been working through various textbooks/papers, compiling notes along the way. Originally this was just a single document, but it became too large to compile in TextStudio! Now it is comprised of the following sub-documents:</p>
 
 <ul>
-  <li>Deep Learning by Goodfellow, et al.</li>
-  <li>Speech and Language Processing by Jurafsky and Martin.</li>
-  <li>Probabilistic Graphical Models by Koller and Friedman.</li>
-  <li>Information Theory, Inference, and Learning Algorithms by Mackay.</li>
-  <li>Machine Learning: A Probabilistic Perspective by Kevin Murphy.</li>
-  <li>Bayesian Data Analysis by Gelman et al.</li>
-  <li>A subset of my favorite papers that I frequently reference for my work.</li>
+  <li><a href="http://localhost:4000/assets/pdf/DeepLearningBook.pdf">Deep Learning by Goodfellow, et al.</a></li>
+  <li><a href="http://localhost:4000/assets/pdf/MiscStanford.pdf">Speech and Language Processing by Jurafsky and Martin</a></li>
+  <li><a href="http://localhost:4000/assets/pdf/Textbooks.pdf">Other Textbooks</a>
+    <ul>
+      <li>Probabilistic Graphical Models by Koller and Friedman.</li>
+      <li>Information Theory, Inference, and Learning Algorithms by Mackay.</li>
+      <li>Machine Learning: A Probabilistic Perspective by Kevin Murphy.</li>
+      <li>Bayesian Data Analysis by Gelman et al.</li>
+    </ul>
+  </li>
+  <li><a href="http://localhost:4000/assets/pdf/PapersAndTutorials.pdf">Papers</a>: A subset of my favorite papers that I frequently reference for my work.</li>
+  <li><a href="http://localhost:4000/assets/pdf/BlogsAndAppendix.pdf">Misc concepts/clarifications</a> on a variety of ML topics.</li>
 </ul>
+
+<p>The full single document, before breaking up into the chunks above, can be reached by clicking the button below.</p>
 
 <div><a href="http://localhost:4000/assets/pdf/CondensedSummaries.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
