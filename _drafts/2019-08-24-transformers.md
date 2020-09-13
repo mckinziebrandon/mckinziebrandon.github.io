@@ -20,7 +20,8 @@ Take a look at how things have evolved along the path of
 6. Megatron
 7. CTRL
 8. Scaling Laws for Neural Language Models
-9. Language Models are Few-Shot Learners
+9. T5 (Oct 2019)
+10. Language Models are Few-Shot Learners
 
 ## Contributions by Paper
 
@@ -54,6 +55,7 @@ Take a look at how things have evolved along the path of
 * Large Memory Layers with Product Keys (Lample 2019)
 * Generating Long Sequences with Sparse Transformers (Child 2019)
 * Star Transformer (Guo 2019)
+* Longformer: The Long-Document Transformer (Beltagy 2020)
 
 ### Pruning/Quantization/Efficiency
 
