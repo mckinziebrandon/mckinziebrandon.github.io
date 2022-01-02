@@ -7,7 +7,6 @@ date: 2017-10-28
 comments: false
 ---
     
-
 # About Me
 
 I'm currently a Natural Language Processing (NLP) Engineer at Forge.AI. I have the privilege of splitting my time between research and engineering, as Forge implements the state-of-the-art at scale. Accordingly, I spend my days implementing and my nights researching in order to stay up-to-date with the rapid advances taking place in the NLP research community. I'm particularly interested in recent developments in neuroscience, and using them as inspiration for my research in NLP.
@@ -23,7 +22,6 @@ Below are links to the different sections of this site and brief summaries of th
 * [Research]({{site.url}}/research): Brief descriptions of some select research projects of mine. 
 * [Notes]({{site.url}}/notes): Descriptions and Links to PDFs of my course notes, all written in LaTeX. 
 * [Posts]({{site.url}}/posts): A mix of miscellaneous blog posts and mini-projects. Currently extremely outdated, hoping to post some new information soon!
-
 
 # Research Papers
 

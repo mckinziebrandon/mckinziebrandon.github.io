@@ -9,9 +9,7 @@ comments: false
 
 # Explore My LaTeX Obsession
 
-Here you'll find my notes for various courses and textbooks I've read in my spare time. I have a passion for "making things look nice". Many of the little customizations you'll find in my notes are from LaTeX packages I've written. Each
-package is usually born in the hour-long google session of *why can't I make it look like [insert trivial change here]*.
-These notes would not be possible without my inability to ignore a formatting issue. 
+Here you'll find my notes for various courses and textbooks I've read in my spare time. I have a passion for "making things look nice". Many of the little customizations you'll find in my notes are from LaTeX packages I've written. 
 
 ## [(In Progress) Deep Learning Notes]({{site.url}}/assets/pdf/CondensedSummaries.pdf)
 
@@ -31,7 +29,6 @@ The full single document, before breaking up into the chunks above, can be reach
 
 <div markdown="0"><a href="{{site.url}}/assets/pdf/CondensedSummaries.pdf" class="btn btn-info">SHOW ME THE NOTES</a></div>
 
-
 ## Stanford Courses
 
 In February 2019, I enrolled in the [Artificial Intelligence Graduate Certificate](https://scpd.stanford.edu/public/category/courseCategoryCertificateProfile.do?method=load&certificateId=1226717) program at Stanford University. I'll be updating this section with my course notes at the end of each quarter.
@@ -39,7 +36,7 @@ In February 2019, I enrolled in the [Artificial Intelligence Graduate Certificat
 * [(CS221) Artificial Intelligence: Principles and Techniques]({{site.url}}/assets/pdf/CS221.pdf)
 * [(CS236) Deep Generative Models]({{site.url}}/assets/pdf/CS236.pdf)
 * [(CS330) Deep Multi-Task and Meta Learning]({{site.url}}/assets/pdf/CS330.pdf)
-
+* [(STATS214) Machine Learning Theory]({{site.url}}/assets/pdf/STATS214.pdf)
 
 ## [Machine Learning]({{site.url}}/assets/pdf/LectureNotesCS189.pdf)
 
