@@ -9,6 +9,9 @@ comments: false
     
 # About Me
 
+NOTE: Outdated!
+{: .notice}
+
 I'm currently a Natural Language Processing (NLP) Engineer at Forge.AI. I have the privilege of splitting my time between research and engineering, as Forge implements the state-of-the-art at scale. Accordingly, I spend my days implementing and my nights researching in order to stay up-to-date with the rapid advances taking place in the NLP research community. I'm particularly interested in recent developments in neuroscience, and using them as inspiration for my research in NLP.
 
 For the engineering side of things, I develop my models using TensorFlow and custom extensions of the TensorFlow source code. When a model is ready, it is exported to a binary protobuf format and served in a custom C++ environment built with Bazel. I'm currently working on converting TensorFlow Serving from being gRPC-based to a traditional REST API, and I plan on posting the process so others may be able to do so easily, too.

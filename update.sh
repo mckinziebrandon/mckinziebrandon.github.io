@@ -6,8 +6,11 @@
 #NAME="CS236.pdf"
 #jcp "${NOTES}/CS236_DeepGenerativeModels/${NAME}" "assets/pdf/${NAME}"
 
-NAME="CS330.pdf"
-cp "${NOTES}/CS330_MultiTaskAndMetaLearning/${NAME}" "assets/pdf/${NAME}"
+#NAME="CS330.pdf"
+#cp "${NOTES}/CS330_MultiTaskAndMetaLearning/${NAME}" "assets/pdf/${NAME}"
+
+NAME="STATS214.pdf"
+cp "${NOTES}/Stanford/STATS214_MachineLearningTheory/${NAME}" "assets/pdf/${NAME}"
 
 ## declare an array variable
 baseDir=${NOTES}/DeepLearningNotes
